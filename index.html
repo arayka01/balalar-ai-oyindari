@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Балаларға арналған AI Ойындар</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f9ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header стильдері */
+        header {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #ff9a9e;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 0 #ff9a9e;
+        }
+        
+        .logo span {
+            color: #ffeb3b;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+        
+        nav ul li a:hover {
+            color: #ffeb3b;
+        }
+        
+        /* Hero бөлімі */
+        .hero {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 5px solid #a6c1ee;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #ff6b6b;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .class-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .class-button {
+            background-color: #4facfe;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #3a8fd5;
+        }
+        
+        .class-button:hover {
+            background-color: #3a8fd5;
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #3a8fd5;
+        }
+        
+        .class-button.active {
+            background-color: #ff6b6b;
+            box-shadow: 0 4px 0 #e55c5c;
+        }
+        
+        /* Ойын түрлері */
+        .game-types {
+            padding: 60px 0;
+            background-color: #f7f9fc;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: #4facfe;
+            text-shadow: 1px 1px 0 #ff9a9e;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 3px solid #a6c1ee;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-image {
+            height: 160px;
+            background-color: #4facfe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-image::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+        }
+        
+        .game-content {
+            padding: 20px;
+        }
+        
+        .game-content h3 {
+            margin-bottom: 10px;
+            color: #4facfe;
+            font-size: 22px;
+        }
+        
+        .game-content p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .play-button {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 0 #3a8fd5;
+        }
+        
+        .play-button:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #3a8fd5;
+        }
+        
+        /* Ойын аймағы */
+        .game-area {
+            display: none;
+            padding: 40px 0;
+            background-color: #e6f7ff;
+            min-height: 500px;
+        }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .back-button {
+            background-color: #ff9a9e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #e55c5c;
+        }
+        
+        .back-button:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #e55c5c;
+        }
+        
+        .game-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat {
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 0 #e0e0e0;
+            font-weight: bold;
+            color: #4facfe;
+        }
+        
+        /* Ойын контейнері */
+        .game-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #a6c1ee;
+            min-height: 400px;
+        }
+        
+        /* AI кеңесі */
+        .ai-advice {
+            background-color: #e6f7ff;
+            border-left: 5px solid #4facfe;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 10px 10px 0;
+            display: none;
+        }
+        
+        .ai-advice h4 {
+            color: #4facfe;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .ai-advice h4::before {
+            content: "🤖";
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 30px 0 15px;
+            text-align: center;
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+        }
+        
+        /* Ойынға арналған арнайы стильдер */
+        .robot-game, .code-game, .quest-game, .detective-game, .counting-game {
+            display: none;
+        }
+        
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 60px);
+            grid-template-rows: repeat(5, 60px);
+            gap: 5px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+        
+        .cell {
+            width: 60px;
+            height: 60px;
+            background-color: #e0f7fa;
+            border: 2px solid #4facfe;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .cell:hover {
+            background-color: #b3e5fc;
+        }
+        
+        .cell.obstacle {
+            background-color: #ffcdd2;
+            border-color: #e57373;
+        }
+        
+        .cell.goal {
+            background-color: #c8e6c9;
+            border-color: #81c784;
+        }
+        
+        .cell.robot {
+            background-color: #bbdefb;
+            border-color: #64b5f6;
+        }
+        
+        .cell.collected {
+            background-color: #fff9c4;
+            border-color: #ffd54f;
+        }
+        
+        .commands {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .command {
+            background-color: #4facfe;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .command:hover {
+            background-color: #3a8fd5;
+        }
+        
+        .code-blocks {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .code-block {
+            background-color: #4facfe;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: move;
+            user-select: none;
+        }
+        
+        .code-area {
+            min-height: 150px;
+            border: 2px dashed #4facfe;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: #f5fdff;
+        }
+        
+        .run-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+        
+        .run-button:hover {
+            background-color: #388e3c;
+        }
+        
+        .quest-task {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            grid-template-rows: repeat(2, 60px);
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .pattern-cell {
+            width: 60px;
+            height: 60px;
+            background-color: #e0f7fa;
+            border: 2px solid #4facfe;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .option {
+            background-color: #4facfe;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #3a8fd5;
+        }
+        
+        .counting-items {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .counting-item {
+            width: 80px;
+            height: 80px;
+            background-color: #e0f7fa;
+            border: 2px solid #4facfe;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        
+        .number-options {
+            display: grid;
+            grid-template-columns: repeat(5, 60px);
+            gap: 10px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+        
+        .number-option {
+            width: 60px;
+            height: 60px;
+            background-color: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .number-option:hover {
+            background-color: #3a8fd5;
+        }
+        
+        .result-message {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+            border: 2px solid #81c784;
+        }
+        
+        .error {
+            background-color: #ffcdd2;
+            color: #c62828;
+            border: 2px solid #e57373;
+        }
+        
+        .next-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px auto;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .next-button:hover {
+            background-color: #388e3c;
+        }
+        
+        /* Жұлдыздар рейтингі */
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 15px 0;
+        }
+        
+        .star {
+            font-size: 30px;
+            color: #ddd;
+        }
+        
+        .star.filled {
+            color: #ffd54f;
+        }
+        
+        /* Медиа сұраныстар */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .game-board {
+                grid-template-columns: repeat(5, 50px);
+                grid-template-rows: repeat(5, 50px);
+            }
+            
+            .cell {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">Балаларға арналған <span>AI Ойындар</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link" data-target="home">Басты бет</a></li>
+                    <li><a href="#" class="nav-link" data-target="games">Ойындар</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero бөлімі -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Балаларға арналған қызықты AI ойындары!</h1>
+            <p>Ойнап, үйрену үшін тамаша платформа. Әр ойын балаңыздың ойлау қабілетін дамытады.</p>
+            
+            <div class="class-buttons">
+                <button class="class-button active" data-class="all">Барлық сыныптар</button>
+                <button class="class-button" data-class="1">1-сынып</button>
+                <button class="class-button" data-class="2">2-сынып</button>
+                <button class="class-button" data-class="3">3-сынып</button>
+                <button class="class-button" data-class="4">4-сынып</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ойын түрлері -->
+    <section class="game-types" id="games">
+        <div class="container">
+            <h2 class="section-title">Ойын Түрлері</h2>
+            <div class="games-grid">
+                <div class="game-card" data-game="robot" data-classes="1,2,3,4">
+                    <div class="game-image">🤖</div>
+                    <div class="game-content">
+                        <h3>Ақылды Роботты Бағдарла</h3>
+                        <p>Роботты мақсатқа жету үшін бағдарламалаңыз. Алгоритмдік ойлауды дамытыңыз.</p>
+                        <button class="play-button" data-game="robot">Ойнау</button>
+                    </div>
+                </div>
+                <div class="game-card" data-game="code" data-classes="2,3,4">
+                    <div class="game-image">🧩</div>
+                    <div class="game-content">
+                        <h3>Код-Құрастырушы</h3>
+                        <p>Блоктарды жылжытып, кейіпкерді қозғалтатын код жасаңыз. Бағдарламалау негіздерін үйреніңіз.</p>
+                        <button class="play-button" data-game="code">Ойнау</button>
+                    </div>
+                </div>
+                <div class="game-card" data-game="quest" data-classes="3,4">
+                    <div class="game-image">🗝️</div>
+                    <div class="game-content">
+                        <h3>Логикалық Квест-Аймақ</h3>
+                        <p>Логикалық тапсырмаларды шешіп, квестті аяқтаңыз. Сыни ойлауды дамытыңыз.</p>
+                        <button class="play-button" data-game="quest">Ойнау</button>
+                    </div>
+                </div>
+                <div class="game-card" data-game="detective" data-classes="3,4">
+                    <div class="game-image">🔍</div>
+                    <div class="game-content">
+                        <h3>Сандық Детектив</h3>
+                        <p>Жоғалған заттарды тауып, кодталған хабарларды шешіңіз. Ақпараттық сауаттылықты дамытыңыз.</p>
+                        <button class="play-button" data-game="detective">Ойнау</button>
+                    </div>
+                </div>
+                <div class="game-card" data-game="counting" data-classes="1,2">
+                    <div class="game-image">🔢</div>
+                    <div class="game-content">
+                        <h3>Санайтын Машина</h3>
+                        <p>Заттарды санап, сандармен жұмыс істеңіз. Математикалық дағдыларды дамытыңыз.</p>
+                        <button class="play-button" data-game="counting">Ойнау</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ойын аймағы -->
+    <section class="game-area" id="game-area">
+        <div class="container">
+            <div class="game-header">
+                <button class="back-button" id="back-button">← Ойындар тізімі</button>
+                <div class="game-stats">
+                    <div class="stat" id="level-display">Деңгей: 1</div>
+                    <div class="stat" id="score-display">Ұпай: 0</div>
+                </div>
+            </div>
+            
+            <div class="game-container">
+                <h2 id="game-title">Ойын атауы</h2>
+                
+                <!-- Ақылды Роботты Бағдарла ойыны -->
+                <div class="robot-game" id="robot-game">
+                    <p>Роботты <span class="goal-cell">мақсат</span> ұяшығына жеткізу үшін командаларды пайдаланыңыз. Кедергілерден айналып өтіңіз.</p>
+                    
+                    <div class="game-board" id="robot-board">
+                        <!-- Робот торы JavaScript арқылы толтырылады -->
+                    </div>
+                    
+                    <div class="commands">
+                        <button class="command" data-command="up">↑ Жоғары</button>
+                        <button class="command" data-command="right">→ Оңға</button>
+                        <button class="command" data-command="down">↓ Төмен</button>
+                        <button class="command" data-command="left">← Солға</button>
+                        <button class="command" id="execute-commands">Орындау</button>
+                        <button class="command" id="reset-robot">Қалпына келтіру</button>
+                    </div>
+                    
+                    <div class="command-list" id="command-list">
+                        <!-- Таңдалған командалар осында пайда болады -->
+                    </div>
+                </div>
+                
+                <!-- Код-Құрастырушы ойыны -->
+                <div class="code-game" id="code-game">
+                    <p>Блоктарды код аймағына жылжытып, кейіпкерді мақсатқа жеткізетін бағдарлама құрыңыз.</p>
+                    
+                    <div class="code-blocks">
+                        <div class="code-block" draggable="true" data-command="move">Алға жылжы</div>
+                        <div class="code-block" draggable="true" data-command="turnLeft">Солға бұрыл</div>
+                        <div class="code-block" draggable="true" data-command="turnRight">Оңға бұрыл</div>
+                        <div class="code-block" draggable="true" data-command="jump">Секір</div>
+                    </div>
+                    
+                    <div class="code-area" id="code-area">
+                        Кодты осы жерге тастаңыз
+                    </div>
+                    
+                    <button class="run-button" id="run-code">Кодты орындау</button>
+                    
+                    <div class="game-board" id="code-board">
+                        <!-- Код торы JavaScript арқылы толтырылады -->
+                    </div>
+                </div>
+                
+                <!-- Логикалық Квест-Аймақ ойыны -->
+                <div class="quest-game" id="quest-game">
+                    <div class="quest-task">
+                        <h3>Тапсырма: Үлгіні жалғастырыңыз</h3>
+                        <p>Төмендегі үлгіні жалғастыратын дұрыс нұсқаны таңдаңыз.</p>
+                        
+                        <div class="pattern-grid" id="pattern-example">
+                            <!-- Үлгі мысалы JavaScript арқылы толтырылады -->
+                        </div>
+                        
+                        <div class="options" id="pattern-options">
+                            <!-- Нұсқалар JavaScript арқылы толтырылады -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Сандық Детектив ойыны -->
+                <div class="detective-game" id="detective-game">
+                    <div class="quest-task">
+                        <h3>Тапсырма: Кодты шешіңіз</h3>
+                        <p>Төмендегі кодталған хабарды шешіңіз. Әр әріпке сәйкес сан берілген.</p>
+                        
+                        <div class="coded-message" id="coded-message">
+                            <!-- Кодталған хабар JavaScript арқылы толтырылады -->
+                        </div>
+                        
+                        <div class="decoding-area">
+                            <p>Шифр: A=1, B=2, C=3, ... Z=26</p>
+                            <input type="text" id="decoded-input" placeholder="Шешілген хабарды осы жерге енгізіңіз">
+                            <button class="command" id="check-decoding">Тексеру</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Санайтын Машина ойыны -->
+                <div class="counting-game" id="counting-game">
+                    <p>Суретте неше нысан бар екенін санап, дұрыс санды таңдаңыз.</p>
+                    
+                    <div class="counting-items" id="counting-items">
+                        <!-- Нысандар JavaScript арқылы толтырылады -->
+                    </div>
+                    
+                    <div class="number-options" id="number-options">
+                        <!-- Сан нұсқалары JavaScript арқылы толтырылады -->
+                    </div>
+                </div>
+                
+                <!-- Нәтиже хабарламасы -->
+                <div class="result-message" id="result-message"></div>
+                
+                <!-- AI кеңесі -->
+                <div class="ai-advice" id="ai-advice">
+                    <h4>AI кеңесі:</h4>
+                    <p id="advice-text">Келесі деңгейде саған мына кеңес көмектеседі...</p>
+                </div>
+                
+                <!-- Келесі деңгей түймесі -->
+                <button class="next-button" id="next-level" style="display: none;">Келесі деңгей</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2023 Балаларға арналған AI Ойындар. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Жалпы айнымалылар
+        let currentGame = null;
+        let currentLevel = 1;
+        let score = 0;
+        let selectedClass = 'all';
+        
+        // DOM элементтері
+        const gameArea = document.getElementById('game-area');
+        const backButton = document.getElementById('back-button');
+        const levelDisplay = document.getElementById('level-display');
+        const scoreDisplay = document.getElementById('score-display');
+        const gameTitle = document.getElementById('game-title');
+        const resultMessage = document.getElementById('result-message');
+        const nextLevelButton = document.getElementById('next-level');
+        const aiAdvice = document.getElementById('ai-advice');
+        const adviceText = document.getElementById('advice-text');
+        
+        // Ойындар объектілері
+        const games = {
+            robot: document.getElementById('robot-game'),
+            code: document.getElementById('code-game'),
+            quest: document.getElementById('quest-game'),
+            detective: document.getElementById('detective-game'),
+            counting: document.getElementById('counting-game')
+        };
+        
+        // Ойын атаулары
+        const gameTitles = {
+            robot: 'Ақылды Роботты Бағдарла',
+            code: 'Код-Құрастырушы',
+            quest: 'Логикалық Квест-Аймақ',
+            detective: 'Сандық Детектив',
+            counting: 'Санайтын Машина'
+        };
+        
+        // Ойын сипаттамалары
+        const gameDescriptions = {
+            robot: 'Роботты мақсатқа жеткізу үшін алгоритм құрыңыз',
+            code: 'Блоктарды пайдаланып бағдарлама құрыңыз',
+            quest: 'Логикалық тапсырмаларды шешіңіз',
+            detective: 'Кодталған хабарларды шешіңіз',
+            counting: 'Нысандарды дұрыс санаңыз'
+        };
+        
+        // Деңгейлер бойынша күрделілік
+        const levelDifficulty = {
+            1: { size: 4, obstacles: 2, commands: 4 },
+            2: { size: 5, obstacles: 3, commands: 5 },
+            3: { size: 5, obstacles: 4, commands: 6 },
+            4: { size: 6, obstacles: 5, commands: 7 },
+            5: { size: 6, obstacles: 6, commands: 8 }
+        };
+        
+        // Басты бетке оралу
+        backButton.addEventListener('click', function() {
+            gameArea.style.display = 'none';
+            document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Сынып түймелері
+        document.querySelectorAll('.class-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.class-button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                selectedClass = this.getAttribute('data-class');
+                filterGamesByClass();
+            });
+        });
+        
+        // Ойындарды сынып бойынша сүзгілеу
+        function filterGamesByClass() {
+            document.querySelectorAll('.game-card').forEach(card => {
+                const classes = card.getAttribute('data-classes').split(',');
+                if (selectedClass === 'all' || classes.includes(selectedClass)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Навигация сілтемелері
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('data-target');
+                if (target === 'home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (target === 'games') {
+                    document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Ойнау түймелері
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const game = this.getAttribute('data-game');
+                startGame(game);
+            });
+        });
+        
+        // Ойынды бастау
+        function startGame(game) {
+            currentGame = game;
+            currentLevel = 1;
+            score = 0;
+            
+            // Барлық ойындарды жасыру
+            Object.values(games).forEach(gameElement => {
+                gameElement.style.display = 'none';
+            });
+            
+            // Таңдалған ойынды көрсету
+            games[game].style.display = 'block';
+            
+            // Ойын атауын орнату
+            gameTitle.textContent = gameTitles[game];
+            
+            // Статистиканы жаңарту
+            updateStats();
+            
+            // Ойын аймағын көрсету
+            gameArea.style.display = 'block';
+            gameArea.scrollIntoView({ behavior: 'smooth' });
+            
+            // Ойынды баптау
+            setupGame(game);
+            
+            // AI кеңесін жасыру
+            aiAdvice.style.display = 'none';
+            resultMessage.style.display = 'none';
+            nextLevelButton.style.display = 'none';
+        }
+        
+        // Статистиканы жаңарту
+        function updateStats() {
+            levelDisplay.textContent = `Деңгей: ${currentLevel}`;
+            scoreDisplay.textContent = `Ұпай: ${score}`;
+        }
+        
+        // Ойынды баптау
+        function setupGame(game) {
+            switch(game) {
+                case 'robot':
+                    setupRobotGame();
+                    break;
+                case 'code':
+                    setupCodeGame();
+                    break;
+                case 'quest':
+                    setupQuestGame();
+                    break;
+                case 'detective':
+                    setupDetectiveGame();
+                    break;
+                case 'counting':
+                    setupCountingGame();
+                    break;
+            }
+        }
+        
+        // ========== Ақылды Роботты Бағдарла ойыны ==========
+        function setupRobotGame() {
+            const board = document.getElementById('robot-board');
+            const commandList = document.getElementById('command-list');
+            const executeButton = document.getElementById('execute-commands');
+            const resetButton = document.getElementById('reset-robot');
+            
+            // Тазарту
+            board.innerHTML = '';
+            commandList.innerHTML = '';
+            
+            // Торды құру
+            const size = levelDifficulty[currentLevel].size;
+            board.style.gridTemplateColumns = `repeat(${size}, 60px)`;
+            board.style.gridTemplateRows = `repeat(${size}, 60px)`;
+            
+            // Роботтың бастапқы орны
+            let robotPos = { x: 0, y: 0 };
+            
+            // Мақсат орны
+            let goalPos = { 
+                x: Math.floor(Math.random() * (size-1)) + 1, 
+                y: Math.floor(Math.random() * (size-1)) + 1 
+            };
+            
+            // Кедергілерді орналастыру
+            const obstacles = [];
+            const numObstacles = levelDifficulty[currentLevel].obstacles;
+            
+            for (let i = 0; i < numObstacles; i++) {
+                let obstaclePos;
+                do {
+                    obstaclePos = {
+                        x: Math.floor(Math.random() * size),
+                        y: Math.floor(Math.random() * size)
+                    };
+                } while (
+                    (obstaclePos.x === robotPos.x && obstaclePos.y === robotPos.y) ||
+                    (obstaclePos.x === goalPos.x && obstaclePos.y === goalPos.y) ||
+                    obstacles.some(obs => obs.x === obstaclePos.x && obs.y === obstaclePos.y)
+                );
+                
+                obstacles.push(obstaclePos);
+            }
+            
+            // Торды толтыру
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.x = x;
+                    cell.dataset.y = y;
+                    
+                    if (x === robotPos.x && y === robotPos.y) {
+                        cell.classList.add('robot');
+                        cell.textContent = '🤖';
+                    } else if (x === goalPos.x && y === goalPos.y) {
+                        cell.classList.add('goal');
+                        cell.textContent = '⭐';
+                    } else if (obstacles.some(obs => obs.x === x && obs.y === y)) {
+                        cell.classList.add('obstacle');
+                        cell.textContent = '🚫';
+                    }
+                    
+                    board.appendChild(cell);
+                }
+            }
+            
+            // Командалар тізімі
+            const commands = [];
+            
+            // Команда түймелері
+            document.querySelectorAll('.command[data-command]').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (commands.length < levelDifficulty[currentLevel].commands) {
+                        const command = this.getAttribute('data-command');
+                        commands.push(command);
+                        
+                        const commandElement = document.createElement('div');
+                        commandElement.className = 'command';
+                        commandElement.textContent = this.textContent;
+                        commandElement.dataset.command = command;
+                        
+                        commandElement.addEventListener('click', function() {
+                            const index = commands.indexOf(command);
+                            if (index > -1) {
+                                commands.splice(index, 1);
+                                commandList.removeChild(this);
+                            }
+                        });
+                        
+                        commandList.appendChild(commandElement);
+                    } else {
+                        showResult('Сізде командалар шегіне жеттіңіз!', false);
+                    }
+                });
+            });
+            
+            // Командаларды орындау
+            executeButton.addEventListener('click', function() {
+                let currentPos = { ...robotPos };
+                let success = true;
+                let collectedItems = 0;
+                
+                // Роботты қозғалту
+                for (let i = 0; i < commands.length; i++) {
+                    const command = commands[i];
+                    
+                    switch(command) {
+                        case 'up':
+                            currentPos.y = Math.max(0, currentPos.y - 1);
+                            break;
+                        case 'down':
+                            currentPos.y = Math.min(size - 1, currentPos.y + 1);
+                            break;
+                        case 'left':
+                            currentPos.x = Math.max(0, currentPos.x - 1);
+                            break;
+                        case 'right':
+                            currentPos.x = Math.min(size - 1, currentPos.x + 1);
+                            break;
+                    }
+                    
+                    // Кедергіге соғылуды тексеру
+                    if (obstacles.some(obs => obs.x === currentPos.x && obs.y === currentPos.y)) {
+                        showResult('Робот кедергіге соғылып қалды!', false);
+                        success = false;
+                        break;
+                    }
+                }
+                
+                // Мақсатқа жетуді тексеру
+                if (success) {
+                    if (currentPos.x === goalPos.x && currentPos.y === goalPos.y) {
+                        score += currentLevel * 10;
+                        showResult(`Тамаша! Робот мақсатқа жетті! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
+                    } else {
+                        showResult('Робот мақсатқа жете алмады. Командаларды қайта тексеріңіз.', false);
+                    }
+                }
+                
+                updateStats();
+            });
+            
+            // Қалпына келтіру
+            resetButton.addEventListener('click', function() {
+                commands.length = 0;
+                commandList.innerHTML = '';
+            });
+        }
+        
+        // ========== Код-Құрастырушы ойыны ==========
+        function setupCodeGame() {
+            const codeArea = document.getElementById('code-area');
+            const runButton = document.getElementById('run-code');
+            const board = document.getElementById('code-board');
+            
+            // Тазарту
+            codeArea.innerHTML = 'Кодты осы жерге тастаңыз';
+            board.innerHTML = '';
+            
+            // Торды құру
+            const size = 5;
+            board.style.gridTemplateColumns = `repeat(${size}, 60px)`;
+            board.style.gridTemplateRows = `repeat(${size}, 60px)`;
+            
+            // Кейіпкердің бастапқы орны
+            let charPos = { x: 0, y: 0 };
+            
+            // Мақсат орны
+            let goalPos = { x: size-1, y: size-1 };
+            
+            // Торды толтыру
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.x = x;
+                    cell.dataset.y = y;
+                    
+                    if (x === charPos.x && y === charPos.y) {
+                        cell.classList.add('robot');
+                        cell.textContent = '😊';
+                    } else if (x === goalPos.x && y === goalPos.y) {
+                        cell.classList.add('goal');
+                        cell.textContent = '🏁';
+                    }
+                    
+                    board.appendChild(cell);
+                }
+            }
+            
+            // Блоктарды сүйреу
+            document.querySelectorAll('.code-block').forEach(block => {
+                block.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.getAttribute('data-command'));
+                });
+            });
+            
+            // Код аймағына тастау
+            codeArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.backgroundColor = '#e1f5fe';
+            });
+            
+            codeArea.addEventListener('dragleave', function() {
+                this.style.backgroundColor = '#f5fdff';
+            });
+            
+            codeArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.backgroundColor = '#f5fdff';
+                
+                const command = e.dataTransfer.getData('text/plain');
+                const commandElement = document.createElement('div');
+                commandElement.className = 'code-block';
+                commandElement.textContent = document.querySelector(`.code-block[data-command="${command}"]`).textContent;
+                commandElement.dataset.command = command;
+                commandElement.draggable = true;
+                
+                commandElement.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.getAttribute('data-command'));
+                });
+                
+                commandElement.addEventListener('click', function() {
+                    this.remove();
+                });
+                
+                this.appendChild(commandElement);
+            });
+            
+            // Кодты орындау
+            runButton.addEventListener('click', function() {
+                const commands = [];
+                const commandElements = codeArea.querySelectorAll('.code-block');
+                
+                commandElements.forEach(element => {
+                    commands.push(element.getAttribute('data-command'));
+                });
+                
+                let currentPos = { ...charPos };
+                let success = true;
+                
+                // Кейіпкерді қозғалту
+                for (let i = 0; i < commands.length; i++) {
+                    const command = commands[i];
+                    
+                    switch(command) {
+                        case 'move':
+                            if (currentPos.x < size - 1) currentPos.x++;
+                            break;
+                        case 'turnLeft':
+                            // Бұл мысалда бұрылу әрекеті жоқ
+                            break;
+                        case 'turnRight':
+                            // Бұл мысалда бұрылу әрекеті жоқ
+                            break;
+                        case 'jump':
+                            if (currentPos.x < size - 2) currentPos.x += 2;
+                            break;
+                    }
+                    
+                    // Торды жаңарту
+                    updateCodeBoard(currentPos);
+                    
+                    // Мақсатқа жетуді тексеру
+                    if (currentPos.x === goalPos.x && currentPos.y === goalPos.y) {
+                        score += currentLevel * 10;
+                        showResult(`Керемет! Кейіпкер мақсатқа жетті! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
+                        success = true;
+                        break;
+                    }
+                }
+                
+                if (success && currentPos.x !== goalPos.x) {
+                    showResult('Кейіпкер мақсатқа жете алмады. Кодты қайта тексеріңіз.', false);
+                }
+                
+                updateStats();
+            });
+            
+            // Торды жаңарту функциясы
+            function updateCodeBoard(pos) {
+                const cells = board.querySelectorAll('.cell');
+                cells.forEach(cell => {
+                    cell.classList.remove('robot');
+                    cell.textContent = '';
+                    
+                    const x = parseInt(cell.dataset.x);
+                    const y = parseInt(cell.dataset.y);
+                    
+                    if (x === pos.x && y === pos.y) {
+                        cell.classList.add('robot');
+                        cell.textContent = '😊';
+                    }
+                });
+            }
+        }
+        
+        // ========== Логикалық Квест-Аймақ ойыны ==========
+        function setupQuestGame() {
+            const patternExample = document.getElementById('pattern-example');
+            const patternOptions = document.getElementById('pattern-options');
+            
+            // Тазарту
+            patternExample.innerHTML = '';
+            patternOptions.innerHTML = '';
+            
+            // Үлгілерді құру
+            const patterns = [
+                { type: 'shape', sequence: ['🔺', '🔹', '🔺', '🔹', '?'], options: ['🔺', '🔹', '🔶'], answer: '🔺' },
+                { type: 'color', sequence: ['🔴', '🟢', '🔴', '🟢', '?'], options: ['🔴', '🟢', '🟡'], answer: '🔴' },
+                { type: 'size', sequence: ['⬛', '⬜', '⬛', '⬜', '?'], options: ['⬛', '⬜', '🟫'], answer: '⬛' }
+            ];
+            
+            const pattern = patterns[(currentLevel - 1) % patterns.length];
+            
+            // Үлгі мысалын көрсету
+            pattern.sequence.forEach((item, index) => {
+                const cell = document.createElement('div');
+                cell.className = 'pattern-cell';
+                cell.textContent = item === '?' ? '?' : item;
+                patternExample.appendChild(cell);
+            });
+            
+            // Нұсқаларды көрсету
+            pattern.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.addEventListener('click', function() {
+                    if (option === pattern.answer) {
+                        score += currentLevel * 10;
+                        showResult(`Дұрыс! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
+                    } else {
+                        showResult('Қате! Қайталап көріңіз.', false);
+                    }
+                    updateStats();
+                });
+                patternOptions.appendChild(button);
+            });
+        }
+        
+        // ========== Сандық Детектив ойыны ==========
+        function setupDetectiveGame() {
+            const codedMessage = document.getElementById('coded-message');
+            const decodedInput = document.getElementById('decoded-input');
+            const checkButton = document.getElementById('check-decoding');
+            
+            // Тазарту
+            codedMessage.innerHTML = '';
+            decodedInput.value = '';
+            
+            // Кодталған хабарлар
+            const messages = [
+                { coded: '8-1-16-1-18', decoded: 'сапар', hint: 'Бұл сөз саяхат дегенді білдіреді' },
+                { coded: '1-13-1-19', decoded: 'амаз', hint: 'Бұл сөз үлкен онлайн дүкенді білдіреді' },
+                { coded: '18-15-2-15-20', decoded: 'робот', hint: 'Бұл сөз бағдарламаланған машинаны білдіреді' }
+            ];
+            
+            const message = messages[(currentLevel - 1) % messages.length];
+            
+            // Кодталған хабарды көрсету
+            codedMessage.innerHTML = `<h3>Кодталған хабар: ${message.coded}</h3>`;
+            
+            // Тексеру түймесі
+            checkButton.addEventListener('click', function() {
+                if (decodedInput.value.toLowerCase() === message.decoded) {
+                    score += currentLevel * 10;
+                    showResult(`Дұрыс! Сіз хабарды дұрыс шештіңіз! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
+                } else {
+                    showResult('Қате! Қайталап көріңіз.', false);
+                    adviceText.textContent = message.hint;
+                    aiAdvice.style.display = 'block';
+                }
+                updateStats();
+            });
+        }
+        
+        // ========== Санайтын Машина ойыны ==========
+        function setupCountingGame() {
+            const countingItems = document.getElementById('counting-items');
+            const numberOptions = document.getElementById('number-options');
+            
+            // Тазарту
+            countingItems.innerHTML = '';
+            numberOptions.innerHTML = '';
+            
+            // Нысандар саны
+            const counts = [3, 5, 7, 9, 12];
+            const count = counts[(currentLevel - 1) % counts.length];
+            
+            // Нысандарды көрсету
+            for (let i = 0; i < count; i++) {
+                const item = document.createElement('div');
+                item.className = 'counting-item';
+                item.textContent = '🍎';
+                countingItems.appendChild(item);
+            }
+            
+            // Сан нұсқаларын көрсету
+            for (let i = 1; i <= 15; i++) {
+                const button = document.createElement('button');
+                button.className = 'number-option';
+                button.textContent = i;
+                button.addEventListener('click', function() {
+                    if (i === count) {
+                        score += currentLevel * 10;
+                        showResult(`Дұрыс! Суретте ${count} алма бар! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
+                    } else {
+                        showResult(`Қате! Суретте ${count} алма бар. Қайталап көріңіз.`, false);
+                    }
+                    updateStats();
+                });
+                numberOptions.appendChild(button);
+            }
+        }
+        
+        // Нәтиже хабарламасын көрсету
+        function showResult(message, isSuccess) {
+            resultMessage.textContent = message;
+            resultMessage.className = `result-message ${isSuccess ? 'success' : 'error'}`;
+            resultMessage.style.display = 'block';
+            
+            if (isSuccess) {
+                nextLevelButton.style.display = 'block';
+                
+                // AI кеңесін көрсету
+                const adviceMessages = [
+                    "Керемет! Сіз алгоритмдік ойлауда жақсы дамып келесіз.",
+                    "Тамаша! Келесі деңгейде бірнеше кедергілер болады, оларды ескеріңіз.",
+                    "Жақсы жұмыс! Енді сіз күрделірек тапсырмаларды шеше аласыз.",
+                    "Керемет! Сіздің логикалық ойлау қабілетіңіз дамып келеді.",
+                    "Тамаша! Келесі деңгейде бірнеше қосымша командалар қажет болады."
+                ];
+                
+                adviceText.textContent = adviceMessages[Math.floor(Math.random() * adviceMessages.length)];
+                aiAdvice.style.display = 'block';
+            } else {
+                nextLevelButton.style.display = 'none';
+            }
+        }
+        
+        // Келесі деңгей түймесі
+        nextLevelButton.addEventListener('click', function() {
+            currentLevel++;
+            if (currentLevel > 5) {
+                showResult('Керемет! Сіз барлық деңгейлерді аяқтадыңыз!', true);
+                nextLevelButton.style.display = 'none';
+            } else {
+                setupGame(currentGame);
+                updateStats();
+                resultMessage.style.display = 'none';
+                nextLevelButton.style.display = 'none';
+                aiAdvice.style.display = 'none';
+            }
+        });
+        
+        // Бастапқы сүзгілеуді орнату
+        filterGamesByClass();
+    </script>
+</body>
+</html>
