@@ -1,1992 +1,651 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="kk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Балаларға арналған Ойлау Дағдыларын Дамытатын Ойындар</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f0f9ff;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header стильдері */
-        header {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            border-bottom: 5px solid #ff9a9e;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 0 #ff9a9e;
-        }
-        
-        .logo span {
-            color: #ffeb3b;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 20px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 18px;
-        }
-        
-        nav ul li a:hover {
-            color: #ffeb3b;
-        }
-        
-        /* Hero бөлімі */
-        .hero {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            border-bottom: 5px solid #a6c1ee;
-        }
-        
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0 #ff6b6b;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        
-        .class-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .class-button {
-            background-color: #4facfe;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 0 #3a8fd5;
-        }
-        
-        .class-button:hover {
-            background-color: #3a8fd5;
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #3a8fd5;
-        }
-        
-        .class-button.active {
-            background-color: #ff6b6b;
-            box-shadow: 0 4px 0 #e55c5c;
-        }
-        
-        /* Ойын түрлері */
-        .game-types {
-            padding: 60px 0;
-            background-color: #f7f9fc;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 36px;
-            color: #4facfe;
-            text-shadow: 1px 1px 0 #ff9a9e;
-        }
-        
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .game-card {
-            background-color: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 3px solid #a6c1ee;
-        }
-        
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .game-image {
-            height: 160px;
-            background-color: #4facfe;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .game-image::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
-        }
-        
-        .game-content {
-            padding: 20px;
-        }
-        
-        .game-content h3 {
-            margin-bottom: 10px;
-            color: #4facfe;
-            font-size: 22px;
-        }
-        
-        .game-content p {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        .play-button {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 0 #3a8fd5;
-        }
-        
-        .play-button:hover {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #3a8fd5;
-        }
-        
-        /* Ойын аймағы */
-        .game-area {
-            display: none;
-            padding: 40px 0;
-            background-color: #e6f7ff;
-            min-height: 500px;
-        }
-        
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .back-button {
-            background-color: #ff9a9e;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 0 #e55c5c;
-        }
-        
-        .back-button:hover {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #e55c5c;
-        }
-        
-        .game-stats {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .stat {
-            background-color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 0 #e0e0e0;
-            font-weight: bold;
-            color: #4facfe;
-        }
-        
-        /* Ойын контейнері */
-        .game-container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            border: 3px solid #a6c1ee;
-            min-height: 400px;
-        }
-        
-        /* AI кеңесі */
-        .ai-advice {
-            background-color: #e6f7ff;
-            border-left: 5px solid #4facfe;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 0 10px 10px 0;
-            display: none;
-        }
-        
-        .ai-advice h4 {
-            color: #4facfe;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .ai-advice h4::before {
-            content: "🤖";
-            font-size: 20px;
-        }
-        
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            padding: 30px 0 15px;
-            text-align: center;
-        }
-        
-        .copyright {
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.3);
-            color: rgba(255,255,255,0.8);
-            font-size: 14px;
-        }
-        
-        /* Ойынға арналған арнайы стильдер */
-        .robot-game, .code-game, .quest-game, .detective-game, .counting-game, .test-game {
-            display: none;
-        }
-        
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(5, 60px);
-            grid-template-rows: repeat(5, 60px);
-            gap: 5px;
-            margin: 20px auto;
-            justify-content: center;
-        }
-        
-        .cell {
-            width: 60px;
-            height: 60px;
-            background-color: #e0f7fa;
-            border: 2px solid #4facfe;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .cell:hover {
-            background-color: #b3e5fc;
-        }
-        
-        .cell.obstacle {
-            background-color: #ffcdd2;
-            border-color: #e57373;
-        }
-        
-        .cell.goal {
-            background-color: #c8e6c9;
-            border-color: #81c784;
-        }
-        
-        .cell.robot {
-            background-color: #bbdefb;
-            border-color: #64b5f6;
-        }
-        
-        .cell.collected {
-            background-color: #fff9c4;
-            border-color: #ffd54f;
-        }
-        
-        .commands {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .command {
-            background-color: #4facfe;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.2s;
-        }
-        
-        .command:hover {
-            background-color: #3a8fd5;
-        }
-        
-        .code-blocks {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .code-block {
-            background-color: #4facfe;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: move;
-            user-select: none;
-        }
-        
-        .code-area {
-            min-height: 150px;
-            border: 2px dashed #4facfe;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            background-color: #f5fdff;
-        }
-        
-        .run-button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px 0;
-            transition: all 0.3s;
-        }
-        
-        .run-button:hover {
-            background-color: #388e3c;
-        }
-        
-        .quest-task {
-            background-color: #e3f2fd;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        
-        .pattern-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 60px);
-            grid-template-rows: repeat(2, 60px);
-            gap: 10px;
-            margin: 20px 0;
-            justify-content: center;
-        }
-        
-        .pattern-cell {
-            width: 60px;
-            height: 60px;
-            background-color: #e0f7fa;
-            border: 2px solid #4facfe;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-        
-        .options {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .option {
-            background-color: #4facfe;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.2s;
-        }
-        
-        .option:hover {
-            background-color: #3a8fd5;
-        }
-        
-        .counting-items {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        
-        .counting-item {
-            width: 80px;
-            height: 80px;
-            background-color: #e0f7fa;
-            border: 2px solid #4facfe;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            animation: bounce 1s infinite alternate;
-        }
-        
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-        
-        .number-options {
-            display: grid;
-            grid-template-columns: repeat(5, 60px);
-            gap: 10px;
-            margin: 20px auto;
-            justify-content: center;
-        }
-        
-        .number-option {
-            width: 60px;
-            height: 60px;
-            background-color: #4facfe;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .number-option:hover {
-            background-color: #3a8fd5;
-        }
-        
-        .result-message {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-        
-        .success {
-            background-color: #c8e6c9;
-            color: #2e7d32;
-            border: 2px solid #81c784;
-        }
-        
-        .error {
-            background-color: #ffcdd2;
-            color: #c62828;
-            border: 2px solid #e57373;
-        }
-        
-        .next-button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px auto;
-            display: block;
-            transition: all 0.3s;
-        }
-        
-        .next-button:hover {
-            background-color: #388e3c;
-        }
-        
-        /* Жұлдыздар рейтингі */
-        .stars {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin: 15px 0;
-        }
-        
-        .star {
-            font-size: 30px;
-            color: #ddd;
-        }
-        
-        .star.filled {
-            color: #ffd54f;
-        }
-        
-        /* Тест беті */
-        .test-game {
-            text-align: center;
-        }
-        
-        .test-question {
-            font-size: 20px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        
-        .test-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .test-option {
-            background-color: #e3f2fd;
-            border: 2px solid #4facfe;
-            border-radius: 10px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 18px;
-        }
-        
-        .test-option:hover {
-            background-color: #bbdefb;
-        }
-        
-        .test-option.correct {
-            background-color: #c8e6c9;
-            border-color: #81c784;
-        }
-        
-        .test-option.incorrect {
-            background-color: #ffcdd2;
-            border-color: #e57373;
-        }
-        
-        .test-progress {
-            margin: 20px 0;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .test-results {
-            display: none;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #e3f2fd;
-            border-radius: 10px;
-        }
-        
-        .test-results h3 {
-            margin-bottom: 15px;
-            color: #4facfe;
-        }
-        
-        .test-review {
-            text-align: left;
-            margin-top: 20px;
-        }
-        
-        .test-review-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        
-        .test-review-item.correct {
-            background-color: #e8f5e9;
-        }
-        
-        .test-review-item.incorrect {
-            background-color: #ffebee;
-        }
-        
-        /* Сыйлықтар беті */
-        .rewards-section {
-            padding: 60px 0;
-            background-color: #fff9c4;
-            text-align: center;
-        }
-        
-        .rewards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .reward-card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-        
-        .reward-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .reward-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
-        
-        .reward-card h3 {
-            margin-bottom: 10px;
-            color: #4facfe;
-        }
-        
-        .reward-card p {
-            color: #7f8c8d;
-        }
-        
-        /* Медиа сұраныстар */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .hero h1 {
-                font-size: 32px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
-            .game-board {
-                grid-template-columns: repeat(5, 50px);
-                grid-template-rows: repeat(5, 50px);
-            }
-            
-            .cell {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Информатика — 1–4 сынып (Арман-ПВ) | Білім платформасы</title>
+<style>
+  :root{
+    --bg:#f6f9ff; --card:#fff; --accent:#4f46e5; --muted:#64748b;
+  }
+  *{box-sizing:border-box;font-family:Inter,system-ui,Arial, sans-serif}
+  body{margin:0;background:linear-gradient(180deg,#eef2ff 0%,#fff 100%);color:#0f172a}
+  header{display:flex;align-items:center;gap:16px;padding:18px 24px;background:transparent}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo .icon{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px}
+  .container{display:grid;grid-template-columns:260px 1fr 320px;gap:18px;padding:18px}
+  .card{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 4px 18px rgba(15,23,42,0.07)}
+  .sidebar{height:calc(100vh - 110px);overflow:auto;padding:12px}
+  .grades{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .grade-btn{padding:8px 10px;border-radius:8px;border:1px solid #e6eef9;background:white;cursor:pointer}
+  .grade-btn.active{background:var(--accent);color:#fff;border-color:transparent}
+  .topics{margin-top:8px}
+  .topic-item{padding:8px;border-radius:8px;cursor:pointer;margin-bottom:6px}
+  .topic-item:hover{background:#f1f5f9}
+  .topic-item.active{background:linear-gradient(90deg,#eef2ff,#fff);border-left:4px solid var(--accent);padding-left:10px}
+  .content{height:calc(100vh - 110px);overflow:auto;padding:12px}
+  .tabs{display:flex;gap:8px;margin-bottom:12px}
+  .tab{padding:8px 12px;border-radius:8px;cursor:pointer;background:#f8fafc;border:1px solid #e6eef9}
+  .tab.active{background:var(--accent);color:#fff}
+  .info{line-height:1.6}
+  .quiz{margin-top:8px}
+  .question{margin-bottom:12px}
+  .choices{display:flex;flex-direction:column;gap:8px}
+  .choice{padding:8px;border-radius:8px;border:1px solid #e6eef9;cursor:pointer}
+  .choice.correct{background:#ecfdf5;border-color:#10b981}
+  .choice.wrong{background:#fff1f2;border-color:#fb7185}
+  .actions{display:flex;gap:8px;align-items:center;margin-top:12px}
+  .btn{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:white;cursor:pointer}
+  .muted{color:var(--muted)}
+  .panel-right{height:calc(100vh - 110px);overflow:auto;padding:12px}
+  .stat{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;background:#fbfbff;margin-bottom:8px}
+  .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:#fff6d8;color:#a16207;margin-right:6px}
+  /* game styles */
+  .game-canvas{border:1px dashed #e6eef9;border-radius:8px;padding:12px;background:white}
+  .match-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .draggable{padding:10px;border-radius:8px;background:#f8fafc;border:1px solid #e6eef9;cursor:grab;text-align:center}
+  .drop-target{min-height:48px;border:2px dashed #e6eef9;border-radius:8px;padding:8px;display:flex;align-items:center;justify-content:center}
+  footer{padding:12px;text-align:center;color:var(--muted)}
+  .level-bar{height:10px;border-radius:10px;background:#eef2ff;overflow:hidden;margin-top:6px}
+  .level-fill{height:100%;background:linear-gradient(90deg,#06b6d4,#4f46e5);width:10%}
+  .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,#06b6d4,#4f46e5);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px}
+  .small{font-size:13px}
+  @media(max-width:980px){.container{grid-template-columns:1fr;}.panel-right{display:none}}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-content">
-            <div class="logo">Балаларға арналған <span>Ойындар</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#" class="nav-link" data-target="home">Басты бет</a></li>
-                    <li><a href="#" class="nav-link" data-target="games">Ойындар</a></li>
-                    <li><a href="#" class="nav-link" data-target="tests">Тесттер</a></li>
-                    <li><a href="#" class="nav-link" data-target="rewards">Сыйлықтар</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero бөлімі -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Балаларға арналған ойлау дағдыларын дамытатын ойындар!</h1>
-            <p>Әр сыныпқа арналған тақырыптар бойынша қызықты ойындар мен тесттер. Ойнап, үйреніңіз!</p>
-            
-            <div class="class-buttons">
-                <button class="class-button active" data-class="all">Барлық сыныптар</button>
-                <button class="class-button" data-class="1">1-сынып</button>
-                <button class="class-button" data-class="2">2-сынып</button>
-                <button class="class-button" data-class="3">3-сынып</button>
-                <button class="class-button" data-class="4">4-сынып</button>
-            </div>
+<header>
+  <div class="logo">
+    <div class="icon">AP</div>
+    <div>
+      <div style="font-weight:700">Арман-ПВ — Информатика</div>
+      <div class="small muted">1–4 сынып интерактив платформа</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Left sidebar -->
+  <aside class="card sidebar">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div style="font-weight:700">Сыныптар</div>
+      <div class="small muted">Таңда</div>
+    </div>
+
+    <div class="grades" id="grades"></div>
+
+    <div style="margin-top:12px;font-weight:700">Тақырыптар</div>
+    <div class="topics" id="topics"></div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="card content">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div id="title" style="font-weight:800;font-size:18px">1-сынып</div>
+        <div id="subtitle" class="muted small">Тақырып таңдаңыз — Мәлімет, Тест және Ойын пайда болады</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="text-align:right">
+          <div class="small muted">Ұпай</div>
+          <div id="points" style="font-weight:800;font-size:18px">0</div>
         </div>
+        <div style="text-align:left">
+          <div class="small muted">Деңгей</div>
+          <div id="levelName" style="font-weight:800">Жаңадан бастаушы</div>
+          <div class="level-bar"><div id="levelFill" class="level-fill"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="tabs">
+      <div class="tab active" data-tab="info">Мәлімет</div>
+      <div class="tab" data-tab="test">Тест</div>
+      <div class="tab" data-tab="game">Ойын</div>
+    </div>
+
+    <section id="panel">
+      <div id="infoPanel" class="info">
+        <h3 id="topicTitle">Тақырып таңдаңыз</h3>
+        <div id="topicInfo" class="muted">Оң жақтан тақырып атауын басып мәліметті көре аласыз.</div>
+      </div>
+
+      <div id="testPanel" class="quiz" style="display:none">
+        <div id="quizArea"></div>
+      </div>
+
+      <div id="gamePanel" class="game-canvas" style="display:none">
+        <div id="gameArea" class="muted">Тақырыпқа сай ойын шығады.</div>
+      </div>
     </section>
+  </main>
 
-    <!-- Ойын түрлері -->
-    <section class="game-types" id="games">
-        <div class="container">
-            <h2 class="section-title">Ойын Түрлері</h2>
-            <div class="games-grid">
-                <!-- 1-сынып ойындары -->
-                <div class="game-card" data-game="counting" data-classes="1">
-                    <div class="game-image">🔢</div>
-                    <div class="game-content">
-                        <h3>Санайтын Машина</h3>
-                        <p>Заттарды санап, сандармен жұмыс істеңіз. Математикалық дағдыларды дамытыңыз.</p>
-                        <button class="play-button" data-game="counting">Ойнау</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="shapes" data-classes="1">
-                    <div class="game-image">🔺🔵</div>
-                    <div class="game-content">
-                        <h3>Пішіндер Әлемі</h3>
-                        <p>Әртүрлі геометриялық пішіндерді танып, оларды сәйкестендіріңіз.</p>
-                        <button class="play-button" data-game="shapes">Ойнау</button>
-                    </div>
-                </div>
-                
-                <!-- 2-сынып ойындары -->
-                <div class="game-card" data-game="robot" data-classes="2">
-                    <div class="game-image">🤖</div>
-                    <div class="game-content">
-                        <h3>Ақылды Роботты Бағдарла</h3>
-                        <p>Роботты мақсатқа жету үшін бағдарламалаңыз. Алгоритмдік ойлауды дамытыңыз.</p>
-                        <button class="play-button" data-game="robot">Ойнау</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="patterns" data-classes="2">
-                    <div class="game-image">🔄</div>
-                    <div class="game-content">
-                        <h3>Үлгілер Әлемі</h3>
-                        <p>Үлгілерді танып, оларды жалғастыруды үйреніңіз. Логикалық ойлауды дамытыңыз.</p>
-                        <button class="play-button" data-game="patterns">Ойнау</button>
-                    </div>
-                </div>
-                
-                <!-- 3-сынып ойындары -->
-                <div class="game-card" data-game="code" data-classes="3">
-                    <div class="game-image">🧩</div>
-                    <div class="game-content">
-                        <h3>Код-Құрастырушы</h3>
-                        <p>Блоктарды жылжытып, кейіпкерді қозғалтатын код жасаңыз. Бағдарламалау негіздерін үйреніңіз.</p>
-                        <button class="play-button" data-game="code">Ойнау</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="detective" data-classes="3">
-                    <div class="game-image">🔍</div>
-                    <div class="game-content">
-                        <h3>Сандық Детектив</h3>
-                        <p>Жоғалған заттарды тауып, кодталған хабарларды шешіңіз. Ақпараттық сауаттылықты дамытыңыз.</p>
-                        <button class="play-button" data-game="detective">Ойнау</button>
-                    </div>
-                </div>
-                
-                <!-- 4-сынып ойындары -->
-                <div class="game-card" data-game="quest" data-classes="4">
-                    <div class="game-image">🗝️</div>
-                    <div class="game-content">
-                        <h3>Логикалық Квест-Аймақ</h3>
-                        <p>Логикалық тапсырмаларды шешіп, квестті аяқтаңыз. Сыни ойлауды дамытыңыз.</p>
-                        <button class="play-button" data-game="quest">Ойнау</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="presentation" data-classes="4">
-                    <div class="game-image">📊</div>
-                    <div class="game-content">
-                        <h3>Презентация Шебері</h3>
-                        <p>Әртүрлі тақырыптар бойынша презентациялар жасап, ақпаратты ұсыну дағдыларыңызды дамытыңыз.</p>
-                        <button class="play-button" data-game="presentation">Ойнау</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Right panel: profile / badges -->
+  <aside class="card panel-right">
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+      <div class="avatar" id="avatar">A</div>
+      <div>
+        <div style="font-weight:700" id="userName">Оқушы</div>
+        <div class="small muted">Құпиялы дос Robi дайын көмектесуге</div>
+      </div>
+    </div>
 
-    <!-- Тесттер бөлімі -->
-    <section class="game-types" id="tests" style="display: none;">
-        <div class="container">
-            <h2 class="section-title">Білімді Тестілеу</h2>
-            <div class="games-grid">
-                <div class="game-card" data-game="test1" data-classes="1">
-                    <div class="game-image">📝</div>
-                    <div class="game-content">
-                        <h3>1-сынып тесті</h3>
-                        <p>Компьютердің негізгі бөліктері, файлдар және бумалар туралы біліміңізді тексеріңіз.</p>
-                        <button class="play-button" data-game="test1">Тестілеу</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="test2" data-classes="2">
-                    <div class="game-image">📝</div>
-                    <div class="game-content">
-                        <h3>2-сынып тесті</h3>
-                        <p>Мәтіндермен жұмыс, алгоритмдер және графикалық редакторлар туралы біліміңізді тексеріңіз.</p>
-                        <button class="play-button" data-game="test2">Тестілеу</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="test3" data-classes="3">
-                    <div class="game-image">📝</div>
-                    <div class="game-content">
-                        <h3>3-сынып тесті</h3>
-                        <p>Программалау негіздері, робототехника және интернетпен жұмыс туралы біліміңізді тексеріңіз.</p>
-                        <button class="play-button" data-game="test3">Тестілеу</button>
-                    </div>
-                </div>
-                <div class="game-card" data-game="test4" data-classes="4">
-                    <div class="game-image">📝</div>
-                    <div class="game-content">
-                        <h3>4-сынып тесті</h3>
-                        <p>Күрделі программалау, видео өңдеу және презентациялар туралы біліміңізді тексеріңіз.</p>
-                        <button class="play-button" data-game="test4">Тестілеу</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div style="font-weight:700;margin-bottom:8px">Жетістіктер</div>
+    <div id="badgesList">
+      <div class="stat"><div><span class="badge">🌟</span>Бастау</div><div class="muted small">0/1</div></div>
+      <div class="stat"><div><span class="badge">🧠</span>Ақылды бала</div><div class="muted small">0/100</div></div>
+    </div>
 
-    <!-- Сыйлықтар бөлімі -->
-    <section class="rewards-section" id="rewards" style="display: none;">
-        <div class="container">
-            <h2 class="section-title">Сыйлықтар</h2>
-            <p>Ойындарды ойнап, тесттерді тапсырып, сыйлықтар жинаңыз!</p>
-            
-            <div class="rewards-grid">
-                <div class="reward-card">
-                    <div class="reward-icon">🥉</div>
-                    <h3>Қола медаль</h3>
-                    <p>5 ойынды сәтті аяқтаған соң</p>
-                </div>
-                <div class="reward-card">
-                    <div class="reward-icon">🥈</div>
-                    <h3>Күміс медаль</h3>
-                    <p>10 ойынды сәтті аяқтаған соң</p>
-                </div>
-                <div class="reward-card">
-                    <div class="reward-icon">🥇</div>
-                    <h3>Алтын медаль</h3>
-                    <p>15 ойынды сәтті аяқтаған соң</p>
-                </div>
-                <div class="reward-card">
-                    <div class="reward-icon">🏆</div>
-                    <h3>Кубок</h3>
-                    <p>Барлық ойындарды сәтті аяқтаған соң</p>
-                </div>
-                <div class="reward-card">
-                    <div class="reward-icon">⭐</div>
-                    <h3>Жұлдыз</h3>
-                    <p>Әр ойыннан кемінде 3 жұлдыз жинаған соң</p>
-                </div>
-                <div class="reward-card">
-                    <div class="reward-icon">🎓</div>
-                    <h3>Диплом</h3>
-                    <p>Барлық тесттерді сәтті тапсырған соң</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div style="margin-top:12px;font-weight:700">Түсініктеме</div>
+    <div class="muted small" style="margin-top:6px">Ұпайларды жина — деңгей көтер — сыйлықтарды аш.</div>
+  </aside>
+</div>
 
-    <!-- Ойын аймағы -->
-    <section class="game-area" id="game-area">
-        <div class="container">
-            <div class="game-header">
-                <button class="back-button" id="back-button">← Артқа</button>
-                <div class="game-stats">
-                    <div class="stat" id="level-display">Деңгей: 1</div>
-                    <div class="stat" id="score-display">Ұпай: 0</div>
-                </div>
-            </div>
-            
-            <div class="game-container">
-                <h2 id="game-title">Ойын атауы</h2>
-                
-                <!-- Ақылды Роботты Бағдарла ойыны -->
-                <div class="robot-game" id="robot-game">
-                    <p>Роботты <span class="goal-cell">мақсат</span> ұяшығына жеткізу үшін командаларды пайдаланыңыз. Кедергілерден айналып өтіңіз.</p>
-                    
-                    <div class="game-board" id="robot-board">
-                        <!-- Робот торы JavaScript арқылы толтырылады -->
-                    </div>
-                    
-                    <div class="commands">
-                        <button class="command" data-command="up">↑ Жоғары</button>
-                        <button class="command" data-command="right">→ Оңға</button>
-                        <button class="command" data-command="down">↓ Төмен</button>
-                        <button class="command" data-command="left">← Солға</button>
-                        <button class="command" id="execute-commands">Орындау</button>
-                        <button class="command" id="reset-robot">Қалпына келтіру</button>
-                    </div>
-                    
-                    <div class="command-list" id="command-list">
-                        <!-- Таңдалған командалар осында пайда болады -->
-                    </div>
-                </div>
-                
-                <!-- Код-Құрастырушы ойыны -->
-                <div class="code-game" id="code-game">
-                    <p>Блоктарды код аймағына жылжытып, кейіпкерді мақсатқа жеткізетін бағдарлама құрыңыз.</p>
-                    
-                    <div class="code-blocks">
-                        <div class="code-block" draggable="true" data-command="move">Алға жылжы</div>
-                        <div class="code-block" draggable="true" data-command="turnLeft">Солға бұрыл</div>
-                        <div class="code-block" draggable="true" data-command="turnRight">Оңға бұрыл</div>
-                        <div class="code-block" draggable="true" data-command="jump">Секір</div>
-                    </div>
-                    
-                    <div class="code-area" id="code-area">
-                        Кодты осы жерге тастаңыз
-                    </div>
-                    
-                    <button class="run-button" id="run-code">Кодты орындау</button>
-                    
-                    <div class="game-board" id="code-board">
-                        <!-- Код торы JavaScript арқылы толтырылады -->
-                    </div>
-                </div>
-                
-                <!-- Логикалық Квест-Аймақ ойыны -->
-                <div class="quest-game" id="quest-game">
-                    <div class="quest-task">
-                        <h3>Тапсырма: Үлгіні жалғастырыңыз</h3>
-                        <p>Төмендегі үлгіні жалғастыратын дұрыс нұсқаны таңдаңыз.</p>
-                        
-                        <div class="pattern-grid" id="pattern-example">
-                            <!-- Үлгі мысалы JavaScript арқылы толтырылады -->
-                        </div>
-                        
-                        <div class="options" id="pattern-options">
-                            <!-- Нұсқалар JavaScript арқылы толтырылады -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Сандық Детектив ойыны -->
-                <div class="detective-game" id="detective-game">
-                    <div class="quest-task">
-                        <h3>Тапсырма: Кодты шешіңіз</h3>
-                        <p>Төмендегі кодталған хабарды шешіңіз. Әр әріпке сәйкес сан берілген.</p>
-                        
-                        <div class="coded-message" id="coded-message">
-                            <!-- Кодталған хабар JavaScript арқылы толтырылады -->
-                        </div>
-                        
-                        <div class="decoding-area">
-                            <p>Шифр: A=1, B=2, C=3, ... Z=26</p>
-                            <input type="text" id="decoded-input" placeholder="Шешілген хабарды осы жерге енгізіңіз">
-                            <button class="command" id="check-decoding">Тексеру</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Санайтын Машина ойыны -->
-                <div class="counting-game" id="counting-game">
-                    <p>Суретте неше нысан бар екенін санап, дұрыс санды таңдаңыз.</p>
-                    
-                    <div class="counting-items" id="counting-items">
-                        <!-- Нысандар JavaScript арқылы толтырылады -->
-                    </div>
-                    
-                    <div class="number-options" id="number-options">
-                        <!-- Сан нұсқалары JavaScript арқылы толтырылады -->
-                    </div>
-                </div>
-                
-                <!-- Тест ойыны -->
-                <div class="test-game" id="test-game">
-                    <div class="test-progress" id="test-progress">Сұрақ 1/5</div>
-                    <div class="test-question" id="test-question">
-                        <!-- Сұрақ мәтіні JavaScript арқылы толтырылады -->
-                    </div>
-                    <div class="test-options" id="test-options">
-                        <!-- Нұсқалар JavaScript арқылы толтырылады -->
-                    </div>
-                    <button class="next-button" id="next-question" style="display: none;">Келесі сұрақ</button>
-                    
-                    <div class="test-results" id="test-results">
-                        <h3>Тест нәтижелері</h3>
-                        <p>Сіз <span id="test-score">0</span> сұраққа дұрыс жауап бердіңіз (барлығы <span id="test-total">0</span> сұрақтан).</p>
-                        <div class="test-review" id="test-review">
-                            <!-- Тестті қарап шығу JavaScript арқылы толтырылады -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Нәтиже хабарламасы -->
-                <div class="result-message" id="result-message"></div>
-                
-                <!-- AI кеңесі -->
-                <div class="ai-advice" id="ai-advice">
-                    <h4>AI кеңесі:</h4>
-                    <p id="advice-text">Келесі деңгейде саған мына кеңес көмектеседі...</p>
-                </div>
-                
-                <!-- Келесі деңгей түймесі -->
-                <button class="next-button" id="next-level" style="display: none;">Келесі деңгей</button>
-            </div>
-        </div>
-    </section>
+<footer class="muted small">© Арман-ПВ білім | HTML demo — index.html</footer>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="copyright">
-                <p>&copy; 2023 Балаларға арналған Ойлау Дағдыларын Дамытатын Ойындар. Барлық құқықтар қорғалған.</p>
-            </div>
-        </div>
-    </footer>
+<script>
+/* ---------------------------
+   Data: барлық сыныптар мен тақырыптар
+   (Қажет болса мұны сыртқы JSON-ға ауыстырып, API арқылы жүктеуге болады)
+---------------------------*/
+const DATA = {
+  "grades":[
+    {
+      "id":"grade1","name":"1-сынып",
+      "topics":[
+        {"key":"comp_intro","title":"Компьютермен танысу","info":"Компьютер — ақпаратты қабылдайтын, сақтайтын және өңдейтін құрылғы. Негізгі бөліктері: монитор, пернетақта, тінтуір, жүйелік блок.","gameType":"match","test":[
+          {"q":"Компьютердің экранын не дейді?","a":["Монитор","Тінтуір","Пернетақта"],"correct":0},
+          {"q":"Тінтуір не үшін керек?","a":["Басқару","Көру","Тыңдау"],"correct":0},
+          {"q":"Пернетақта не істейді?","a":["Деректерді теру","Сурет салу","Музыка ойнау"],"correct":0},
+          {"q":"Компьютердің миы қалай аталады?","a":["Жүйелік блок","Тышқан","Бағдарлама"],"correct":0},
+          {"q":"Компьютер не істейді?","a":["Ақпаратты өңдейді","Ұшады","Жүгіреді"],"correct":0}
+        ]},
+        {"key":"info_types","title":"Ақпарат және оның түрлері","info":"Ақпарат — біз көретін, еститін, сезетін барлық мәлімет. Түрлері: мәтін, сурет, дыбыс, видео.","gameType":"match","test":[
+          {"q":"Ақпарат деп нені айтамыз?","a":["Мәлімет","Ойын","Ауыл"],"correct":0},
+          {"q":"Дыбысты қалай қабылдаймыз?","a":["Құлақпен","Көзбен","Тіс арқылы"],"correct":0},
+          {"q":"Көрнекі ақпаратқа не жатады?","a":["Сурет","Дағды","Жаңбыр"],"correct":0},
+          {"q":"Мәтін қандай ақпарат?","a":["Жазбаша","Дыбыстық","Тұрақты"],"correct":0},
+          {"q":"Видео қандай ақпарат түрі?","a":["Көрнекі","Иіс","Дәм"],"correct":0}
+        ]},
+        {"key":"safety","title":"Компьютердегі қауіпсіздік ережелері","info":"Компьютер алдында түзү отыру, көзден шамамен 50 см қашықтық, уақытында үзіліс жасай білу — маңызды қауіпсіздік ережелері.","gameType":"sequence","test":[
+          {"q":"Экраннан қанша см қашық отыру керек?","a":["50 см","5 см","500 см"],"correct":0},
+          {"q":"Көзге зиян қалай түседі?","a":["Ұзақ уақыт экранға қарағанда","Ән тыңдағанда","Жүгіруде"],"correct":0},
+          {"q":"Уақытында үзіліс жасау керек пе?","a":["Иә","Жоқ","Кейде"],"correct":0},
+          {"q":"Дұрыс отыру деген не?","a":["Түзу отырғанда","Жатып отырғанда","Айналып отырғанда"],"correct":0},
+          {"q":"Электр тұйықталуына не істеу керек?","a":["Ата-ананы шақыру","Телефон ойнау","Терезені ашу"],"correct":0}
+        ]},
+        {"key":"paint","title":"Графикалық редактор (Paint)","info":"Paint — қарапайым сурет салу бағдарламасы. Қарындаш, өшіргіш, фигуралар сияқты құралдар бар.","gameType":"paint","test":[
+          {"q":"Paint қандай мақсатқа арналған?","a":["Сурет салу","Құжат жазу","Музыка жасау"],"correct":0},
+          {"q":"Суретті қалай сақтаймыз?","a":["Сақтау батырмасымен","Жабу батырмасымен","Өшіру батырмасымен"],"correct":0},
+          {"q":"Қай құрал суретті өшіреді?","a":["Өшіргіш","Қарындаш","Кисть"],"correct":0},
+          {"q":"Дайын фигураларды қайда табамыз?","a":["Фигуралар мәзірінде","Ашық бағдарламада","Ойындарда"],"correct":0},
+          {"q":"Қандай файл пішімінде сақтауға болады?","a":["PNG, JPG","DOCX","MP3"],"correct":0}
+        ]},
+        {"key":"algorithm","title":"Алгоритм негіздері","info":"Алгоритм — әрекеттердің нақты реттелген тізбегі. Мысалы: таңертеңгілік дайындық алгоритмі.","gameType":"sequence","test":[
+          {"q":"Алгоритм не?","a":["Реттелген қадамдар","Кітап","Музыка"],"correct":0},
+          {"q":"Сөмкені жинау алгоритмі қандай?","a":["Қадам-ретімен","Таңертеңгі әуенмен","Ештеңе жоқ"],"correct":0},
+          {"q":"Робот не істейді?","a":["Берілген командаларды орындайды","Өз қалауын жасайды","Өлең айтады"],"correct":0},
+          {"q":"Алгоритм дұрыс болу үшін не керек?","a":["Қадамдарды тізіп қою","Ұзақ жазу","Сурет салу"],"correct":0},
+          {"q":"Алгоритм қайда қолданылады?","a":["Күнделікті тапсырмаларда","Тек ойындарда","Тек математикада"],"correct":0}
+        ]}
+      ]
+    },
 
-    <script>
-        // Жалпы айнымалылар
-        let currentGame = null;
-        let currentLevel = 1;
-        let score = 0;
-        let selectedClass = 'all';
-        let testQuestions = [];
-        let currentQuestion = 0;
-        let testScore = 0;
-        
-        // DOM элементтері
-        const gameArea = document.getElementById('game-area');
-        const backButton = document.getElementById('back-button');
-        const levelDisplay = document.getElementById('level-display');
-        const scoreDisplay = document.getElementById('score-display');
-        const gameTitle = document.getElementById('game-title');
-        const resultMessage = document.getElementById('result-message');
-        const nextLevelButton = document.getElementById('next-level');
-        const aiAdvice = document.getElementById('ai-advice');
-        const adviceText = document.getElementById('advice-text');
-        
-        // Ойындар объектілері
-        const games = {
-            robot: document.getElementById('robot-game'),
-            code: document.getElementById('code-game'),
-            quest: document.getElementById('quest-game'),
-            detective: document.getElementById('detective-game'),
-            counting: document.getElementById('counting-game'),
-            test: document.getElementById('test-game')
-        };
-        
-        // Ойын атаулары
-        const gameTitles = {
-            robot: 'Ақылды Роботты Бағдарла',
-            code: 'Код-Құрастырушы',
-            quest: 'Логикалық Квест-Аймақ',
-            detective: 'Сандық Детектив',
-            counting: 'Санайтын Машина',
-            test1: '1-сынып тесті',
-            test2: '2-сынып тесті',
-            test3: '3-сынып тесті',
-            test4: '4-сынып тесті'
-        };
-        
-        // Деңгейлер бойынша күрделілік
-        const levelDifficulty = {
-            1: { size: 4, obstacles: 2, commands: 4 },
-            2: { size: 5, obstacles: 3, commands: 5 },
-            3: { size: 5, obstacles: 4, commands: 6 },
-            4: { size: 6, obstacles: 5, commands: 7 },
-            5: { size: 6, obstacles: 6, commands: 8 }
-        };
-        
-        // Басты бетке оралу
-        backButton.addEventListener('click', function() {
-            gameArea.style.display = 'none';
-            document.getElementById('games').style.display = 'block';
-            document.getElementById('tests').style.display = 'none';
-            document.getElementById('rewards').style.display = 'none';
-        });
-        
-        // Сынып түймелері
-        document.querySelectorAll('.class-button').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.class-button').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                selectedClass = this.getAttribute('data-class');
-                filterGamesByClass();
-            });
-        });
-        
-        // Навигация сілтемелері
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = this.getAttribute('data-target');
-                
-                // Барлық бөлімдерді жасыру
-                document.getElementById('home').style.display = 'none';
-                document.getElementById('games').style.display = 'none';
-                document.getElementById('tests').style.display = 'none';
-                document.getElementById('rewards').style.display = 'none';
-                gameArea.style.display = 'none';
-                
-                // Таңдалған бөлімді көрсету
-                if (target === 'home') {
-                    document.getElementById('home').style.display = 'block';
-                } else if (target === 'games') {
-                    document.getElementById('games').style.display = 'block';
-                } else if (target === 'tests') {
-                    document.getElementById('tests').style.display = 'block';
-                } else if (target === 'rewards') {
-                    document.getElementById('rewards').style.display = 'block';
-                }
-            });
-        });
-        
-        // Ойындарды сынып бойынша сүзгілеу
-        function filterGamesByClass() {
-            document.querySelectorAll('.game-card').forEach(card => {
-                const classes = card.getAttribute('data-classes').split(',');
-                if (selectedClass === 'all' || classes.includes(selectedClass)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-        
-        // Ойнау түймелері
-        document.querySelectorAll('.play-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const game = this.getAttribute('data-game');
-                startGame(game);
-            });
-        });
-        
-        // Ойынды бастау
-        function startGame(game) {
-            currentGame = game;
-            currentLevel = 1;
-            score = 0;
-            
-            // Барлық ойындарды жасыру
-            Object.values(games).forEach(gameElement => {
-                gameElement.style.display = 'none';
-            });
-            
-            // Тестті баптау
-            if (game.startsWith('test')) {
-                games.test.style.display = 'block';
-                setupTestGame(game);
-            } else {
-                // Таңдалған ойынды көрсету
-                games[game].style.display = 'block';
-            }
-            
-            // Ойын атауын орнату
-            gameTitle.textContent = gameTitles[game] || 'Ойын';
-            
-            // Статистиканы жаңарту
-            updateStats();
-            
-            // Ойын аймағын көрсету
-            gameArea.style.display = 'block';
-            gameArea.scrollIntoView({ behavior: 'smooth' });
-            
-            // Ойынды баптау
-            if (!game.startsWith('test')) {
-                setupGame(game);
-            }
-            
-            // AI кеңесін жасыру
-            aiAdvice.style.display = 'none';
-            resultMessage.style.display = 'none';
-            nextLevelButton.style.display = 'none';
-        }
-        
-        // Статистиканы жаңарту
-        function updateStats() {
-            levelDisplay.textContent = `Деңгей: ${currentLevel}`;
-            scoreDisplay.textContent = `Ұпай: ${score}`;
-        }
-        
-        // Ойынды баптау
-        function setupGame(game) {
-            switch(game) {
-                case 'robot':
-                    setupRobotGame();
-                    break;
-                case 'code':
-                    setupCodeGame();
-                    break;
-                case 'quest':
-                    setupQuestGame();
-                    break;
-                case 'detective':
-                    setupDetectiveGame();
-                    break;
-                case 'counting':
-                    setupCountingGame();
-                    break;
-            }
-        }
-        
-        // ========== Ақылды Роботты Бағдарла ойыны ==========
-        function setupRobotGame() {
-            const board = document.getElementById('robot-board');
-            const commandList = document.getElementById('command-list');
-            const executeButton = document.getElementById('execute-commands');
-            const resetButton = document.getElementById('reset-robot');
-            
-            // Тазарту
-            board.innerHTML = '';
-            commandList.innerHTML = '';
-            
-            // Торды құру
-            const size = levelDifficulty[currentLevel].size;
-            board.style.gridTemplateColumns = `repeat(${size}, 60px)`;
-            board.style.gridTemplateRows = `repeat(${size}, 60px)`;
-            
-            // Роботтың бастапқы орны
-            let robotPos = { x: 0, y: 0 };
-            
-            // Мақсат орны
-            let goalPos = { 
-                x: Math.floor(Math.random() * (size-1)) + 1, 
-                y: Math.floor(Math.random() * (size-1)) + 1 
-            };
-            
-            // Кедергілерді орналастыру
-            const obstacles = [];
-            const numObstacles = levelDifficulty[currentLevel].obstacles;
-            
-            for (let i = 0; i < numObstacles; i++) {
-                let obstaclePos;
-                do {
-                    obstaclePos = {
-                        x: Math.floor(Math.random() * size),
-                        y: Math.floor(Math.random() * size)
-                    };
-                } while (
-                    (obstaclePos.x === robotPos.x && obstaclePos.y === robotPos.y) ||
-                    (obstaclePos.x === goalPos.x && obstaclePos.y === goalPos.y) ||
-                    obstacles.some(obs => obs.x === obstaclePos.x && obs.y === obstaclePos.y)
-                );
-                
-                obstacles.push(obstaclePos);
-            }
-            
-            // Торды толтыру
-            for (let y = 0; y < size; y++) {
-                for (let x = 0; x < size; x++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    cell.dataset.x = x;
-                    cell.dataset.y = y;
-                    
-                    if (x === robotPos.x && y === robotPos.y) {
-                        cell.classList.add('robot');
-                        cell.textContent = '🤖';
-                    } else if (x === goalPos.x && y === goalPos.y) {
-                        cell.classList.add('goal');
-                        cell.textContent = '⭐';
-                    } else if (obstacles.some(obs => obs.x === x && obs.y === y)) {
-                        cell.classList.add('obstacle');
-                        cell.textContent = '🚫';
-                    }
-                    
-                    board.appendChild(cell);
-                }
-            }
-            
-            // Командалар тізімі
-            const commands = [];
-            
-            // Команда түймелері
-            document.querySelectorAll('.command[data-command]').forEach(button => {
-                button.addEventListener('click', function() {
-                    if (commands.length < levelDifficulty[currentLevel].commands) {
-                        const command = this.getAttribute('data-command');
-                        commands.push(command);
-                        
-                        const commandElement = document.createElement('div');
-                        commandElement.className = 'command';
-                        commandElement.textContent = this.textContent;
-                        commandElement.dataset.command = command;
-                        
-                        commandElement.addEventListener('click', function() {
-                            const index = commands.indexOf(command);
-                            if (index > -1) {
-                                commands.splice(index, 1);
-                                commandList.removeChild(this);
-                            }
-                        });
-                        
-                        commandList.appendChild(commandElement);
-                    } else {
-                        showResult('Сізде командалар шегіне жеттіңіз!', false);
-                    }
-                });
-            });
-            
-            // Командаларды орындау
-            executeButton.addEventListener('click', function() {
-                let currentPos = { ...robotPos };
-                let success = true;
-                let collectedItems = 0;
-                
-                // Роботты қозғалту
-                for (let i = 0; i < commands.length; i++) {
-                    const command = commands[i];
-                    
-                    switch(command) {
-                        case 'up':
-                            currentPos.y = Math.max(0, currentPos.y - 1);
-                            break;
-                        case 'down':
-                            currentPos.y = Math.min(size - 1, currentPos.y + 1);
-                            break;
-                        case 'left':
-                            currentPos.x = Math.max(0, currentPos.x - 1);
-                            break;
-                        case 'right':
-                            currentPos.x = Math.min(size - 1, currentPos.x + 1);
-                            break;
-                    }
-                    
-                    // Кедергіге соғылуды тексеру
-                    if (obstacles.some(obs => obs.x === currentPos.x && obs.y === currentPos.y)) {
-                        showResult('Робот кедергіге соғылып қалды!', false);
-                        success = false;
-                        break;
-                    }
-                }
-                
-                // Мақсатқа жетуді тексеру
-                if (success) {
-                    if (currentPos.x === goalPos.x && currentPos.y === goalPos.y) {
-                        score += currentLevel * 10;
-                        showResult(`Тамаша! Робот мақсатқа жетті! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
-                    } else {
-                        showResult('Робот мақсатқа жете алмады. Командаларды қайта тексеріңіз.', false);
-                    }
-                }
-                
-                updateStats();
-            });
-            
-            // Қалпына келтіру
-            resetButton.addEventListener('click', function() {
-                commands.length = 0;
-                commandList.innerHTML = '';
-            });
-        }
-        
-        // ========== Код-Құрастырушы ойыны ==========
-        function setupCodeGame() {
-            const codeArea = document.getElementById('code-area');
-            const runButton = document.getElementById('run-code');
-            const board = document.getElementById('code-board');
-            
-            // Тазарту
-            codeArea.innerHTML = 'Кодты осы жерге тастаңыз';
-            board.innerHTML = '';
-            
-            // Торды құру
-            const size = 5;
-            board.style.gridTemplateColumns = `repeat(${size}, 60px)`;
-            board.style.gridTemplateRows = `repeat(${size}, 60px)`;
-            
-            // Кейіпкердің бастапқы орны
-            let charPos = { x: 0, y: 0 };
-            
-            // Мақсат орны
-            let goalPos = { x: size-1, y: size-1 };
-            
-            // Торды толтыру
-            for (let y = 0; y < size; y++) {
-                for (let x = 0; x < size; x++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'cell';
-                    cell.dataset.x = x;
-                    cell.dataset.y = y;
-                    
-                    if (x === charPos.x && y === charPos.y) {
-                        cell.classList.add('robot');
-                        cell.textContent = '😊';
-                    } else if (x === goalPos.x && y === goalPos.y) {
-                        cell.classList.add('goal');
-                        cell.textContent = '🏁';
-                    }
-                    
-                    board.appendChild(cell);
-                }
-            }
-            
-            // Блоктарды сүйреу
-            document.querySelectorAll('.code-block').forEach(block => {
-                block.addEventListener('dragstart', function(e) {
-                    e.dataTransfer.setData('text/plain', this.getAttribute('data-command'));
-                });
-            });
-            
-            // Код аймағына тастау
-            codeArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.style.backgroundColor = '#e1f5fe';
-            });
-            
-            codeArea.addEventListener('dragleave', function() {
-                this.style.backgroundColor = '#f5fdff';
-            });
-            
-            codeArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.backgroundColor = '#f5fdff';
-                
-                const command = e.dataTransfer.getData('text/plain');
-                const commandElement = document.createElement('div');
-                commandElement.className = 'code-block';
-                commandElement.textContent = document.querySelector(`.code-block[data-command="${command}"]`).textContent;
-                commandElement.dataset.command = command;
-                commandElement.draggable = true;
-                
-                commandElement.addEventListener('dragstart', function(e) {
-                    e.dataTransfer.setData('text/plain', this.getAttribute('data-command'));
-                });
-                
-                commandElement.addEventListener('click', function() {
-                    this.remove();
-                });
-                
-                this.appendChild(commandElement);
-            });
-            
-            // Кодты орындау
-            runButton.addEventListener('click', function() {
-                const commands = [];
-                const commandElements = codeArea.querySelectorAll('.code-block');
-                
-                commandElements.forEach(element => {
-                    commands.push(element.getAttribute('data-command'));
-                });
-                
-                let currentPos = { ...charPos };
-                let success = true;
-                
-                // Кейіпкерді қозғалту
-                for (let i = 0; i < commands.length; i++) {
-                    const command = commands[i];
-                    
-                    switch(command) {
-                        case 'move':
-                            if (currentPos.x < size - 1) currentPos.x++;
-                            break;
-                        case 'turnLeft':
-                            // Бұл мысалда бұрылу әрекеті жоқ
-                            break;
-                        case 'turnRight':
-                            // Бұл мысалда бұрылу әрекеті жоқ
-                            break;
-                        case 'jump':
-                            if (currentPos.x < size - 2) currentPos.x += 2;
-                            break;
-                    }
-                    
-                    // Торды жаңарту
-                    updateCodeBoard(currentPos);
-                    
-                    // Мақсатқа жетуді тексеру
-                    if (currentPos.x === goalPos.x && currentPos.y === goalPos.y) {
-                        score += currentLevel * 10;
-                        showResult(`Керемет! Кейіпкер мақсатқа жетті! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
-                        success = true;
-                        break;
-                    }
-                }
-                
-                if (success && currentPos.x !== goalPos.x) {
-                    showResult('Кейіпкер мақсатқа жете алмады. Кодты қайта тексеріңіз.', false);
-                }
-                
-                updateStats();
-            });
-            
-            // Торды жаңарту функциясы
-            function updateCodeBoard(pos) {
-                const cells = board.querySelectorAll('.cell');
-                cells.forEach(cell => {
-                    cell.classList.remove('robot');
-                    cell.textContent = '';
-                    
-                    const x = parseInt(cell.dataset.x);
-                    const y = parseInt(cell.dataset.y);
-                    
-                    if (x === pos.x && y === pos.y) {
-                        cell.classList.add('robot');
-                        cell.textContent = '😊';
-                    }
-                });
-            }
-        }
-        
-        // ========== Логикалық Квест-Аймақ ойыны ==========
-        function setupQuestGame() {
-            const patternExample = document.getElementById('pattern-example');
-            const patternOptions = document.getElementById('pattern-options');
-            
-            // Тазарту
-            patternExample.innerHTML = '';
-            patternOptions.innerHTML = '';
-            
-            // Үлгілерді құру
-            const patterns = [
-                { type: 'shape', sequence: ['🔺', '🔹', '🔺', '🔹', '?'], options: ['🔺', '🔹', '🔶'], answer: '🔺' },
-                { type: 'color', sequence: ['🔴', '🟢', '🔴', '🟢', '?'], options: ['🔴', '🟢', '🟡'], answer: '🔴' },
-                { type: 'size', sequence: ['⬛', '⬜', '⬛', '⬜', '?'], options: ['⬛', '⬜', '🟫'], answer: '⬛' }
-            ];
-            
-            const pattern = patterns[(currentLevel - 1) % patterns.length];
-            
-            // Үлгі мысалын көрсету
-            pattern.sequence.forEach((item, index) => {
-                const cell = document.createElement('div');
-                cell.className = 'pattern-cell';
-                cell.textContent = item === '?' ? '?' : item;
-                patternExample.appendChild(cell);
-            });
-            
-            // Нұсқаларды көрсету
-            pattern.options.forEach(option => {
-                const button = document.createElement('button');
-                button.className = 'option';
-                button.textContent = option;
-                button.addEventListener('click', function() {
-                    if (option === pattern.answer) {
-                        score += currentLevel * 10;
-                        showResult(`Дұрыс! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
-                    } else {
-                        showResult('Қате! Қайталап көріңіз.', false);
-                    }
-                    updateStats();
-                });
-                patternOptions.appendChild(button);
-            });
-        }
-        
-        // ========== Сандық Детектив ойыны ==========
-        function setupDetectiveGame() {
-            const codedMessage = document.getElementById('coded-message');
-            const decodedInput = document.getElementById('decoded-input');
-            const checkButton = document.getElementById('check-decoding');
-            
-            // Тазарту
-            codedMessage.innerHTML = '';
-            decodedInput.value = '';
-            
-            // Кодталған хабарлар
-            const messages = [
-                { coded: '8-1-16-1-18', decoded: 'сапар', hint: 'Бұл сөз саяхат дегенді білдіреді' },
-                { coded: '1-13-1-19', decoded: 'амаз', hint: 'Бұл сөз үлкен онлайн дүкенді білдіреді' },
-                { coded: '18-15-2-15-20', decoded: 'робот', hint: 'Бұл сөз бағдарламаланған машинаны білдіреді' }
-            ];
-            
-            const message = messages[(currentLevel - 1) % messages.length];
-            
-            // Кодталған хабарды көрсету
-            codedMessage.innerHTML = `<h3>Кодталған хабар: ${message.coded}</h3>`;
-            
-            // Тексеру түймесі
-            checkButton.addEventListener('click', function() {
-                if (decodedInput.value.toLowerCase() === message.decoded) {
-                    score += currentLevel * 10;
-                    showResult(`Дұрыс! Сіз хабарды дұрыс шештіңіз! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
-                } else {
-                    showResult('Қате! Қайталап көріңіз.', false);
-                    adviceText.textContent = message.hint;
-                    aiAdvice.style.display = 'block';
-                }
-                updateStats();
-            });
-        }
-        
-        // ========== Санайтын Машина ойыны ==========
-        function setupCountingGame() {
-            const countingItems = document.getElementById('counting-items');
-            const numberOptions = document.getElementById('number-options');
-            
-            // Тазарту
-            countingItems.innerHTML = '';
-            numberOptions.innerHTML = '';
-            
-            // Нысандар саны
-            const counts = [3, 5, 7, 9, 12];
-            const count = counts[(currentLevel - 1) % counts.length];
-            
-            // Нысандарды көрсету
-            for (let i = 0; i < count; i++) {
-                const item = document.createElement('div');
-                item.className = 'counting-item';
-                item.textContent = '🍎';
-                countingItems.appendChild(item);
-            }
-            
-            // Сан нұсқаларын көрсету
-            for (let i = 1; i <= 15; i++) {
-                const button = document.createElement('button');
-                button.className = 'number-option';
-                button.textContent = i;
-                button.addEventListener('click', function() {
-                    if (i === count) {
-                        score += currentLevel * 10;
-                        showResult(`Дұрыс! Суретте ${count} алма бар! Сіз ${currentLevel * 10} ұпай жинадыңыз!`, true);
-                    } else {
-                        showResult(`Қате! Суретте ${count} алма бар. Қайталап көріңіз.`, false);
-                    }
-                    updateStats();
-                });
-                numberOptions.appendChild(button);
-            }
-        }
-        
-        // ========== Тест ойыны ==========
-        function setupTestGame(testType) {
-            const testProgress = document.getElementById('test-progress');
-            const testQuestion = document.getElementById('test-question');
-            const testOptions = document.getElementById('test-options');
-            const nextQuestionButton = document.getElementById('next-question');
-            const testResults = document.getElementById('test-results');
-            const testScoreElement = document.getElementById('test-score');
-            const testTotalElement = document.getElementById('test-total');
-            const testReview = document.getElementById('test-review');
-            
-            // Тест сұрақтарын құру
-            testQuestions = [];
-            
-            if (testType === 'test1') {
-                // 1-сынып тест сұрақтары
-                testQuestions = [
-                    {
-                        question: "Компьютердің негізгі бөліктері қандай?",
-                        options: [
-                            "Тінтуір, пернетақта, монитор",
-                            "Қалам, дәптер, кітап",
-                            "Теледидар, телефон, радио"
-                        ],
-                        correct: 0,
-                        explanation: "Компьютердің негізгі бөліктері - тінтуір, пернетақта және монитор."
-                    },
-                    {
-                        question: "Файл деген не?",
-                        options: [
-                            "Ақпаратты сақтау үшін пайдаланылатын бірлік",
-                            "Компьютердің сыртқы құрылғысы",
-                            "Компьютердің ішкі бөлігі"
-                        ],
-                        correct: 0,
-                        explanation: "Файл - ақпаратты сақтау үшін пайдаланылатын бірлік."
-                    },
-                    {
-                        question: "Бума деген не?",
-                        options: [
-                            "Файлдарды топтастыру үшін пайдаланылады",
-                            "Қағаз бумасы",
-                            "Компьютердің бөлігі"
-                        ],
-                        correct: 0,
-                        explanation: "Бума - файлдарды топтастыру үшін пайдаланылады."
-                    }
-                ];
-            } else if (testType === 'test2') {
-                // 2-сынып тест сұрақтары
-                testQuestions = [
-                    {
-                        question: "Алгоритм деген не?",
-                        options: [
-                            "Мәселені шешу тәртібі",
-                            "Компьютер тілі",
-                            "Математикалық формула"
-                        ],
-                        correct: 0,
-                        explanation: "Алгоритм - мәселені шешу тәртібі."
-                    },
-                    {
-                        question: "Графикалық редакторда не жасауға болады?",
-                        options: [
-                            "Суреттер мен сызбалар",
-                            "Мәтіндер мен есептер",
-                            "Дыбыстар мен әндер"
-                        ],
-                        correct: 0,
-                        explanation: "Графикалық редакторда суреттер мен сызбалар жасауға болады."
-                    },
-                    {
-                        question: "Мәтін редакторы не үшін қажет?",
-                        options: [
-                            "Мәтіндерді өңдеу үшін",
-                            "Суреттерді салу үшін",
-                            "Есептерді шешу үшін"
-                        ],
-                        correct: 0,
-                        explanation: "Мәтін редакторы мәтіндерді өңдеу үшін қажет."
-                    }
-                ];
-            } else if (testType === 'test3') {
-                // 3-сынып тест сұрақтары
-                testQuestions = [
-                    {
-                        question: "Программалау деген не?",
-                        options: [
-                            "Компьютерге тапсырма беру",
-                            "Компьютерді жөндеу",
-                            "Компьютерді қосу"
-                        ],
-                        correct: 0,
-                        explanation: "Программалау - компьютерге тапсырма беру."
-                    },
-                    {
-                        question: "Робот не істей алады?",
-                        options: [
-                            "Бағдарлама бойынша әрекет жасау",
-                            "Ойлау және сезіну",
-                            "Адам сияқты әрекет жасау"
-                        ],
-                        correct: 0,
-                        explanation: "Робот бағдарлама бойынша әрекет жасай алады."
-                    },
-                    {
-                        question: "Интернет не үшін қажет?",
-                        options: [
-                            "Ақпарат алмасу үшін",
-                            "Компьютерді жылыту үшін",
-                            "Электричество үнемдеу үшін"
-                        ],
-                        correct: 0,
-                        explanation: "Интернет ақпарат алмасу үшін қажет."
-                    }
-                ];
-            } else if (testType === 'test4') {
-                // 4-сынып тест сұрақтары
-                testQuestions = [
-                    {
-                        question: "Видео редакторы не үшін қажет?",
-                        options: [
-                            "Бейнелерді өңдеу үшін",
-                            "Суреттерді салу үшін",
-                            "Мәтіндерді жазу үшін"
-                        ],
-                        correct: 0,
-                        explanation: "Видео редакторы бейнелерді өңдеу үшін қажет."
-                    },
-                    {
-                        question: "Презентация деген не?",
-                        options: [
-                            "Ақпаратты көрнекі түрде ұсыну",
-                            "Кітап оқу",
-                            "Ән айту"
-                        ],
-                        correct: 0,
-                        explanation: "Презентация - ақпаратты көрнекі түрде ұсыну."
-                    },
-                    {
-                        question: "Қауіпсіз пароль қалай болуы керек?",
-                        options: [
-                            "Ұзын және күрделі",
-                            "Қысқа және жадтау оңай",
-                            "Тек сандардан тұруы керек"
-                        ],
-                        correct: 0,
-                        explanation: "Қауіпсіз пароль ұзын және күрделі болуы керек."
-                    }
-                ];
-            }
-            
-            currentQuestion = 0;
-            testScore = 0;
-            testResults.style.display = 'none';
-            nextQuestionButton.style.display = 'none';
-            
-            showTestQuestion();
-        }
-        
-        function showTestQuestion() {
-            const testProgress = document.getElementById('test-progress');
-            const testQuestion = document.getElementById('test-question');
-            const testOptions = document.getElementById('test-options');
-            const nextQuestionButton = document.getElementById('next-question');
-            
-            testProgress.textContent = `Сұрақ ${currentQuestion + 1}/${testQuestions.length}`;
-            testQuestion.textContent = testQuestions[currentQuestion].question;
-            
-            testOptions.innerHTML = '';
-            testQuestions[currentQuestion].options.forEach((option, index) => {
-                const optionElement = document.createElement('div');
-                optionElement.className = 'test-option';
-                optionElement.textContent = option;
-                optionElement.dataset.index = index;
-                
-                optionElement.addEventListener('click', function() {
-                    const selectedIndex = parseInt(this.dataset.index);
-                    const correctIndex = testQuestions[currentQuestion].correct;
-                    
-                    // Барлық нұсқаларды өшіру
-                    document.querySelectorAll('.test-option').forEach(opt => {
-                        opt.style.pointerEvents = 'none';
-                    });
-                    
-                    // Дұрыс және қате жауаптарды белгілеу
-                    if (selectedIndex === correctIndex) {
-                        this.classList.add('correct');
-                        testScore++;
-                        playSound('correct');
-                    } else {
-                        this.classList.add('incorrect');
-                        document.querySelectorAll('.test-option')[correctIndex].classList.add('correct');
-                        playSound('incorrect');
-                    }
-                    
-                    nextQuestionButton.style.display = 'block';
-                });
-                
-                testOptions.appendChild(optionElement);
-            });
-        }
-        
-        document.getElementById('next-question').addEventListener('click', function() {
-            currentQuestion++;
-            
-            if (currentQuestion < testQuestions.length) {
-                showTestQuestion();
-                this.style.display = 'none';
-            } else {
-                showTestResults();
-            }
-        });
-        
-        function showTestResults() {
-            const testResults = document.getElementById('test-results');
-            const testScoreElement = document.getElementById('test-score');
-            const testTotalElement = document.getElementById('test-total');
-            const testReview = document.getElementById('test-review');
-            
-            testScoreElement.textContent = testScore;
-            testTotalElement.textContent = testQuestions.length;
-            
-            testReview.innerHTML = '';
-            testQuestions.forEach((question, index) => {
-                const reviewItem = document.createElement('div');
-                reviewItem.className = `test-review-item ${index === question.correct ? 'correct' : 'incorrect'}`;
-                reviewItem.innerHTML = `
-                    <p><strong>Сұрақ ${index + 1}:</strong> ${question.question}</p>
-                    <p><strong>Дұрыс жауап:</strong> ${question.options[question.correct]}</p>
-                    <p><strong>Түсіндірме:</strong> ${question.explanation}</p>
-                `;
-                testReview.appendChild(reviewItem);
-            });
-            
-            document.getElementById('test-game').querySelector('.test-progress').style.display = 'none';
-            document.getElementById('test-game').querySelector('.test-question').style.display = 'none';
-            document.getElementById('test-game').querySelector('.test-options').style.display = 'none';
-            document.getElementById('next-question').style.display = 'none';
-            
-            testResults.style.display = 'block';
-            
-            // Ұпай қосу
-            score += testScore * 10;
-            updateStats();
-            
-            if (testScore === testQuestions.length) {
-                playSound('success');
-            }
-        }
-        
-        // Дыбыс ойнату функциясы
-        function playSound(type) {
-            // Бұл жерде нақты дыбыс файлдарын қосуға болады
-            // Қазіргі уақытта біз тек консольге хабарлама шығарамыз
-            console.log(`${type} дыбысы ойнатылуда`);
-        }
-        
-        // Нәтиже хабарламасын көрсету
-        function showResult(message, isSuccess) {
-            resultMessage.textContent = message;
-            resultMessage.className = `result-message ${isSuccess ? 'success' : 'error'}`;
-            resultMessage.style.display = 'block';
-            
-            if (isSuccess) {
-                nextLevelButton.style.display = 'block';
-                
-                // AI кеңесін көрсету
-                const adviceMessages = [
-                    "Керемет! Сіз алгоритмдік ойлауда жақсы дамып келесіз.",
-                    "Тамаша! Келесі деңгейде бірнеше кедергілер болады, оларды ескеріңіз.",
-                    "Жақсы жұмыс! Енді сіз күрделірек тапсырмаларды шеше аласыз.",
-                    "Керемет! Сіздің логикалық ойлау қабілетіңіз дамып келеді.",
-                    "Тамаша! Келесі деңгейде бірнеше қосымша командалар қажет болады."
-                ];
-                
-                adviceText.textContent = adviceMessages[Math.floor(Math.random() * adviceMessages.length)];
-                aiAdvice.style.display = 'block';
-                
-                // Сәтті дыбыс
-                playSound('success');
-            } else {
-                nextLevelButton.style.display = 'none';
-                playSound('incorrect');
-            }
-        }
-        
-        // Келесі деңгей түймесі
-        nextLevelButton.addEventListener('click', function() {
-            currentLevel++;
-            if (currentLevel > 5) {
-                showResult('Керемет! Сіз барлық деңгейлерді аяқтадыңыз!', true);
-                nextLevelButton.style.display = 'none';
-            } else {
-                setupGame(currentGame);
-                updateStats();
-                resultMessage.style.display = 'none';
-                nextLevelButton.style.display = 'none';
-                aiAdvice.style.display = 'none';
-            }
-        });
-        
-        // Бастапқы сүзгілеуді орнату
-        filterGamesByClass();
-    </script>
+    /* 2-сынып */
+    {
+      "id":"grade2","name":"2-сынып",
+      "topics":[
+        {"key":"comp_parts","title":"Компьютер құрылғылары","info":"Жүйелік блок, монитор, пернетақта, тінтуір, принтер — негізгі құрылғылар.","gameType":"match","test":[
+          {"q":"Принтер не істейді?","a":["Басып шығарады","Қайнатқыш","Ойнатады"],"correct":0},
+          {"q":"Сканер неге керек?","a":["Құжатты электронды түрде көшіреді","Тәтті пісіреді","Ойындар ойнайды"],"correct":0},
+          {"q":"Монитор не көрсетеді?","a":["Сурет пен мәтінді","Ауаны","Тамақты"],"correct":0},
+          {"q":"Жүйелік блокта не бар?","a":["Процессор, жад","Жұмыс үстелі","Кресло"],"correct":0},
+          {"q":"Тінтуірдің батырмасы не үшін?","a":["Таңдау үшін","Кесінді үшін","Жылжыту үшін"],"correct":0}
+        ]},
+        {"key":"info_props","title":"Ақпарат және оның қасиеттері","info":"Ақпараттың қасиеттері: дәлдік, жылдамдық, жеткізу тәсілі. Ақпарат түрлі форматта болады.","gameType":"match","test":[
+          {"q":"Ақпараттың қандай қасиеті бар?","a":["Дәлдік","Тәттілік","Ауа"],"correct":0},
+          {"q":"Деректер қалай жіберіледі?","a":["Желі арқылы","Пошта арқылы ғана","Сырттан келмейді"],"correct":0},
+          {"q":"Сурет қандай файлда сақталуы мүмкін?","a":["PNG","TXT","MP3"],"correct":0},
+          {"q":"Дыбыс файлдарын не сақтайды?","a":["MP3","DOCX","XLS"],"correct":0},
+          {"q":"Мәтін ақпаратқа не жатады?","a":["Иә","Жоқ","Кейде"],"correct":0}
+        ]},
+        {"key":"paint2","title":"Paint — кеңейтілген","info":"Құралдарды тереңірек қолдануды үйренеміз: түс палитрасы, пішіндерді біріктіру, суретті сақтау.", "gameType":"paint","test":[
+          {"q":"Палитра не істейді?","a":["Түстерді таңдау","Кітап оқу","Мәтін жазу"],"correct":0},
+          {"q":"Суретті қалай ашамыз?","a":["Файл → Ашық","Файл → Жабу","Файл → Жою"],"correct":0},
+          {"q":"Қабаттармен жұмыс — не үшін?","a":["Суреттерді бөлек өңдеу үшін","Тамақты пісіру үшін","Музыканы біріктіру үшін"],"correct":0},
+          {"q":"Кисть не істейді?","a":["Қалың сызық салады","Фон өзгерте алмайды","Сұрақ қояды"],"correct":0},
+          {"q":"PNG қандай артықшылық береді?","a":["Кескін сапасы сақталады","Мәтіндік файл","Жоқ"],"correct":0}
+        ]},
+        {"key":"algorithm2","title":"Алгоритм және орындаушы","info":"Орындаушы — алгоритмдегі командаларды орындайтын зат (адам, робот). Қарапайым цикл және командалар.","gameType":"sequence","test":[
+          {"q":"Орындаушы кім?","a":["Робот/адам","Сыпырғыш","Жинақтаушы"],"correct":0},
+          {"q":"Цикл не істейді?","a":["Қайталау","Тоқтату","Өшіру"],"correct":0},
+          {"q":"Командаларды кім береді?","a":["Адам","Жансыз зат","Кітап"],"correct":0},
+          {"q":"Алгоритм қандай болуы керек?","a":["Түсінікті","Жасырын","Қиялға сай"],"correct":0},
+          {"q":"Робот қайсысын орындайды?","a":["Тапсырманы","Ойын ойнауды","Өлең жазуды"],"correct":0}
+        ]},
+        {"key":"text_editor","title":"Мәтіндік редактор (Word)","info":"Мәтін теруді, әріптер мен абзацтарды, тізімдер жасауды үйренеміз.", "gameType":"match","test":[
+          {"q":"Абзац деген не?","a":["Параграф, мәтін бөлігі","Сурет","Жүйелік блок"],"correct":0},
+          {"q":"Мәтін қалай өсіреміз?","a":["Шрифт өлшемін өзгертіп","Экранды жылжытамыз","Тінтуірді өшіреміз"],"correct":0},
+          {"q":"Кесте не үшін?","a":["Мәліметті реттеу үшін","Дыбысты сақтау үшін","Сурет салу үшін"],"correct":0},
+          {"q":"Сөзді өшіру үшін не істейміз?","a":["Delete/Backspace","Сақтау","Басып шығару"],"correct":0},
+          {"q":"Мәтінге сурет қалай кірістіреміз?","a":["Кірістіру → Сурет","Таңдау → Басып шығару","Файл → Жою"],"correct":0}
+        ]},
+        {"key":"scratch_jr","title":"Scratch Junior / мультфильм жасау","info":"Спрайттар, командалар және қарапайым анимациялардан ықшам мультфильм жасау.", "gameType":"animation","test":[
+          {"q":"Спрайт деген не?","a":["Көрінетін кейіпкер","Жарықтандыру","Файл форматы"],"correct":0},
+          {"q":"Қозғалыс блоктары не істейді?","a":["Спрайтты жылжытады","Өзгертпейді","Көрінбеу үшін"],"correct":0},
+          {"q":"Оқиға қалай басталады?","a":["Кликпен/басталомен","Тыныштықпен","Тек шын мәнінде"],"correct":0},
+          {"q":"Дыбыс қосуға бола ма?","a":["Иә","Жоқ","Тек мәтін"],"correct":0},
+          {"q":"Мультфильм неге пайдалы?","a":["Креативті дамытуға","Тек ойынға","Тек математикаға"],"correct":0}
+        ]}
+      ]
+    },
+
+    /* 3-сынып */
+    {
+      "id":"grade3","name":"3-сынып",
+      "topics":[
+        {"key":"file_folder","title":"Файл және бума","info":"Файл — дерек. Бумалар (қалталар) — файлдарды ұйымдастыру үшін. Көшіріп-қою және сақтауды үйретеді.","gameType":"match","test":[
+          {"q":"Файл деген не?","a":["Деректер жиынтығы","Кітап","Ойын"],"correct":0},
+          {"q":"Қалтаның тағы бір атауы қандай?","a":["Бума","Түйме","Таңба"],"correct":0},
+          {"q":"Файлды қалай көшіреміз?","a":["Копировать → Вставить","Жою","Ашу"],"correct":0},
+          {"q":"Файл кеңейткіші не істейді?","a":["Файл түрін көрсетеді","Түсті өзгертеді","Құрылғыны іске қосады"],"correct":0},
+          {"q":"Файлды сақтау үшін не істейміз?","a":["Сақтау батырмасы","Жабу батырмасы","Өшіру батырмасы"],"correct":0}
+        ]},
+        {"key":"internet","title":"Интернет негіздері","info":"Интернет — желілер жиынтығы. Деректерді іздеу және қауіпсіздік (пароль сақтауды үйрету).","gameType":"match","test":[
+          {"q":"Интернет не?","a":["Желі","Тамақ","Жапырақ"],"correct":0},
+          {"q":"Іздеу жүйесі не деп аталады?","a":["Google","Кітап","Телефон"],"correct":0},
+          {"q":"Құпия сөзді бөлісуге бола ма?","a":["Жоқ","Иә","Кейде"],"correct":0},
+          {"q":"Веб-сайтқа қалай кіреміз?","a":["URL арқылы","Өлең арқылы","Аспаздық арқылы"],"correct":0},
+          {"q":"Сайт қауіпсіз бе қалай тексереміз?","a":["HTTPS және құпия белгілер","Түсіне қарап","Тек атауға қарап"],"correct":0}
+        ]},
+        {"key":"word3","title":"Мәтіндік редактор (кеңейтілген)","info":"Күрделі абзацтар, кестелер жасау, бағандармен жұмыс, форматтау ережелері.","gameType":"match","test":[
+          {"q":"Маркерленген тізім қалай жасалады?","a":["Басу арқылы","Өшіріп","Соқтыру арқылы"],"correct":0},
+          {"q":"Кесте не үшін?","a":["Мәліметтерді орналастыру үшін","Құрылғыны қорғау үшін","Музыканы сақтау үшін"],"correct":0},
+          {"q":"Абзац туралау опцияларын атаңыз","a":["Солға/Орта/Оңға","Жоғары/Төмен","Алғаш/Соң"],"correct":0},
+          {"q":"Суретті мәтіннің ішіне қалай қоюға болады?","a":["Кірістіру → Сурет","Үйге барып","Жарнамаға"],"correct":0},
+          {"q":"Шрифтты қалай өзгертуге болады?","a":["Шрифт мәзірінен","Клавиатурамен","Жабық мәтінмен"],"correct":0}
+        ]},
+        {"key":"paint3","title":"Графика: коллаж және палитра","info":"Коллаж жасау, суреттерді біріктіру, түс палитрасын дұрыс таңдау.","gameType":"paint","test":[
+          {"q":"Коллаж не?","a":["Бірнеше суретті біріктіру","Бір суретті өшіру","Тек мәтін жазу"],"correct":0},
+          {"q":"Палитрата нені таңдаймыз?","a":["Түстерді","Түлектерді","Кітаптарды"],"correct":0},
+          {"q":"Суретке қалай фон береміз?","a":["Толтыру құралымен","Жою арқылы","Көшіру арқылы"],"correct":0},
+          {"q":"Сурет сапасын қалай сақтау керек?","a":["PNG/JPG","DOC","XLS"],"correct":0},
+          {"q":"Құралдар панелінде не бар?","a":["Қарындаш, кисть, өшіргіш","Кітап, қарта","Тостағандар"],"correct":0}
+        ]},
+        {"key":"scratch3","title":"Scratch: оқиға және айнымалылар","info":"Оқиғалар, айнымалылар, шарттар — мини-ойындар жасау.", "gameType":"animation","test":[
+          {"q":"Айнымалы не үшін?","a":["Деректерді сақтау","Ойын ойнау","Сырттағы ауа"],"correct":0},
+          {"q":"Шарт қалай жазылады?","a":["Егер ... онда ...","Керісінше","Тек цифрлармен"],"correct":0},
+          {"q":"Оқиға не істейді?","a":["Бастайды әрекетті","Тоқтатады","Жасырды"],"correct":0},
+          {"q":"Мини-ойын жасау үшін не керек?","a":["Комбинация блоктары","Көп мәтін","Ыстық су"],"correct":0},
+          {"q":"Дыбыс блоктары не істейді?","a":["Дыбыс қосады","Сәтсіз етеді","Шығармайды"],"correct":0}
+        ]},
+        {"key":"alg3","title":"Алгоритм: тармақталу және цикл","info":"Тармақталу (егер — онда), цикл құрылымдары және блок-схемалар.", "gameType":"sequence","test":[
+          {"q":"Тармақталу деген не?","a":["Егер шарт орындалса — онда ...","Тек қайталау","Жарайды"],"correct":0},
+          {"q":"Цикл не істейді?","a":["Қайталап береді","Тоқтатады","Өшіреді"],"correct":0},
+          {"q":"Блок-схема не үшін?","a":["Алгоритмді суреттеу үшін","Тамақты дайындау үшін","Музыканы жазу үшін"],"correct":0},
+          {"q":"Шарт дұрыс болмаса не болады?","a":["Басқа әрекет орындалады","Барлығы тоқтайды","Кімге білмейді"],"correct":0},
+          {"q":"Алгоритмнің негізгі элементі не?","a":["Қадамдар","Суреттер","Ән"],"correct":0}
+        ]}
+      ]
+    },
+
+    /* 4-сынып */
+    {
+      "id":"grade4","name":"4-сынып",
+      "topics":[
+        {"key":"arch","title":"Компьютер архитектурасы","info":"Процессор, оперативті жад (RAM), қатты диск (HDD/SSD) туралы негізгі түсінік.","gameType":"match","test":[
+          {"q":"Процессор не атқарады?","a":["Есептеуді орындайды","Сақтайды","Басып шығарады"],"correct":0},
+          {"q":"RAM не үшін?","a":["Уақытша деректерді сақтайды","Тұрақты сақтайды","Принтер басады"],"correct":0},
+          {"q":"HDD қандай қызмет атқарады?","a":["Деректерді тұрақты сақтайды","Жылжытады","Жай көрініс"],"correct":0},
+          {"q":"SSD не артықшылығы бар?","a":["Жылдам жүктеу","Қымбат емес","Ауа тазалау"],"correct":0},
+          {"q":"Процессор жылдамдығы неге әсер етеді?","a":["Бағдарламаның жылдам орындалуына","Түстің ашықтығына","Сыртқы дыбысқа"],"correct":0}
+        ]},
+        {"key":"internet4","title":"Интернетпен жұмыс (кеңейтілген)","info":"Іздеу, ақпараттың сенімділігін бағалау, электронды пошта және онлайн қауіпсіздік.","gameType":"match","test":[
+          {"q":"Іздеу нәтижесін қалай бағалаймыз?","a":["Сенімді көздер мен датаға қарап","Көрініске қарап","Тек пост санын есептеп"],"correct":0},
+          {"q":"Электронды хат не үшін?","a":["Хабарлама жіберу","Дүкенге бару","Тамақты пісіру"],"correct":0},
+          {"q":"Парольды қалай сақтау керек?","a":["Жеке және мықты","Халпы қолданған","Барлығымен бөлісу"],"correct":0},
+          {"q":"Phishing деген не?","a":["Жалған сайттар арқылы алдау","Тікелей оқу","Сурет салу"],"correct":0},
+          {"q":"HTTPS протоколы нені білдіреді?","a":["Қауіпсіз байланыс","Өшірілген сайт","Жай ғана жазу"],"correct":0}
+        ]},
+        {"key":"word4","title":"Мәтіндік редактор: стильдер мен формат","info":"Стильдер, бағандар, кестелерді форматтау, презентация элементтері туралы.", "gameType":"match","test":[
+          {"q":"Стиль не үшін?","a":["Мәтінді бір форматқа келтіру үшін","Шрифтты өшіру үшін","Дыбысты қосу үшін"],"correct":0},
+          {"q":"Бағандар қайда пайдалы?","a":["Басылымды ұйымдастыруда","Ойын ойнауда","Музыканы сақтау"],"correct":0},
+          {"q":"Кесте ұяшықтарын қалай біріктіреміз?","a":["Ұяшықтарды біріктіру арқылы","Копировать арқылы","Сақтау арқылы"],"correct":0},
+          {"q":"Презентацияда анимация не істейді?","a":["Слайд элементін қозғайды","Файлты жояды","Сақтайды"],"correct":0},
+          {"q":"Сөздерді тез табу үшін не қолданамыз?","a":["Іздеу (Ctrl+F)","Басып шығару","Түзу"],"correct":0}
+        ]},
+        {"key":"ppt","title":"Презентация жасау (PowerPoint)","info":"Слайдтар, дизайн, анимациялар, дауыс қосу, презентация дайындау принциптері.","gameType":"animation","test":[
+          {"q":"Слайд не?","a":["Бір көрінетін бет","Құжаттың бұтағы","Тек сурет"],"correct":0},
+          {"q":"Анимация не үшін?","a":["Элементті әсерлі көрсету үшін","Өшіру үшін","Қоспа үшін"],"correct":0},
+          {"q":"Дауыс қалай қосылады?","a":["Кірістіру → Дыбыс","Көшіру арқылы","Өшіру арқылы"],"correct":0},
+          {"q":"Дизайн неге маңызды?","a":["Көрініс пен түсінікті жеңілдету үшін","Файлты ұзартады","Жүйені баяулататы"],"correct":0},
+          {"q":"Слайдтарды қалай көрсету керек?","a":["Слайд-шоу режимінде","Редакторда ғана","Файлты ашпай"],"correct":0}
+        ]},
+        {"key":"scratch4","title":"Scratch: айнымалылар мен ойын жасау","info":"Айнымалыларды ойынға енгізу, ұпай санау, жеңіске жету шарттары.", "gameType":"animation","test":[
+          {"q":"Айнымалы неге пайдалы?","a":["Ұпай, уақыт секілді мәнді сақтау","Тек сурет қояды","Ештеңеге жүктемейді"],"correct":0},
+          {"q":"Ұпайды қалай көрсетеміз?","a":["Айнымалы арқылы","Сурет арқылы","Файл арқылы"],"correct":0},
+          {"q":"Ойында жеңіске жету үшін нені анықтау қажет?","a":["Шартты (мәселен, 10 ұпай)","Тек уақытты","Тек дыбысты"],"correct":0},
+          {"q":"Оқиғалар қалай басталады?","a":["Бастау батырмасымен немесе кликпен","Тек автоматты","Тек тексеріледі"],"correct":0},
+          {"q":"Ойынды бөлісуге бола ма?","a":["Иә","Жоқ","Тек баспада"],"correct":0}
+        ]},
+        {"key":"alg4","title":"Алгоритмдік ойлау және модельдеу","info":"Модельдеу, блок-схемалар, логикалық тапсырмалар және практикалық мысалдар.","gameType":"sequence","test":[
+          {"q":"Модельдеу не үшін?","a":["Жүйені түсіну және сынау","Сурет салу","Тек ойлау"],"correct":0},
+          {"q":"Блок-схема не көрсетеді?","a":["Қадамдар мен шарттарды","Тек суреттерді","Қатты дискінің орны"],"correct":0},
+          {"q":"Логикалық тапсырма не дамытады?","a":["Ойлану қабілетін","Тек жылдамдығын","Қуанышын"],"correct":0},
+          {"q":"Модель дұрыс болса не болады?","a":["Жаңадан шешім табуға көмектеседі","Бәрі тоқтайды","Ештеңе өзгремейді"],"correct":0},
+          {"q":"Қандай элемент алгоритмде болмауы мүмкін?","a":["Артық қадамдар","Негізгі қадамдар","Шарттар"],"correct":0}
+        ]}
+      ]
+    }
+  ]
+};
+
+
+/* ---------------------------
+   App state + helpers
+---------------------------*/
+let state = {
+  gradeIndex: 0,
+  topicIndex: null,
+  tab: 'info',
+  points: Number(localStorage.getItem('points')||0)
+};
+
+const LEVELS = [
+  {name:"Жаңадан бастаушы", min:0, max:199},
+  {name:"Өзгелеуші", min:200, max:499},
+  {name:"Жетілген", min:500, max:999},
+  {name:"Супер жұлдыз", min:1000, max:999999}
+];
+
+function savePoints(v){
+  state.points = v;
+  localStorage.setItem('points', v);
+  renderPoints();
+  updateBadges();
+}
+
+function renderPoints(){
+  document.getElementById('points').textContent = state.points;
+  const level = LEVELS.slice().reverse().find(l=>state.points>=l.min) || LEVELS[0];
+  document.getElementById('levelName').textContent = level.name;
+  // fill percentage between min and next
+  const lev = LEVELS.find(l=>l.name===level.name);
+  const range = lev.max - lev.min + 1;
+  const fill = Math.min(100, Math.round(((state.points - lev.min)/range)*100));
+  document.getElementById('levelFill').style.width = (fill||5) + '%';
+}
+
+/* render grades sidebar */
+function renderGrades(){
+  const el = document.getElementById('grades');
+  el.innerHTML = '';
+  DATA.grades.forEach((g,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'grade-btn'+(i===state.gradeIndex?' active':'');
+    btn.textContent = g.name;
+    btn.onclick = ()=>{ state.gradeIndex=i; state.topicIndex=null; renderTopics(); renderMainTitle(); };
+    el.appendChild(btn);
+  });
+}
+
+/* render topics for selected grade */
+function renderTopics(){
+  const topicsEl = document.getElementById('topics');
+  topicsEl.innerHTML = '';
+  const grade = DATA.grades[state.gradeIndex];
+  grade.topics.forEach((t,ti)=>{
+    const div = document.createElement('div');
+    div.className = 'topic-item'+(state.topicIndex===ti?' active':'');
+    div.innerHTML = `<div style="font-weight:600">${t.title}</div><div class="small muted">${t.key}</div>`;
+    div.onclick = ()=>{ state.topicIndex=ti; renderTopic(); };
+    topicsEl.appendChild(div);
+  });
+}
+
+/* main header title */
+function renderMainTitle(){
+  const g = DATA.grades[state.gradeIndex];
+  document.getElementById('title').textContent = g.name;
+  document.getElementById('subtitle').textContent = `Тақырып таңдаңыз — ${g.name} ақпараттары`;
+}
+
+/* tab click */
+document.querySelectorAll('.tab').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    state.tab = el.dataset.tab;
+    showTab();
+  });
+});
+
+function showTab(){
+  document.getElementById('infoPanel').style.display = state.tab==='info'?'block':'none';
+  document.getElementById('testPanel').style.display = state.tab==='test'?'block':'none';
+  document.getElementById('gamePanel').style.display = state.tab==='game'?'block':'none';
+  if(state.tab==='test') startQuiz();
+  if(state.tab==='game') startGame();
+}
+
+/* render chosen topic */
+function renderTopic(){
+  const grade = DATA.grades[state.gradeIndex];
+  if(state.topicIndex===null){ document.getElementById('topicTitle').textContent='Тақырып таңдаңыз'; document.getElementById('topicInfo').textContent='Тақырыпты сол жақтан таңдаңыз.'; return; }
+  const t = grade.topics[state.topicIndex];
+  document.getElementById('topicTitle').textContent = t.title;
+  document.getElementById('topicInfo').textContent = t.info;
+  // switch to info tab
+  state.tab = 'info';
+  document.querySelectorAll('.tab').forEach(tel=>tel.classList.remove('active'));
+  document.querySelector('.tab[data-tab="info"]').classList.add('active');
+  showTab();
+  renderTopics(); // highlight
+}
+
+/* ---------------------------
+   Quiz engine
+---------------------------*/
+let quiz = {cur:0, score:0, questions:[]};
+
+function startQuiz(){
+  if(state.topicIndex===null){ document.getElementById('quizArea').innerHTML = '<div class="muted">Алдымен тема таңдаңыз.</div>'; return; }
+  const t = DATA.grades[state.gradeIndex].topics[state.topicIndex];
+  quiz.questions = JSON.parse(JSON.stringify(t.test || []));
+  quiz.cur = 0; quiz.score = 0;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const area = document.getElementById('quizArea');
+  if(quiz.cur >= quiz.questions.length){
+    area.innerHTML = `<div style="font-weight:700">Тест аяқталды!</div>
+      <div class="muted small">Дұрыс жауаптар: ${quiz.score} / ${quiz.questions.length}</div>
+      <div style="margin-top:8px"><button class="btn" onclick="finishQuiz()">Ұпай алу</button>
+      <button style="margin-left:8px" class="tab" onclick="startQuiz()">Қайтадан</button></div>`;
+    return;
+  }
+  const q = quiz.questions[quiz.cur];
+  let html = `<div class="question"><strong>Сұрақ ${quiz.cur+1}:</strong> ${q.q}</div>`;
+  html += `<div class="choices">`;
+  q.a.forEach((opt,oi)=>{
+    html += `<div class="choice" onclick="selectChoice(${oi})" data-idx="${oi}">${opt}</div>`;
+  });
+  html += `</div>`;
+  area.innerHTML = html;
+}
+
+function selectChoice(idx){
+  const q = quiz.questions[quiz.cur];
+  const choices = document.querySelectorAll('.choice');
+  choices.forEach(c=>c.onclick=null);
+  if(idx===q.correct){
+    choices[idx].classList.add('correct');
+    quiz.score++;
+  } else {
+    choices[idx].classList.add('wrong');
+    choices[q.correct].classList.add('correct');
+  }
+  quiz.cur++;
+  setTimeout(renderQuestion,900);
+}
+
+function finishQuiz(){
+  // award points: +10 per correct
+  const gained = quiz.score * 10;
+  alert(`Сен ${gained} ұпай алдың!`);
+  savePoints(state.points + gained);
+  startQuiz();
+}
+
+/* ---------------------------
+   Games (templates)
+---------------------------*/
+function startGame(){
+  const area = document.getElementById('gameArea');
+  area.innerHTML = '';
+  if(state.topicIndex===null){ area.textContent = 'Алдымен тема таңдаңыз.'; return; }
+  const t = DATA.grades[state.gradeIndex].topics[state.topicIndex];
+  const type = t.gameType || 'match';
+
+  if(type==='match'){
+    startMatchGame(t);
+  } else if(type==='sequence'){
+    startSequenceGame(t);
+  } else if(type==='paint'){
+    startPaintGame(t);
+  } else if(type==='animation'){
+    area.innerHTML = '<div class="muted">Анимация/кодтау мысалы: жай интерактив түрі — Scratch стиліндегі шағын тапсырма.</div>';
+    // simple challenge: answer quick question for points
+    const btn = document.createElement('button'); btn.className='btn'; btn.textContent='Кіші викторинадан өту (+30 ұпай)'; btn.onclick=()=>{
+      savePoints(state.points+30); alert('Сәтті! +30 ұпай');
+    }; area.appendChild(btn);
+  } else {
+    area.textContent = 'Ойын түрі табылмады.';
+  }
+}
+
+/* Match game: drag items to targets (simple click-to-match fallback) */
+function startMatchGame(topic){
+  const area = document.getElementById('gameArea');
+  area.innerHTML = '';
+  // generate 4 simple pairs from topic.title and keywords
+  const left = ['Монитор','Пернетақта','Тінтуір','Жүйелік блок'];
+  const right = ['Экран','Теру','Басқару','Ми'];
+  // shuffle right
+  const shuffled = right.slice().sort(()=>Math.random()-0.5);
+  const container = document.createElement('div');
+  container.innerHTML = `<div style="margin-bottom:8px;font-weight:700">Сәйкестендір: дұрыс жұпты таңдап, жеңіп ұпай ал</div>`;
+  const grid = document.createElement('div'); grid.className='match-grid';
+  left.forEach((l,i)=>{
+    const dr = document.createElement('div'); dr.className='draggable'; dr.textContent=l; dr.dataset.left=i;
+    dr.onclick = ()=>{ // click: select left then choose right
+      const target = prompt('Осы элементке қандай сипат сәйкес келеді? нөмір енгіздіңіз (1-4):\n1:'+shuffled[0]+'\n2:'+shuffled[1]+'\n3:'+shuffled[2]+'\n4:'+shuffled[3]);
+      const tIdx = Number(target)-1;
+      if(tIdx>=0 && tIdx<4){
+        if(right[i] === shuffled[tIdx]){ alert('Дұрыс! +10 ұпай'); savePoints(state.points+10); dr.style.opacity=0.5; } else { alert('Қате'); }
+      }
+    };
+    grid.appendChild(dr);
+  });
+  const rightCol = document.createElement('div');
+  shuffled.forEach((r,i)=>{
+    const d = document.createElement('div'); d.className='draggable'; d.textContent=(i+1)+'. '+r; rightCol.appendChild(d);
+  });
+  container.appendChild(grid);
+  container.appendChild(document.createElement('hr'));
+  container.appendChild(rightCol);
+  area.appendChild(container);
+}
+
+/* Sequence game: robot commands order */
+function startSequenceGame(topic){
+  const area = document.getElementById('gameArea');
+  area.innerHTML = `<div style="font-weight:700">Роботқа тапсырма құрастыру</div><div class="muted small" style="margin-bottom:8px">${topic.info}</div>`;
+  const controls = ['Алға 1 қадам','Оңға бұрыл','Солға бұрыл','Қол көтер'];
+  const list = document.createElement('div');
+  list.style.marginBottom='8px';
+  const seq = [];
+  function renderSeq(){
+    list.innerHTML = 'Құрастырылған тізбек: ' + (seq.join(' → ') || '---');
+  }
+  controls.forEach(c=>{
+    const b = document.createElement('button'); b.className='btn'; b.style.margin='4px'; b.textContent=c;
+    b.onclick=()=>{ seq.push(c); renderSeq(); };
+    area.appendChild(b);
+  });
+  area.appendChild(document.createElement('div')).appendChild(list);
+  renderSeq();
+  const finish = document.createElement('button'); finish.className='btn'; finish.textContent='Орындалсын (+20 ұпай)';
+  finish.style.marginTop='8px';
+  finish.onclick=()=>{
+    if(seq.length===0){ alert('Алдымен әрекеттер тізбегін құрастыр'); return; }
+    alert('Робот тізбегін орындады! +20 ұпай');
+    savePoints(state.points+20);
+    seq.length=0; renderSeq();
+  };
+  area.appendChild(finish);
+}
+
+/* Paint: simple canvas drawing and save (no file save but award points) */
+function startPaintGame(topic){
+  const area = document.getElementById('gameArea');
+  area.innerHTML = '';
+  const info = document.createElement('div'); info.className='muted small'; info.textContent='Қарапайым сурет сал — аяқтасаң +15 ұпай беріледі.';
+  const canvas = document.createElement('canvas'); canvas.width=800; canvas.height=300; canvas.style.width='100%'; canvas.style.border='1px solid #e6eef9'; canvas.style.borderRadius='8px';
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  let drawing=false;
+  canvas.onpointerdown = e=>{ drawing=true; ctx.beginPath(); const r=canvas.getBoundingClientRect(); ctx.moveTo((e.clientX-r.left)*(canvas.width/r.width),(e.clientY-r.top)*(canvas.height/r.height)); };
+  canvas.onpointermove = e=>{ if(!drawing) return; const r=canvas.getBoundingClientRect(); ctx.lineTo((e.clientX-r.left)*(canvas.width/r.width),(e.clientY-r.top)*(canvas.height/r.height)); ctx.stroke(); };
+  canvas.onpointerup = ()=>{ drawing=false; };
+  const clear = document.createElement('button'); clear.className='tab'; clear.textContent='Тазалау'; clear.onclick=()=>{ ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height); };
+  const done = document.createElement('button'); done.className='btn'; done.textContent='Аяқтадым (+15 ұпай)'; done.onclick=()=>{ savePoints(state.points+15); alert('Керемет! +15 ұпай'); };
+  area.appendChild(info); area.appendChild(canvas); area.appendChild(document.createElement('div')).appendChild(clear);
+  area.appendChild(done);
+}
+
+/* ---------------------------
+   Badges logic
+---------------------------*/
+function updateBadges(){
+  const list = document.getElementById('badgesList'); list.innerHTML='';
+  const hasStarter = state.points>=0 ? 1 : 0;
+  const smart = state.points>=100;
+  const king = state.points>=1000;
+  const b = [
+    {name:'Бастау', desc:'Тақырыпты аштың', ok: hasStarter},
+    {name:'Ақылды бала', desc:'100 ұпай жина', ok: smart},
+    {name:'Информатика королі', desc:'1000 ұпай жина', ok: king}
+  ];
+  b.forEach(bd=>{
+    const div = document.createElement('div'); div.className='stat';
+    div.innerHTML = `<div><span class="badge">${bd.ok? '🏅':'🔒'}</span>${bd.name}</div><div class="muted small">${bd.ok? 'ашылды': 'жабық'}</div>`;
+    list.appendChild(div);
+  });
+}
+
+/* ---------------------------
+   Init
+---------------------------*/
+function init(){
+  renderGrades();
+  renderTopics();
+  renderMainTitle();
+  renderPoints();
+  updateBadges();
+  // show first grade by default, no topic
+  renderTopic();
+}
+init();
+
+/* small helper to expose saving name */
+window.saveName = function(name){
+  document.getElementById('userName').textContent = name||'Оқушы';
+  document.getElementById('avatar').textContent = (name&&name[0])?name[0].toUpperCase():'A';
+};
+</script>
+
 </body>
 </html>
