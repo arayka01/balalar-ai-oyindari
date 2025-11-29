@@ -3,294 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartSite - AI көмекшілі оқу платформасы</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Мектеп олимпиадалары</title>
     <style>
-        :root {
-            --primary: #99CDD8;
-            --secondary: #FDFBD3;
-            --accent: #657166;
-            --success: #4cd964;
-            --warning: #ffcc00;
-            --danger: #ff3b30;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --gradient: linear-gradient(135deg, #99CDD8 0%, #657166 100%);
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
-            --border-radius: 20px;
-            --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        * {
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            background-color: #f5f5f5;
+            color: #333;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--light);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .header {
-            background: var(--gradient);
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
             color: white;
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        nav {
+            background-color: #34495e;
+            padding: 12px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            min-height: calc(100vh - 80px);
-        }
-
-        .sidebar {
-            background: white;
-            padding: 2rem 1rem;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow-y: auto;
-            max-height: calc(100vh - 80px);
-        }
-
-        .nav-item {
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-item.active {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .nav-item:hover:not(.active) {
-            background: rgba(153, 205, 216, 0.1);
-        }
-
-        .main-content {
-            padding: 2rem;
-            background: #f5f7fa;
-            position: relative;
-            overflow-y: auto;
-            max-height: calc(100vh - 80px);
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-
-        .stat-card {
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
             text-align: center;
-            border-left: 4px solid var(--primary);
         }
-
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .container {
+            width: 85%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            padding-bottom: 60px;
+        }
+        .event {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid #3498db;
+        }
+        .event:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .event h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .event h3::before {
+            content: "•";
+            color: #3498db;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .event .date {
+            color: #e74c3c;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .event .date::before {
+            content: "📅";
+            margin-right: 5px;
+        }
+        .event .location {
+            color: #3498db;
+            display: flex;
+            align-items: center;
+        }
+        .event .location::before {
+            content: "📍";
+            margin-right: 5px;
+        }
+        .event .participants {
+            color: #27ae60;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .event .participants::before {
+            content: "👥";
+            margin-right: 5px;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+        }
+        .add-event {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 15px 0;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .add-event:hover {
+            background-color: #2ecc71;
+        }
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
         .stat-number {
             font-size: 2.5rem;
             font-weight: bold;
-            color: var(--primary);
-            margin: 1rem 0;
+            color: #3498db;
         }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0.5rem;
+        .stat-label {
+            color: #7f8c8d;
         }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: var(--dark);
-        }
-
-        .btn-ai {
-            background: var(--ai-gradient);
-            color: white;
-        }
-
-        .task-list {
-            list-style: none;
-        }
-
-        .task-item {
-            padding: 1rem;
-            border: 1px solid #e1e5e9;
-            border-radius: 12px;
-            margin: 0.5rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e1e5e9;
-            border-radius: 5px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 5px;
-            transition: width 0.3s ease;
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin: 0.2rem;
-        }
-
-        .game-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
+        .search-bar {
+            margin: 20px 0;
             text-align: center;
-            box-shadow: var(--shadow);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
         }
-
-        .game-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
+        .search-bar input {
+            padding: 10px 15px;
+            width: 70%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
         }
-
-        .game-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
         }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .logout-btn {
-            background: var(--danger);
-            color: white;
-            padding: 0.5rem 1rem;
+        .filter-btn {
+            background: #ecf0f1;
             border: none;
-            border-radius: 8px;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
             cursor: pointer;
-            margin-top: 2rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            transition: background-color 0.3s;
         }
-
-        .achievement {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(153, 205, 216, 0.1);
-            border-radius: 12px;
-            margin: 0.5rem 0;
-        }
-
-        .achievement-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .filter-btn.active {
+            background: #3498db;
             color: white;
-            font-size: 1.5rem;
         }
-
-        /* Модальды терезенің стильдері */
+        .filter-btn:hover {
+            background: #bdc3c7;
+        }
+        .event-type {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .type-olympiad {
+            background: #e74c3c;
+            color: white;
+        }
+        .type-competition {
+            background: #f39c12;
+            color: white;
+        }
+        .type-marathon {
+            background: #9b59b6;
+            color: white;
+        }
+        .type-seminar {
+            background: #1abc9c;
+            color: white;
+        }
+        .countdown {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-left: 10px;
+            font-size: 0.9rem;
+        }
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .event-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn-register {
+            background: #3498db;
+            color: white;
+        }
+        .btn-register:hover {
+            background: #2980b9;
+        }
+        .btn-details {
+            background: #ecf0f1;
+            color: #333;
+        }
+        .btn-details:hover {
+            background: #bdc3c7;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -300,2537 +268,392 @@
             height: 100%;
             background: rgba(0,0,0,0.5);
             z-index: 1000;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
         .modal-content {
             background: white;
-            border-radius: var(--border-radius);
+            padding: 30px;
+            border-radius: 8px;
             width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 2rem;
-            position: relative;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark);
+        .modal h3 {
+            margin-top: 0;
+            color: #2c3e50;
         }
-
-        .lesson-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+        .form-group {
+            margin-bottom: 15px;
         }
-
-        .lesson-card {
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+            margin-right: 10px;
+        }
+        .btn-cancel:hover {
+            background: #7f8c8d;
+        }
+        .btn-submit {
+            background: #27ae60;
+            color: white;
+        }
+        .btn-submit:hover {
+            background: #2ecc71;
+        }
+        .contact-info {
             background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 20px 0;
         }
-
-        .lesson-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
         }
-
-        .lesson-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .lesson-card.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .lesson-card.locked:hover {
-            transform: none;
-            border-color: transparent;
-        }
-
-        .question-container {
-            margin: 1.5rem 0;
-        }
-
-        .question {
+        .contact-item i {
+            margin-right: 10px;
+            color: #3498db;
             font-size: 1.2rem;
-            margin-bottom: 1rem;
         }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .option {
-            padding: 1rem;
-            border: 1px solid #e1e5e9;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .option:hover {
-            background: rgba(153, 205, 216, 0.1);
-        }
-
-        .option.selected {
-            background: rgba(153, 205, 216, 0.2);
-            border-color: var(--primary);
-        }
-
-        .option.correct {
-            background: rgba(76, 217, 100, 0.2);
-            border-color: var(--success);
-        }
-
-        .option.incorrect {
-            background: rgba(255, 59, 48, 0.2);
-            border-color: var(--danger);
-        }
-
-        .timer {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 1rem 0;
-            color: var(--primary);
-        }
-
-        .map-container {
-            width: 100%;
-            height: 500px;
-            background: #e9f7fb;
-            border-radius: var(--border-radius);
-            position: relative;
-            overflow: hidden;
-            margin: 2rem 0;
-        }
-
-        .map-path {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 500"><path d="M50,250 C150,150 250,350 350,250 C450,150 550,350 650,250" stroke="%2399CDD8" stroke-width="8" fill="none" stroke-dasharray="10,5"/></svg>');
-            background-repeat: no-repeat;
-        }
-
-        .map-node {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .map-node:hover {
-            transform: scale(1.1);
-        }
-
-        .map-node.completed {
-            background: var(--success);
-            color: white;
-        }
-
-        .map-node.current {
-            background: var(--primary);
-            color: white;
-            animation: pulse 2s infinite;
-        }
-
-        .map-node.locked {
-            background: #ccc;
-            color: #666;
-            cursor: not-allowed;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .drag-container {
-            display: flex;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .drag-source, .drag-target {
-            flex: 1;
-            min-height: 200px;
-            border: 2px dashed var(--primary);
-            border-radius: 12px;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .drag-item {
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            cursor: move;
-            user-select: none;
-        }
-
-        .drag-item.dragging {
-            opacity: 0.5;
-        }
-
-        .drag-target .drag-item {
-            background: rgba(153, 205, 216, 0.2);
-        }
-
-        .game-area {
-            margin: 2rem 0;
-            padding: 2rem;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-
-        .puzzle-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .puzzle-piece {
-            aspect-ratio: 1;
-            background: var(--primary);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .puzzle-piece:hover {
-            transform: scale(1.05);
-        }
-
-        .puzzle-piece.empty {
-            background: #e1e5e9;
-            cursor: default;
-        }
-
-        .puzzle-piece.empty:hover {
-            transform: none;
-        }
-
-        .lesson-image {
-            max-width: 100%;
-            border-radius: 12px;
-            margin: 1rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .grade-section {
-            margin-bottom: 2rem;
-        }
-
-        .grade-title {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .points-display {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin: 1rem 0;
-            font-weight: bold;
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 300px;
-            margin: 2rem 0;
-        }
-
-        .daily-challenge {
-            background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        .game-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .sequence-game {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .sequence-step {
-            padding: 1rem;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            cursor: move;
-            user-select: none;
-        }
-
-        .sequence-step.dragging {
-            opacity: 0.5;
-        }
-
-        .sequence-target {
-            min-height: 100px;
-            border: 2px dashed var(--primary);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 1rem;
-        }
-
-        .game-result {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .game-result.success {
-            background: rgba(76, 217, 100, 0.1);
-            border: 1px solid var(--success);
-        }
-
-        .game-result.error {
-            background: rgba(255, 59, 48, 0.1);
-            border: 1px solid var(--danger);
-        }
-
-        /* AI көмекші стильдері */
-        .ai-assistant {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: var(--ai-gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-
-        .ai-assistant:hover {
-            transform: scale(1.1);
-        }
-
-        .ai-chat {
-            position: fixed;
-            bottom: 8rem;
-            right: 2rem;
-            width: 350px;
-            height: 500px;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            display: none;
-            flex-direction: column;
-            z-index: 101;
-        }
-
-        .ai-chat.active {
-            display: flex;
-        }
-
-        .ai-header {
-            background: var(--ai-gradient);
-            color: white;
-            padding: 1rem;
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ai-messages {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .ai-message {
-            padding: 0.8rem;
-            border-radius: 12px;
-            max-width: 80%;
-        }
-
-        .ai-message.user {
-            background: var(--primary);
-            color: white;
-            align-self: flex-end;
-        }
-
-        .ai-message.bot {
-            background: #f1f1f1;
-            color: var(--dark);
-            align-self: flex-start;
-        }
-
-        .ai-input {
-            display: flex;
-            padding: 1rem;
-            border-top: 1px solid #e1e5e9;
-        }
-
-        .ai-input input {
-            flex: 1;
-            padding: 0.8rem;
-            border: 1px solid #e1e5e9;
-            border-radius: 8px;
-            margin-right: 0.5rem;
-        }
-
-        .ai-input button {
-            background: var(--ai-gradient);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-        }
-
-        /* Жаңа функциялар стильдері */
-        .streak-counter {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
-            color: white;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .leaderboard {
-            margin-top: 2rem;
-        }
-
-        .leaderboard-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid #e1e5e9;
-        }
-
-        .leaderboard-rank {
-            width: 30px;
-            height: 30px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .vr-classroom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .ar-preview {
-            width: 100%;
-            height: 200px;
-            background: #f1f1f1;
-            border-radius: 12px;
-            margin: 1rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-        }
-
-        .quiz-battle {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            color: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .voice-command {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-            color: var(--dark);
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            text-align: center;
-            margin: 1rem 0;
-        }
-
-        .microphone-btn {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-
-        .personalized-path {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-            color: var(--dark);
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
-            margin: 1rem 0;
-        }
-
-        .adaptive-learning {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .learning-card {
-            flex: 1;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-
-        .notification-bell {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .notification-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--danger);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-
-        /* Жаңа AI функциялары */
-        .ai-suggestions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .ai-suggestion {
-            background: rgba(153, 205, 216, 0.1);
-            border: 1px solid var(--primary);
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .ai-suggestion:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .ai-typing {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #666;
-            font-style: italic;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 0.2rem;
-        }
-
-        .typing-dot {
-            width: 6px;
-            height: 6px;
-            background: #666;
-            border-radius: 50%;
-            animation: typing 1.4s infinite ease-in-out;
-        }
-
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-
-        .ai-recommendations {
-            margin-top: 2rem;
-        }
-
-        .recommendation-item {
-            padding: 1rem;
-            border-left: 4px solid var(--primary);
-            background: rgba(153, 205, 216, 0.1);
-            margin: 0.5rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        /* Жаңа оқу функциялары */
-        .flashcard-container {
-            perspective: 1000px;
-            width: 300px;
-            height: 200px;
-            margin: 2rem auto;
-        }
-
-        .flashcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            cursor: pointer;
-        }
-
-        .flashcard.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .flashcard-front, .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .flashcard-front {
-            background: var(--primary);
-            color: white;
-        }
-
-        .flashcard-back {
-            background: white;
-            color: var(--dark);
-            transform: rotateY(180deg);
-        }
-
-        .study-timer {
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .timer-display {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        /* Қосымша стильдер */
-        .drag-over {
-            background: rgba(153, 205, 216, 0.2);
-        }
-
-        .correct-match {
-            border: 2px solid var(--success) !important;
-        }
-
-        .incorrect-match {
-            border: 2px solid var(--danger) !important;
-        }
-
-        .lesson-completed {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--success);
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-
         @media (max-width: 768px) {
             .container {
-                grid-template-columns: 1fr;
+                width: 95%;
             }
-            
-            .sidebar {
-                display: none;
+            nav ul li {
+                display: block;
+                margin: 10px 0;
             }
-            
-            .adaptive-learning {
+            .stats {
                 flex-direction: column;
             }
-            
-            .ai-chat {
+            .stat-item {
+                margin-bottom: 15px;
+            }
+            .search-bar input {
                 width: 90%;
-                right: 5%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <h1>🎓 SmartSite - AI көмекшілі оқу платформасы</h1>
-        </div>
-        <div class="user-info">
-            <div class="notification-bell">
-                <i class="fas fa-bell"></i>
-                <div class="notification-count">3</div>
-            </div>
-            <div class="user-avatar">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-            <div>
-                <div id="studentName">Айгүл Сағатова</div>
-                <div style="font-size: 0.9rem; opacity: 0.8;">3-сынып оқушысы</div>
-            </div>
-        </div>
-    </div>
-
+    <header>
+        <h1>Мектеп олимпиадалары мен іс-шаралары</h1>
+        <p>Білім мен бәсекелестікті дамыту платформасы</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#current">Ағымдағы іс-шаралар</a></li>
+            <li><a href="#future">Алдағы олимпиадалар</a></li>
+            <li><a href="#past">Өткен іс-шаралар</a></li>
+            <li><a href="#stats">Статистика</a></li>
+            <li><a href="#contact">Байланыс</a></li>
+        </ul>
+    </nav>
+    
     <div class="container">
-        <div class="sidebar">
-            <div class="nav-item active" onclick="showTab('dashboard')">
-                <i class="fas fa-tachometer-alt"></i>
-                <span>Басты бет</span>
-            </div>
-            <div class="nav-item" onclick="showTab('lessons')">
-                <i class="fas fa-book"></i>
-                <span>Сабақтар</span>
-            </div>
-            <div class="nav-item" onclick="showTab('tasks')">
-                <i class="fas fa-tasks"></i>
-                <span>Тапсырмалар</span>
-            </div>
-            <div class="nav-item" onclick="showTab('games')">
-                <i class="fas fa-gamepad"></i>
-                <span>Ойындар</span>
-            </div>
-            <div class="nav-item" onclick="showTab('ai-learning')">
-                <i class="fas fa-robot"></i>
-                <span>AI оқыту</span>
-            </div>
-            <div class="nav-item" onclick="showTab('olympiads')">
-                <i class="fas fa-trophy"></i>
-                <span>Олимпиадалар</span>
-            </div>
-            <div class="nav-item" onclick="showTab('achievements')">
-                <i class="fas fa-medal"></i>
-                <span>Жетістіктер</span>
-            </div>
-            <div class="nav-item" onclick="showTab('progress')">
-                <i class="fas fa-chart-line"></i>
-                <span>Өсу есебі</span>
-            </div>
-            <button class="logout-btn" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Шығу
-            </button>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Іс-шараны іздеу...">
         </div>
-
-        <div class="main-content">
-            <!-- Басты бет -->
-            <div id="dashboard" class="tab-content active">
-                <h2>Жеке кабинет</h2>
-                
-                <div class="streak-counter">
-                    <h3>🔥 7 күндік стрик!</h3>
-                    <p>Сіз 7 күн бойы үзбей оқып жатырсыз. Тағы 3 күн және сіз "Темір ерік" медалін аласыз!</p>
-                </div>
-
-                <div class="dashboard-grid">
-                    <div class="card stat-card">
-                        <i class="fas fa-star fa-2x"></i>
-                        <div class="stat-number" id="totalPoints">150</div>
-                        <div>Жиналған ұпайлар</div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="fas fa-layer-group fa-2x"></i>
-                        <div class="stat-number" id="studentLevel">3</div>
-                        <div>Деңгей</div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="fas fa-check-circle fa-2x"></i>
-                        <div class="stat-number" id="completedTasks">8</div>
-                        <div>Орындалған тапсырмалар</div>
-                    </div>
-                    <div class="card stat-card">
-                        <i class="fas fa-trophy fa-2x"></i>
-                        <div class="stat-number" id="badgesCount">2</div>
-                        <div>Алынған белгішелер</div>
-                    </div>
-                </div>
-
-                <div class="daily-challenge">
-                    <h3>🎯 Күнделікті миссия</h3>
-                    <p>Бүгін 3 сабақты аяқтап, 30 ұпай жинаңыз!</p>
-                    <button class="btn btn-primary" onclick="showTab('lessons')">Миссияны бастау</button>
-                </div>
-
-                <div class="personalized-path">
-                    <h3>🎯 Сізге арналған оқу жолы</h3>
-                    <p>AI жүйесі сіздің оқу стиліңізге сәйкес жекелендірілген оқу жоспарын әзірледі</p>
-                    <div class="adaptive-learning">
-                        <div class="learning-card">
-                            <h4>Күшті жақтарыңыз</h4>
-                            <p>Алгоритмдер және логика</p>
-                        </div>
-                        <div class="learning-card">
-                            <h4>Жетілдіру керек</h4>
-                            <p>Интернет қауіпсіздігі</p>
-                        </div>
-                        <div class="learning-card">
-                            <h4>Келесі қадам</h4>
-                            <p>Scratch бағдарламалау</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>Сабақ картасы</h3>
-                    <div class="map-container">
-                        <div class="map-path"></div>
-                        <!-- Карта түйіндері динамикалық түрде қосылады -->
-                    </div>
-                </div>
-
-                <div class="leaderboard">
-                    <h3>🏆 Сыныптық рейтинг</h3>
-                    <div class="leaderboard-item">
-                        <div class="leaderboard-rank">1</div>
-                        <div>Айгүл Сағатова</div>
-                        <div style="margin-left: auto; font-weight: bold;">150 ұпай</div>
-                    </div>
-                    <div class="leaderboard-item">
-                        <div class="leaderboard-rank">2</div>
-                        <div>Арман Жүнісов</div>
-                        <div style="margin-left: auto;">145 ұпай</div>
-                    </div>
-                    <div class="leaderboard-item">
-                        <div class="leaderboard-rank">3</div>
-                        <div>Құралай Оразбай</div>
-                        <div style="margin-left: auto;">130 ұпай</div>
-                    </div>
-                </div>
+        
+        <div class="filter-options">
+            <button class="filter-btn active" data-filter="all">Барлығы</button>
+            <button class="filter-btn" data-filter="olympiad">Олимпиадалар</button>
+            <button class="filter-btn" data-filter="competition">Конкурстар</button>
+            <button class="filter-btn" data-filter="marathon">Марафондар</button>
+            <button class="filter-btn" data-filter="seminar">Семинарлар</button>
+        </div>
+        
+        <div class="stats" id="stats">
+            <div class="stat-item">
+                <div class="stat-number">24</div>
+                <div class="stat-label">Өткізілген іс-шаралар</div>
             </div>
-
-            <!-- Сабақтар -->
-            <div id="lessons" class="tab-content">
-                <h2>Сабақтар</h2>
-                
-                <div class="vr-classroom">
-                    <h3>🎮 Виртуалды шынықтыру бөлмесі</h3>
-                    <p>Компьютердің ішкі құрылымын 3D форматында зерттеңіз</p>
-                    <div class="ar-preview">
-                        <i class="fas fa-vr-cardboard fa-3x"></i>
-                        <p>VR режимін іске қосу</p>
-                    </div>
-                    <button class="btn btn-primary" onclick="startVRClassroom()">VR сабағын бастау</button>
-                </div>
-                
-                <div class="card grade-section">
-                    <h3 class="grade-title">1-сынып сабақтары</h3>
-                    <div class="lesson-grid" id="grade1-lessons">
-                        <!-- Сабақтар динамикалық түрде қосылады -->
-                    </div>
-                </div>
-
-                <div class="card grade-section">
-                    <h3 class="grade-title">2-сынып сабақтары</h3>
-                    <div class="lesson-grid" id="grade2-lessons">
-                        <!-- Сабақтар динамикалық түрде қосылады -->
-                    </div>
-                </div>
-
-                <div class="card grade-section">
-                    <h3 class="grade-title">3-сынып сабақтары</h3>
-                    <div class="lesson-grid" id="grade3-lessons">
-                        <!-- Сабақтар динамикалық түрде қосылады -->
-                    </div>
-                </div>
-
-                <div class="card grade-section">
-                    <h3 class="grade-title">4-сынып сабақтары</h3>
-                    <div class="lesson-grid" id="grade4-lessons">
-                        <!-- Сабақтар динамикалық түрде қосылады -->
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number">156</div>
+                <div class="stat-label">Қатысушылар</div>
             </div>
-
-            <!-- Тапсырмалар -->
-            <div id="tasks" class="tab-content">
-                <h2>Тапсырмалар</h2>
-                
-                <div class="voice-command">
-                    <h3>🎤 Дауыстық басқару</h3>
-                    <p>Тапсырмаларды дауыс арқылы таңдаңыз</p>
-                    <div class="microphone-btn" onclick="toggleVoiceCommand()">
-                        <i class="fas fa-microphone"></i>
-                    </div>
-                    <p id="voice-status">Микрофонды іске қосу үшін басыңыз</p>
-                </div>
-                
-                <div class="card">
-                    <h3>1-сынып тапсырмалары</h3>
-                    <div class="task-list">
-                        <div class="task-item">
-                            <div>
-                                <strong>Компьютер бөліктерін тану</strong>
-                                <p>Компьютердің негізгі бөліктерін атаңыз</p>
-                                <small>10 ұпай • Мәтіндік жауап</small>
-                            </div>
-                            <button class="btn btn-primary" onclick="startTask(1)">Орындау</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 2rem;">
-                    <h3>2-сынып тапсырмалары</h3>
-                    <div class="task-list">
-                        <div class="task-item">
-                            <div>
-                                <strong>Компьютер құрылғылары</strong>
-                                <p>Қайсысы енгізу құрылғысы емес?</p>
-                                <small>15 ұпай • Тест</small>
-                            </div>
-                            <button class="btn btn-primary" onclick="startTask(2)">Орындау</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Жеңімпаздар</div>
             </div>
-
-            <!-- Ойындар -->
-            <div id="games" class="tab-content">
-                <h2>Оқу ойындары</h2>
-                
-                <div class="quiz-battle">
-                    <h3>⚔️ Викторина шайқасы</h3>
-                    <p>Сыныптастарыңызбен бәйгелесіп, біліміңізді сынаңыз</p>
-                    <button class="btn btn-primary" onclick="startQuizBattle()">Бәйгеге қосылу</button>
-                </div>
-                
-                <div class="games-grid">
-                    <div class="game-card" onclick="startGame(1)">
-                        <div class="game-icon">🎯</div>
-                        <h3>Компьютер бөліктерін тап</h3>
-                        <p>Компьютер бөліктерін суреттермен сәйкестендір</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
-                        </div>
-                        <div style="color: var(--primary); font-weight: bold;">15 ұпай</div>
-                    </div>
-                    <div class="game-card" onclick="startGame(2)">
-                        <div class="game-icon">⌨️</div>
-                        <h3>Пернетақтаны үйрен</h3>
-                        <p>Пернетақтада тез жазуға жаттық</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 50%"></div>
-                        </div>
-                        <div style="color: var(--primary); font-weight: bold;">20 ұпай</div>
-                    </div>
-                    <div class="game-card" onclick="startGame(3)">
-                        <div class="game-icon">🧩</div>
-                        <h3>Алгоритм құрастыру</h3>
-                        <p>Берілген тапсырма үшін алгоритм құрастыр</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 25%"></div>
-                        </div>
-                        <div style="color: var(--primary); font-weight: bold;">25 ұпай</div>
-                    </div>
-                    <div class="game-card" onclick="startGame(4)">
-                        <div class="game-icon">🔍</div>
-                        <h3>Киберқауіпсіздік</h3>
-                        <p>Интернеттегі қауіптерді танып біліңіз</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 40%"></div>
-                        </div>
-                        <div style="color: var(--primary); font-weight: bold;">30 ұпай</div>
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Алдағы іс-шаралар</div>
             </div>
-
-            <!-- AI оқыту -->
-            <div id="ai-learning" class="tab-content">
-                <h2>AI оқыту орталығы</h2>
-                
-                <div class="card">
-                    <h3>🧠 Жасанды интеллект көмекшісі</h3>
-                    <p>AI көмекші сізге күрделі тақырыптарды түсінуге, сұрақтарға жауап алуға және жекелендірілген оқу жоспарын алуға көмектеседі.</p>
-                    
-                    <div class="adaptive-learning">
-                        <div class="learning-card">
-                            <i class="fas fa-comments fa-2x" style="color: var(--primary); margin-bottom: 1rem;"></i>
-                            <h4>Сұрақ қойыңыз</h4>
-                            <p>Кез келген оқу тақырыбы бойынша сұрақ қойыңыз</p>
-                        </div>
-                        <div class="learning-card">
-                            <i class="fas fa-lightbulb fa-2x" style="color: var(--warning); margin-bottom: 1rem;"></i>
-                            <h4>Түсіндірме алыңыз</h4>
-                            <p>Күрделі тақырыптарды жеңіл түсінікті түрде түсіндіру</p>
-                        </div>
-                        <div class="learning-card">
-                            <i class="fas fa-chart-line fa-2x" style="color: var(--success); margin-bottom: 1rem;"></i>
-                            <h4>Оқу жоспары</h4>
-                            <p>Сіздің білім деңгейіңізге сай жеке оқу жоспары</p>
-                        </div>
-                    </div>
-                    
-                    <div class="ai-suggestions">
-                        <div class="ai-suggestion" onclick="askAI('Алгоритм деген не?')">Алгоритм деген не?</div>
-                        <div class="ai-suggestion" onclick="askAI('Компьютер қалай жұмыс істейді?')">Компьютер қалай жұмыс істейді?</div>
-                        <div class="ai-suggestion" onclick="askAI('Интернет қауіпсіздігі неге маңызды?')">Интернет қауіпсіздігі неге маңызды?</div>
-                        <div class="ai-suggestion" onclick="askAI('Бағдарламалау не үшін керек?')">Бағдарламалау не үшін керек?</div>
-                    </div>
-                    
-                    <div style="margin-top: 2rem;">
-                        <h4>Жиі қойылатын сұрақтар:</h4>
-                        <div class="task-list">
-                            <div class="task-item">
-                                <div>
-                                    <strong>Алгоритм деген не?</strong>
-                                    <p>Алгоритмнің қарапайым анықтамасын білгім келеді</p>
-                                </div>
-                                <button class="btn btn-ai" onclick="askAI('Алгоритм деген не?')">AI-ден сұрау</button>
-                            </div>
-                            <div class="task-item">
-                                <div>
-                                    <strong>Компьютер қалай жұмыс істейді?</strong>
-                                    <p>Компьютердің жұмыс принципін түсіндіріңіз</p>
-                                </div>
-                                <button class="btn btn-ai" onclick="askAI('Компьютер қалай жұмыс істейді?')">AI-ден сұрау</button>
-                            </div>
-                            <div class="task-item">
-                                <div>
-                                    <strong>Интернет қауіпсіздігі неге маңызды?</strong>
-                                    <p>Интернетте қауіпсіз болу ережелері</p>
-                                </div>
-                                <button class="btn btn-ai" onclick="askAI('Интернет қауіпсіздігі неге маңызды?')">AI-ден сұрау</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 2rem;">
-                    <h3>📊 Оқу талдауы</h3>
-                    <p>AI жүйесі сіздің оқу жетістіктеріңізді талдап, ең тиімді оқу әдістерін ұсынады:</p>
-                    
-                    <div class="chart-container">
-                        <canvas id="learningAnalyticsChart"></canvas>
-                    </div>
-                    
-                    <div class="adaptive-learning" style="margin-top: 2rem;">
-                        <div class="learning-card">
-                            <h4>Оқу жылдамдығы</h4>
-                            <div class="stat-number">85%</div>
-                            <p>Орташа оқу жылдамдығы</p>
-                        </div>
-                        <div class="learning-card">
-                            <h4>Түсіну деңгейі</h4>
-                            <div class="stat-number">78%</div>
-                            <p>Материалды түсіну деңгейі</p>
-                        </div>
-                        <div class="learning-card">
-                            <h4>Ұсыныс</h4>
-                            <p>Көбірек визуалды материалдарды қолданыңыз</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 2rem;">
-                    <h3>🎴 Жад карточкалары</h3>
-                    <p>AI жасаған жад карточкаларымен материалды тез жаттаңыз:</p>
-                    
-                    <div class="flashcard-container">
-                        <div class="flashcard" id="flashcard" onclick="flipCard()">
-                            <div class="flashcard-front">
-                                <h3>Алгоритм</h3>
-                            </div>
-                            <div class="flashcard-back">
-                                <p>Алгоритм - белгілі бір мәселені шешу үшін қадамдар тізбегі</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="game-controls">
-                        <button class="btn btn-primary" onclick="nextCard()">Келесі карточка</button>
-                        <button class="btn btn-secondary" onclick="generateFlashcards()">Жаңа карточкалар</button>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 2rem;">
-                    <h3>⏱️ Оқу таймері</h3>
-                    <p>Помодоро әдісі бойынша оқыңыз:</p>
-                    
-                    <div class="study-timer">
-                        <div class="timer-display" id="studyTimer">25:00</div>
-                        <div class="timer-controls">
-                            <button class="btn btn-primary" onclick="startStudyTimer()">Бастау</button>
-                            <button class="btn btn-secondary" onclick="pauseStudyTimer()">Тоқтату</button>
-                            <button class="btn btn-secondary" onclick="resetStudyTimer()">Қайта бастау</button>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        
+        <h2 class="section-title" id="current">Ағымдағы іс-шаралар</h2>
+        
+        <div class="event" data-type="olympiad">
+            <h3>Математика олимпиадасы <span class="event-type type-olympiad">Олимпиада</span></h3>
+            <p class="date">Күні: 15.11.2023</p>
+            <p class="location">Орны: ҚазҰУ, 203 аудитория</p>
+            <p class="participants">Қатысушылар: 9-11 сынып оқушылары</p>
+            <p>Қалалық математика олимпиадасы. 9-11 сынып оқушыларына арналған. Жеңімпаздар республикалық кезеңге өте алады.</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Толығырақ</button>
+                <button class="btn btn-register">Тіркелу</button>
             </div>
-
-            <!-- Олимпиадалар -->
-            <div id="olympiads" class="tab-content">
-                <h2>Олимпиадалар</h2>
-                <div class="card">
-                    <h3>Информатика олимпиадасы</h3>
-                    <p><strong>Күні:</strong> 2024-12-15</p>
-                    <p><strong>Сипаттама:</strong> Жылдық информатика олимпиадасы</p>
-                    <p><strong>Қатысу үшін қажет:</strong> 100 ұпай</p>
-                    <button class="btn btn-primary" onclick="joinOlympiad()">Қатысу</button>
-                </div>
+        </div>
+        
+        <div class="event" data-type="competition">
+            <h3>Ағылшын тілі конкурсы <span class="event-type type-competition">Конкурс</span> <span class="countdown">5 күн қалды</span></h3>
+            <p class="date">Күні: 20.11.2023</p>
+            <p class="location">Орны: Мектеп, 305 кабинет</p>
+            <p class="participants">Қатысушылар: 5-11 сынып оқушылары</p>
+            <p>Аудандық ағылшын тілі конкурсы. Қатысушыларға сертификаттар беріледі. Жеңімпаздар бағалы жүлделерге ие болады.</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Толығырақ</button>
+                <button class="btn btn-register">Тіркелу</button>
             </div>
-
-            <!-- Жетістіктер -->
-            <div id="achievements" class="tab-content">
-                <h2>Менің жетістіктерім</h2>
-                <div class="card">
-                    <div class="achievement">
-                        <div class="achievement-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div>
-                            <h4>Информатика шебері</h4>
-                            <p>10 тапсырманы сәтті орындаған үшін</p>
-                        </div>
-                    </div>
-                    <div class="achievement">
-                        <div class="achievement-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <div>
-                            <h4>Оқу мылтығы</h4>
-                            <p>100 ұпай жинаған үшін</p>
-                        </div>
-                    </div>
-                    <div class="achievement">
-                        <div class="achievement-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div>
-                            <h4>Ойын шебері</h4>
-                            <p>5 ойынды сәтті аяқтаған үшін</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 2rem;">
-                    <h3>Белгішелер</h3>
-                    <div>
-                        <span class="badge">Информатика шебері</span>
-                        <span class="badge">Оқу мылтығы</span>
-                        <span class="badge">Ойын шебері</span>
-                        <span class="badge" style="background: #ccc; color: #666;">VR зерттеушісі</span>
-                        <span class="badge" style="background: #ccc; color: #666;">Темір ерік</span>
-                    </div>
-                </div>
+        </div>
+        
+        <h2 class="section-title" id="future">Алдағы олимпиадалар</h2>
+        
+        <div class="event" data-type="olympiad">
+            <h3>Физика олимпиадасы <span class="event-type type-olympiad">Олимпиада</span> <span class="countdown">20 күн қалды</span></h3>
+            <p class="date">Күні: 05.12.2023</p>
+            <p class="location">Орны: НТШ, 101 аудитория</p>
+            <p class="participants">Қатысушылар: 10-11 сынып оқушылары</p>
+            <p>Республикалық физика олимпиадасы. Жеңімпаздарға бағалы жүлделер және университетке түсу жеңілдіктері беріледі!</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Толығырақ</button>
+                <button class="btn btn-register">Тіркелу</button>
             </div>
-
-            <!-- Өсу есебі -->
-            <div id="progress" class="tab-content">
-                <h2>Өсу есебі</h2>
-                <div class="card">
-                    <h3>Айлық статистика</h3>
-                    <div class="dashboard-grid">
-                        <div class="stat-card">
-                            <div class="stat-number">12</div>
-                            <div>Орындалған тапсырма</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">8</div>
-                            <div>Ойналған ойын</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">85%</div>
-                            <div>Орындалу деңгейі</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 2rem;">
-                    <h3>Ұпайлар динамикасы</h3>
-                    <div class="chart-container">
-                        <canvas id="pointsChart"></canvas>
-                    </div>
-                </div>
+        </div>
+        
+        <div class="event" data-type="marathon">
+            <h3>Информатика марафоны <span class="event-type type-marathon">Марафон</span> <span class="countdown">30 күн қалды</span></h3>
+            <p class="date">Күні: 15.12.2023</p>
+            <p class="location">Орны: IT университеті</p>
+            <p class="participants">Қатысушылар: 7-11 сынып оқушылары</p>
+            <p>24 сағаттық бағдарламалау марафоны. Командалық және жеке жарыс. Қатысушыларға IT компанияларынан стажировка мүмкіндігі.</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Толығырақ</button>
+                <button class="btn btn-register">Тіркелу</button>
+            </div>
+        </div>
+        
+        <div class="event" data-type="seminar">
+            <h3>Ғылыми жоба жасау семинары <span class="event-type type-seminar">Семинар</span></h3>
+            <p class="date">Күні: 25.11.2023</p>
+            <p class="location">Орны: Мектеп, акт залы</p>
+            <p class="participants">Қатысушылар: Барлық қызығушылықтар</p>
+            <p>Ғылыми жобаларды дұрыс құру және қорғау әдістері бойынша семинар. Тәжірибелі ғалымдар мен жоба жетекшілері қатысады.</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Толығырақ</button>
+                <button class="btn btn-register">Тіркелу</button>
+            </div>
+        </div>
+        
+        <h2 class="section-title" id="past">Өткен іс-шаралар</h2>
+        
+        <div class="event" data-type="olympiad">
+            <h3>Химия олимпиадасы <span class="event-type type-olympiad">Олимпиада</span></h3>
+            <p class="date">Күні: 10.10.2023</p>
+            <p class="location">Орны: Мектеп химия кабинеті</p>
+            <p class="participants">Қатысушылар: 9-11 сынып оқушылары</p>
+            <p>Мектепіміздің командасы 1-орын алды! Жеңімпаздар: Айгүл Сапарова (9А), Ерлан Жұманов (10Б).</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Нәтижелер</button>
+                <button class="btn btn-details">Фотосуреттер</button>
+            </div>
+        </div>
+        
+        <div class="event" data-type="competition">
+            <h3>Тарих викторинасы <span class="event-type type-competition">Конкурс</span></h3>
+            <p class="date">Күні: 28.09.2023</p>
+            <p class="location">Орны: Мектеп, акт залы</p>
+            <p class="participants">Қатысушылар: 8-10 сынып оқушылары</p>
+            <p>Қазақстан тарихына арналған викторина. 5 мектептен 15 команда қатысты. Біздің команда 2-орын алды.</p>
+            <div class="event-actions">
+                <button class="btn btn-details">Нәтижелер</button>
+                <button class="btn btn-details">Фотосуреттер</button>
+            </div>
+        </div>
+        
+        <a href="#" class="add-event" id="openModal">Жаңа іс-шара қосу</a>
+        
+        <h2 class="section-title" id="contact">Байланыс</h2>
+        <div class="contact-info">
+            <p>Қосымша ақпарат алу үшін:</p>
+            <div class="contact-item">
+                <i>📧</i>
+                <span>Email: olimpiada@mektep.kz</span>
+            </div>
+            <div class="contact-item">
+                <i>📞</i>
+                <span>Телефон: +7 777 123 45 67</span>
+            </div>
+            <div class="contact-item">
+                <i>📍</i>
+                <span>Мекен-жай: Абай көшесі, 12, Алматы</span>
+            </div>
+            <div class="contact-item">
+                <i>🕒</i>
+                <span>Жұмыс уақыты: Дүйсенбі-Жұма, 9:00-18:00</span>
             </div>
         </div>
     </div>
-
-    <!-- AI көмекші чаты -->
-    <div class="ai-chat" id="aiChat">
-        <div class="ai-header">
-            <div>
-                <h3>AI Оқыту Көмекшісі</h3>
-                <p>Сізге көмектесуге дайын</p>
-            </div>
-            <i class="fas fa-times" onclick="closeAIChat()"></i>
-        </div>
-        <div class="ai-messages" id="aiMessages">
-            <div class="ai-message bot">
-                Сәлеметсіз бе! Мен сіздің AI оқыту көмекшісінмін. Сізге қандай сабақ бойынша көмек керек?
-            </div>
-        </div>
-        <div class="ai-input">
-            <input type="text" id="aiInput" placeholder="Мұнда сұрағыңызды жазыңыз...">
-            <button onclick="sendAIMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <!-- AI көмекші түймесі -->
-    <div class="ai-assistant" onclick="toggleAIChat()">
-        <i class="fas fa-robot"></i>
-    </div>
-
-    <!-- Сабақ модальды терезесі -->
-    <div class="modal" id="lessonModal">
+    
+    <div class="modal" id="eventModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modalContent">
-                <!-- Модальды терезенің мазмұны динамикалық түрде толтырылады -->
-            </div>
+            <h3>Жаңа іс-шара қосу</h3>
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventName">Іс-шара атауы</label>
+                    <input type="text" id="eventName" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Іс-шара түрі</label>
+                    <select id="eventType" required>
+                        <option value="">Таңдаңыз</option>
+                        <option value="olympiad">Олимпиада</option>
+                        <option value="competition">Конкурс</option>
+                        <option value="marathon">Марафон</option>
+                        <option value="seminar">Семинар</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Күні</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventLocation">Орны</label>
+                    <input type="text" id="eventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventParticipants">Қатысушылар</label>
+                    <input type="text" id="eventParticipants" placeholder="Мысалы: 9-11 сынып оқушылары">
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Сипаттама</label>
+                    <textarea id="eventDescription" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" id="closeModal">Бас тарту</button>
+                    <button type="submit" class="btn btn-submit">Қосу</button>
+                </div>
+            </form>
         </div>
     </div>
+    
+    <footer>
+        <p>&copy; 2023 Мектеп олимпиадалары. Барлық құқықтар қорғалған.</p>
+    </footer>
 
     <script>
-        // База деректері
-        class Database {
-            getUsers() {
-                return JSON.parse(localStorage.getItem('users')) || {};
+        // Модал терезесін басқару
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modal = document.getElementById('eventModal');
+        const eventForm = document.getElementById('eventForm');
+        
+        openModalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'flex';
+        });
+        
+        closeModalBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
             }
-
-            getTasks() {
-                return JSON.parse(localStorage.getItem('tasks')) || {};
-            }
-
-            getGames() {
-                return JSON.parse(localStorage.getItem('games')) || {};
-            }
-
-            getLessons() {
-                return JSON.parse(localStorage.getItem('lessons')) || this.getDefaultLessons();
-            }
-
-            getStudentProgress() {
-                return JSON.parse(localStorage.getItem('studentProgress')) || {
-                    points: 150,
-                    level: 3,
-                    completedLessons: [1, 2, 3],
-                    completedTasks: [1, 2, 3, 4, 5, 6, 7, 8],
-                    unlockedAreas: ['grade1-area1', 'grade1-area2', 'grade2-area1', 'grade3-area1'],
-                    dailyChallenges: [],
-                    achievements: ['Информатика шебері', 'Оқу мылтығы'],
-                    streak: 7
-                };
-            }
-
-            updateStudentProgress(updates) {
-                const progress = this.getStudentProgress();
-                const newProgress = { ...progress, ...updates };
-                localStorage.setItem('studentProgress', JSON.stringify(newProgress));
-                return newProgress;
-            }
-
-            getDefaultLessons() {
-                // Барлық сыныптарға арналған сабақтардың JSON деректері
-                const lessons = {
-                    grade1: [
-                        {
-                            id: 1,
-                            title: "Компьютермен танысу",
-                            description: "Компьютердің негізгі бөліктерін тану",
-                            icon: "🖥️",
-                            content: {
-                                text: "Компьютер - ақпаратты қабылдайтын, сақтайтын және өңдейтін құрылғы. Негізгі бөліктері: монитор, пернетақта, тінтуір, жүйелік блок.",
-                                image: "https://i.pinimg.com/736x/91/b5/ec/91b5ec76f945fab8d70c38a87b287ae2.jpg"
-                            },
-                            test: {
-                                questions: [
-                                    {
-                                        question: "Экранды қалай атайды?",
-                                        options: ["Пернетақта", "Монитор", "Тінтуір", "Жүйелік блок"],
-                                        correct: 1
-                                    },
-                                    {
-                                        question: "Басқару үшін не қажет?",
-                                        options: ["Тінтуір", "Монитор", "Принтер", "Жүйелік блок"],
-                                        correct: 0
-                                    }
-                                ],
-                                timeLimit: 60
-                            },
-                            game: {
-                                type: "drag-drop",
-                                title: "Құрылғыны орнына қой!",
-                                items: [
-                                    { id: 1, name: "Монитор", image: "https://i.pinimg.com/736x/91/b5/ec/91b5ec76f945fab8d70c38a87b287ae2.jpg" },
-                                    { id: 2, name: "Пернетақта", image: "https://i.pinimg.com/736x/73/39/9b/73399b2d20749d1cca6d31c1c58cde06.jpg" }
-                                ],
-                                targets: [
-                                    { id: 1, name: "Экран" },
-                                    { id: 2, name: "Жазу үшін" }
-                                ],
-                                correctMatches: {
-                                    1: 1,
-                                    2: 2
-                                }
-                            },
-                            points: 10,
-                            area: "grade1-area1"
-                        },
-                        {
-                            id: 2,
-                            title: "Ақпарат және оның түрлері",
-                            description: "Ақпараттың түрлерін тану",
-                            icon: "📊",
-                            content: {
-                                text: "Ақпарат - көретін, еститін және сезетін мәлімет. Түрлері: мәтін, сурет, дыбыс, видео.",
-                                image: "https://i.pinimg.com/736x/ce/bb/cf/cebbcf3deba993f1f2571086825b0e9f.jpg"
-                            },
-                            test: {
-                                questions: [
-                                    {
-                                        question: "Ақпарат деген не?",
-                                        options: ["Мәлімет", "Ойыншық", "Құрал", "Тағам"],
-                                        correct: 0
-                                    },
-                                    {
-                                        question: "Көрінетін ақпарат түрі?",
-                                        options: ["Дыбыс", "Мәтін", "Сурет", "Видео"],
-                                        correct: 2
-                                    }
-                                ],
-                                timeLimit: 60
-                            },
-                            game: {
-                                type: "puzzle",
-                                title: "Ақпарат түрін тап!",
-                                pieces: ["Мәтін", "Сурет", "Дыбыс", "Видео", "", "Кітап", "Қалам", "Құлақ", "Көз"]
-                            },
-                            points: 15,
-                            area: "grade1-area2"
-                        }
-                    ],
-                    grade2: [
-                        {
-                            id: 3,
-                            title: "Компьютер құрылғылары",
-                            description: "Компьютердің негізгі бөліктерін тану",
-                            icon: "💻",
-                            content: {
-                                text: "Монитор, пернетақта, тінтуір, жүйелік блок, принтер, сканер - компьютердің негізгі бөліктері.",
-                                image: "https://i.pinimg.com/736x/8a/b7/dd/8ab7dd9fe3784049c8fb8cf16714d185.jpg"
-                            },
-                            test: {
-                                questions: [
-                                    {
-                                        question: "Мәтінді теруге арналған құрылғы?",
-                                        options: ["Пернетақта", "Монитор", "Принтер", "Тінтуір"],
-                                        correct: 0
-                                    },
-                                    {
-                                        question: "Басқару үшін не қажет?",
-                                        options: ["Тінтуір", "Жүйелік блок", "Принтер", "Монитор"],
-                                        correct: 0
-                                    }
-                                ],
-                                timeLimit: 60
-                            },
-                            game: {
-                                type: "drag-drop",
-                                title: "Қай құрылғы жоғалды?",
-                                items: [
-                                    { id: 1, name: "Монитор", image: "https://i.pinimg.com/736x/91/b5/ec/91b5ec76f945fab8d70c38a87b287ae2.jpg" },
-                                    { id: 2, name: "Пернетақта", image: "https://i.pinimg.com/736x/73/39/9b/73399b2d20749d1cca6d31c1c58cde06.jpg" }
-                                ],
-                                targets: [
-                                    { id: 1, name: "Экран" },
-                                    { id: 2, name: "Жазу үшін" }
-                                ],
-                                correctMatches: {
-                                    1: 1,
-                                    2: 2
-                                }
-                            },
-                            points: 15,
-                            area: "grade2-area1"
-                        }
-                    ],
-                    grade3: [
-                        {
-                            id: 4,
-                            title: "Компьютер құрылымы",
-                            description: "Компьютердің ішкі құрылымын тану",
-                            icon: "🔧",
-                            content: {
-                                text: "Компьютердің негізгі бөліктері: процессор (ми), RAM (уақытша сақтау), HDD/SSD (қатты диск), файл, бума.",
-                                image: "https://i.pinimg.com/736x/c8/06/ce/c806ce80e8ae546e053422c34bcfd209.jpg"
-                            },
-                            test: {
-                                questions: [
-                                    {
-                                        question: "Компьютердің «миы» қандай?",
-                                        options: ["Процессор", "RAM", "HDD", "Монитор"],
-                                        correct: 0
-                                    },
-                                    {
-                                        question: "Уақытша сақтау үшін не қолданылады?",
-                                        options: ["HDD", "RAM", "Монитор", "Принтер"],
-                                        correct: 1
-                                    }
-                                ],
-                                timeLimit: 60
-                            },
-                            game: {
-                                type: "drag-drop",
-                                title: "Қай құрылғы қайда?",
-                                items: [
-                                    { id: 1, name: "Процессор", image: "https://i.pinimg.com/736x/c8/06/ce/c806ce80e8ae546e053422c34bcfd209.jpg" },
-                                    { id: 2, name: "RAM", image: "https://i.pinimg.com/1200x/a3/16/b0/a316b05e2cc0a2999c6b5f049498306a.jpg" }
-                                ],
-                                targets: [
-                                    { id: 1, name: "Компьютер миы" },
-                                    { id: 2, name: "Уақытша сақтау" }
-                                ],
-                                correctMatches: {
-                                    1: 1,
-                                    2: 2
-                                }
-                            },
-                            points: 20,
-                            area: "grade3-area1"
-                        }
-                    ],
-                    grade4: [
-                        {
-                            id: 5,
-                            title: "Алгоритм және орындаушы",
-                            description: "Алгоритмдерді құрастыру және орындау",
-                            icon: "🔢",
-                            content: {
-                                text: "Алгоритм — белгілі бір тапсырманы орындау үшін жасалған нақты қадамдар тізбегі.",
-                                image: "https://i.pinimg.com/736x/c1/b9/ae/c1b9aedb453ddf992119b8353b61a18a.jpg"
-                            },
-                            test: {
-                                questions: [
-                                    {
-                                        question: "Алгоритм деген не?",
-                                        options: ["Кездейсоқ әрекет", "Қадамдар тізбегі", "Сурет", "Музыка"],
-                                        correct: 1
-                                    },
-                                    {
-                                        question: "Орындаушы кім?",
-                                        options: ["Робот немесе адам", "Ойыншық", "Үй", "Кітап"],
-                                        correct: 0
-                                    }
-                                ],
-                                timeLimit: 60
-                            },
-                            game: {
-                                type: "sequence",
-                                title: "Роботты бағытта",
-                                steps: [
-                                    "Алға 2 қадам",
-                                    "Оңға бұрыл",
-                                    "Алға 3 қадам"
-                                ]
-                            },
-                            points: 25,
-                            area: "grade4-area1"
-                        }
-                    ]
-                };
+        });
+        
+        eventForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Іс-шара сәтті қосылды!');
+            modal.style.display = 'none';
+            eventForm.reset();
+        });
+        
+        // Іс-шараларды сүзгілеу
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const events = document.querySelectorAll('.event');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Барлық батырмалардан актив класын алып тастау
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Ағымдағы батырмаға актив класын қосу
+                this.classList.add('active');
                 
-                localStorage.setItem('lessons', JSON.stringify(lessons));
-                return lessons;
-            }
-        }
-
-        const db = new Database();
-        let currentStudent = null;
-        let currentLesson = null;
-        let testTimer = null;
-        let timeLeft = 0;
-        let studyTimer = null;
-        let studyTimeLeft = 25 * 60; // 25 минут
-        let isStudyTimerRunning = false;
-        let currentFlashcardIndex = 0;
-        let flashcards = [];
-
-        // Бет жүктелгенде
-        document.addEventListener('DOMContentLoaded', function() {
-            loadStudentData();
-            loadLessons();
-            loadMap();
-            initChart();
-            initLearningAnalytics();
-            generateFlashcards();
+                const filter = this.getAttribute('data-filter');
+                
+                events.forEach(event => {
+                    if (filter === 'all' || event.getAttribute('data-type') === filter) {
+                        event.style.display = 'block';
+                    } else {
+                        event.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Іздеу функциясы
+        const searchInput = document.getElementById('searchInput');
+        
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
             
-            // Enter пернесімен AI хабарламасын жіберу
-            document.getElementById('aiInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    sendAIMessage();
+            events.forEach(event => {
+                const eventText = event.textContent.toLowerCase();
+                if (eventText.includes(searchTerm)) {
+                    event.style.display = 'block';
+                } else {
+                    event.style.display = 'none';
                 }
             });
         });
-
-        // Оқушы деректерін жүктеу
-        function loadStudentData() {
-            const userData = localStorage.getItem('currentUser');
-            if (userData) {
-                currentStudent = JSON.parse(userData);
-                document.getElementById('studentName').textContent = currentStudent.full_name;
-            } else {
-                // Егер оқушы деректері жоқ болса, демо режимде жұмыс істейді
-                currentStudent = {
-                    full_name: "Айгүл Сағатова",
-                    points: 150,
-                    level: 3
-                };
-                document.getElementById('studentName').textContent = currentStudent.full_name;
-            }
-            
-            // Статистиканы жаңарту
-            const progress = db.getStudentProgress();
-            document.getElementById('totalPoints').textContent = progress.points || 0;
-            document.getElementById('studentLevel').textContent = progress.level || 1;
-            document.getElementById('completedTasks').textContent = progress.completedTasks ? progress.completedTasks.length : 0;
-            document.getElementById('badgesCount').textContent = progress.achievements ? progress.achievements.length : 0;
-        }
-
-        // Сабақтарды жүктеу
-        function loadLessons() {
-            const lessons = db.getLessons();
-            const progress = db.getStudentProgress();
-            
-            // Барлық сыныптар үшін сабақтарды жүктеу
-            for (let grade = 1; grade <= 4; grade++) {
-                const gradeContainer = document.getElementById(`grade${grade}-lessons`);
-                if (!gradeContainer) continue;
-                
-                gradeContainer.innerHTML = '';
-                
-                const gradeLessons = lessons[`grade${grade}`] || [];
-                
-                gradeLessons.forEach(lesson => {
-                    const isCompleted = progress.completedLessons.includes(lesson.id);
-                    const isUnlocked = progress.unlockedAreas.includes(lesson.area);
-                    
-                    const lessonCard = document.createElement('div');
-                    lessonCard.className = `lesson-card ${isUnlocked ? '' : 'locked'}`;
-                    lessonCard.innerHTML = `
-                        <div class="lesson-icon">${lesson.icon}</div>
-                        <h3>${lesson.title}</h3>
-                        <p>${lesson.description}</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${isCompleted ? '100%' : '0%'}"></div>
-                        </div>
-                        <div style="color: var(--primary); font-weight: bold;">${lesson.points} ұпай</div>
-                        ${isCompleted ? '<div class="lesson-completed"><i class="fas fa-check"></i></div>' : ''}
-                    `;
-                    
-                    if (isUnlocked) {
-                        lessonCard.onclick = () => openLesson(lesson);
-                    } else {
-                        lessonCard.onclick = () => alert('Бұл сабақ әлі қолжетімді емес! Алдыңғы сабақтарды аяқтаңыз.');
-                    }
-                    
-                    gradeContainer.appendChild(lessonCard);
-                });
-            }
-        }
-
-        // Картаны жүктеу
-        function loadMap() {
-            const mapContainer = document.querySelector('.map-container');
-            const mapPath = mapContainer.querySelector('.map-path');
-            
-            // Ескі түйіндерді тазалау
-            const oldNodes = mapContainer.querySelectorAll('.map-node');
-            oldNodes.forEach(node => node.remove());
-            
-            // Карта түйіндерін қосу
-            const lessons = db.getLessons();
-            const progress = db.getStudentProgress();
-            
-            let nodeIndex = 0;
-            
-            // Барлық сыныптардың сабақтарын картаға қосу
-            for (let grade = 1; grade <= 4; grade++) {
-                const gradeLessons = lessons[`grade${grade}`] || [];
-                
-                gradeLessons.forEach((lesson, index) => {
-                    const node = document.createElement('div');
-                    node.className = 'map-node';
-                    
-                    const isCompleted = progress.completedLessons.includes(lesson.id);
-                    const isCurrent = !isCompleted && (
-                        index === 0 || 
-                        progress.completedLessons.includes(gradeLessons[index-1].id)
-                    );
-                    
-                    if (isCompleted) {
-                        node.classList.add('completed');
-                    } else if (isCurrent) {
-                        node.classList.add('current');
-                    } else {
-                        node.classList.add('locked');
-                    }
-                    
-                    node.innerHTML = lesson.icon;
-                    node.style.left = `${15 + nodeIndex * 15}%`;
-                    node.style.top = `${40 + Math.sin(nodeIndex) * 30}%`;
-                    
-                    if (!node.classList.contains('locked')) {
-                        node.onclick = () => openLesson(lesson);
-                    } else {
-                        node.onclick = () => alert('Бұл сабақ әлі қолжетімді емес! Алдыңғы сабақтарды аяқтаңыз.');
-                    }
-                    
-                    mapContainer.appendChild(node);
-                    nodeIndex++;
-                });
-            }
-        }
-
-        // Графикті баптау
-        function initChart() {
-            const ctx = document.getElementById('pointsChart');
-            if (!ctx) return;
-            
-            const data = {
-                labels: ['Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі', 'Жексенбі'],
-                datasets: [{
-                    label: 'Ұпайлар',
-                    data: [10, 25, 35, 50, 65, 80, 95],
-                    borderColor: '#99CDD8',
-                    backgroundColor: 'rgba(153, 205, 216, 0.2)',
-                    tension: 0.4,
-                    fill: true
-                }]
-            };
-            
-            const config = {
-                type: 'line',
-                data: data,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Апталық ұпай динамикасы'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            };
-            
-            new Chart(ctx, config);
-        }
-
-        // Оқу аналитикасы графигі
-        function initLearningAnalytics() {
-            const ctx = document.getElementById('learningAnalyticsChart');
-            if (!ctx) return;
-            
-            const data = {
-                labels: ['Дүйсенбі', 'Сейсенбі', 'Сәрсенбі', 'Бейсенбі', 'Жұма', 'Сенбі', 'Жексенбі'],
-                datasets: [
-                    {
-                        label: 'Оқу уақыты (минут)',
-                        data: [45, 60, 30, 75, 90, 45, 30],
-                        borderColor: '#99CDD8',
-                        backgroundColor: 'rgba(153, 205, 216, 0.2)',
-                        yAxisID: 'y',
-                    },
-                    {
-                        label: 'Жетістік деңгейі (%)',
-                        data: [65, 70, 60, 80, 85, 75, 70],
-                        borderColor: '#4cd964',
-                        backgroundColor: 'rgba(76, 217, 100, 0.2)',
-                        yAxisID: 'y1',
-                    }
-                ]
-            };
-            
-            const config = {
-                type: 'line',
-                data: data,
-                options: {
-                    responsive: true,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    scales: {
-                        y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            grid: {
-                                drawOnChartArea: false,
-                            },
-                        },
-                    }
-                }
-            };
-            
-            new Chart(ctx, config);
-        }
-
-        // Сабақты ашу
-        function openLesson(lesson) {
-            currentLesson = lesson;
-            const modal = document.getElementById('lessonModal');
-            const modalContent = document.getElementById('modalContent');
-            
-            modalContent.innerHTML = `
-                <h2>${lesson.title}</h2>
-                <div class="lesson-content">
-                    <p>${lesson.content.text}</p>
-                    ${lesson.content.image ? `<img src="${lesson.content.image}" class="lesson-image">` : ''}
-                </div>
-                <div class="points-display">Бұл сабақты аяқтаған соң: ${lesson.points} ұпай аласыз!</div>
-                <div style="display: flex; gap: 1rem; margin: 2rem 0;">
-                    <button class="btn btn-primary" onclick="startTest()">Тестті бастау</button>
-                    <button class="btn btn-secondary" onclick="startGameInModal()">Ойынды ойнау</button>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-        }
-
-        // Тестті бастау
-        function startTest() {
-            if (!currentLesson || !currentLesson.test) return;
-            
-            const modalContent = document.getElementById('modalContent');
-            const test = currentLesson.test;
-            
-            let testHTML = `
-                <h2>${currentLesson.title} - Тест</h2>
-                <div class="timer" id="testTimer">${test.timeLimit} секунд</div>
-            `;
-            
-            test.questions.forEach((question, qIndex) => {
-                testHTML += `
-                    <div class="question-container">
-                        <div class="question">${qIndex + 1}. ${question.question}</div>
-                        <div class="options" id="options-${qIndex}">
-                `;
-                
-                question.options.forEach((option, oIndex) => {
-                    testHTML += `
-                        <div class="option" onclick="selectAnswer(${qIndex}, ${oIndex})">
-                            ${option}
-                        </div>
-                    `;
-                });
-                
-                testHTML += `
-                        </div>
-                    </div>
-                `;
+        
+        // Тіркелу батырмаларына оқиға қосу
+        const registerBtns = document.querySelectorAll('.btn-register');
+        
+        registerBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const eventTitle = this.closest('.event').querySelector('h3').textContent.split(' ')[0];
+                alert(`Сіз "${eventTitle}" іс-шарасына тіркелдіңіз!`);
             });
-            
-            testHTML += `
-                <button class="btn btn-primary" onclick="submitTest()" style="margin-top: 2rem;">Тестті аяқтау</button>
-            `;
-            
-            modalContent.innerHTML = testHTML;
-            
-            // Таймерді бастау
-            timeLeft = test.timeLimit;
-            updateTimer();
-            testTimer = setInterval(updateTimer, 1000);
-        }
-
-        // Таймерді жаңарту
-        function updateTimer() {
-            const timerElement = document.getElementById('testTimer');
-            if (!timerElement) {
-                clearInterval(testTimer);
-                return;
-            }
-            
-            timeLeft--;
-            timerElement.textContent = `${timeLeft} секунд`;
-            
-            if (timeLeft <= 0) {
-                clearInterval(testTimer);
-                submitTest();
-            }
-        }
-
-        // Жауапты таңдау
-        function selectAnswer(questionIndex, optionIndex) {
-            const options = document.querySelectorAll(`#options-${questionIndex} .option`);
-            options.forEach(option => option.classList.remove('selected'));
-            options[optionIndex].classList.add('selected');
-        }
-
-        // Тестті аяқтау
-        function submitTest() {
-            clearInterval(testTimer);
-            
-            if (!currentLesson || !currentLesson.test) return;
-            
-            const test = currentLesson.test;
-            let score = 0;
-            let totalQuestions = test.questions.length;
-            
-            test.questions.forEach((question, qIndex) => {
-                const selectedOption = document.querySelector(`#options-${qIndex} .option.selected`);
-                if (selectedOption) {
-                    const optionIndex = Array.from(selectedOption.parentNode.children).indexOf(selectedOption);
-                    if (optionIndex === question.correct) {
-                        score++;
-                        selectedOption.classList.add('correct');
-                    } else {
-                        selectedOption.classList.add('incorrect');
-                        // Дұрыс жауапты көрсету
-                        const correctOption = document.querySelector(`#options-${qIndex} .option:nth-child(${question.correct + 1})`);
-                        correctOption.classList.add('correct');
-                    }
-                } else {
-                    // Егер жауап таңдалмаған болса, дұрыс жауапты көрсету
-                    const correctOption = document.querySelector(`#options-${qIndex} .option:nth-child(${question.correct + 1})`);
-                    correctOption.classList.add('correct');
-                }
+        });
+        
+        // Толығырақ батырмаларына оқиға қосу
+        const detailBtns = document.querySelectorAll('.btn-details');
+        
+        detailBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const eventTitle = this.closest('.event').querySelector('h3').textContent.split(' ')[0];
+                alert(`"${eventTitle}" іс-шарасының толық ақпараты жақын арада қосылады.`);
             });
-            
-            const percentage = (score / totalQuestions) * 100;
-            const passed = percentage >= 70;
-            
-            const modalContent = document.getElementById('modalContent');
-            modalContent.innerHTML += `
-                <div class="game-result ${passed ? 'success' : 'error'}">
-                    <h3>Тест нәтижесі: ${score}/${totalQuestions} (${percentage.toFixed(0)}%)</h3>
-                    <p>${passed ? 'Сіз тестті тапсырдыңыз! 🎉' : 'Сіз тестті тапсыра алмадыңыз. Қайталап көріңіз.'}</p>
-                </div>
-            `;
-            
-            if (passed) {
-                // Ұпай қосу және сабақты аяқталған деп белгілеу
-                const progress = db.getStudentProgress();
-                if (!progress.completedLessons.includes(currentLesson.id)) {
-                    const newPoints = progress.points + currentLesson.points;
-                    const newCompletedLessons = [...progress.completedLessons, currentLesson.id];
-                    
-                    // Келесі аймақты ашу
-                    let newUnlockedAreas = [...progress.unlockedAreas];
-                    const nextArea = getNextArea(currentLesson.area);
-                    if (nextArea && !newUnlockedAreas.includes(nextArea)) {
-                        newUnlockedAreas.push(nextArea);
-                    }
-                    
-                    db.updateStudentProgress({
-                        points: newPoints,
-                        completedLessons: newCompletedLessons,
-                        unlockedAreas: newUnlockedAreas
-                    });
-                    
-                    loadStudentData();
-                    loadLessons();
-                    loadMap();
-                }
-                
-                modalContent.innerHTML += `
-                    <div class="game-controls">
-                        <button class="btn btn-primary" onclick="startGameInModal()" style="margin-top: 1rem;">Ойынға өту</button>
-                        <button class="btn btn-secondary" onclick="closeModal()" style="margin-top: 1rem;">Сабақты жабу</button>
-                    </div>
-                `;
-            } else {
-                modalContent.innerHTML += `
-                    <div class="game-controls">
-                        <button class="btn btn-secondary" onclick="startTest()" style="margin-top: 1rem;">Тестті қайталау</button>
-                        <button class="btn btn-primary" onclick="closeModal()" style="margin-top: 1rem;">Сабаққа оралу</button>
-                    </div>
-                `;
-            }
-        }
-
-        // Келесі аймақты анықтау
-        function getNextArea(currentArea) {
-            const areas = {
-                'grade1-area1': 'grade1-area2',
-                'grade1-area2': 'grade2-area1',
-                'grade2-area1': 'grade3-area1',
-                'grade3-area1': 'grade3-area2',
-                'grade3-area2': 'grade4-area1'
-            };
-            
-            return areas[currentArea];
-        }
-
-        // Модальды терезеде ойынды бастау
-        function startGameInModal() {
-            if (!currentLesson || !currentLesson.game) return;
-            
-            const modalContent = document.getElementById('modalContent');
-            const game = currentLesson.game;
-            
-            let gameHTML = `
-                <h2>${currentLesson.title} - ${game.title}</h2>
-            `;
-            
-            if (game.type === 'drag-drop') {
-                gameHTML += `
-                    <div class="game-area">
-                        <p>Суреттерді олардың сипаттамаларымен сәйкестендіріңіз:</p>
-                        <div class="drag-container">
-                            <div class="drag-source" id="dragSource">
-                                ${game.items.map(item => `
-                                    <div class="drag-item" draggable="true" data-id="${item.id}">
-                                        ${item.image ? `<img src="${item.image}" style="max-width: 100px; max-height: 80px; display: block; margin: 0 auto;">` : ''}
-                                        <div style="text-align: center; margin-top: 0.5rem;">${item.name}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="drag-target" id="dragTarget">
-                                ${game.targets.map(target => `
-                                    <div class="drag-item" data-target-id="${target.id}">
-                                        <div style="text-align: center;">${target.name}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <div class="game-controls">
-                            <button class="btn btn-primary" onclick="checkDragDrop()">Тексеру</button>
-                            <button class="btn btn-secondary" onclick="resetDragDrop()">Қайта бастау</button>
-                        </div>
-                    </div>
-                `;
-            } else if (game.type === 'puzzle') {
-                // Пазл бөлшектерін араластыру
-                const shuffledPieces = [...game.pieces].sort(() => Math.random() - 0.5);
-                
-                gameHTML += `
-                    <div class="game-area">
-                        <p>Сөздерді дұрыс орналастырыңыз:</p>
-                        <div class="puzzle-container" id="puzzleContainer">
-                            ${shuffledPieces.map((piece, index) => `
-                                <div class="puzzle-piece ${piece === '' ? 'empty' : ''}" data-piece="${piece}" onclick="movePuzzlePiece(${index})">
-                                    ${piece}
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="game-controls">
-                            <button class="btn btn-primary" onclick="checkPuzzle()">Тексеру</button>
-                            <button class="btn btn-secondary" onclick="resetPuzzle()">Қайта бастау</button>
-                        </div>
-                    </div>
-                `;
-            } else if (game.type === 'sequence') {
-                // Қадамдарды араластыру
-                const shuffledSteps = [...game.steps].sort(() => Math.random() - 0.5);
-                
-                gameHTML += `
-                    <div class="game-area">
-                        <p>Қадамдарды дұрыс ретпен орналастырыңыз:</p>
-                        <div class="sequence-game">
-                            <div id="sequenceSource">
-                                ${shuffledSteps.map(step => `
-                                    <div class="sequence-step" draggable="true">${step}</div>
-                                `).join('')}
-                            </div>
-                            <div class="sequence-target" id="sequenceTarget">
-                                Бос орын
-                            </div>
-                        </div>
-                        <div class="game-controls">
-                            <button class="btn btn-primary" onclick="checkSequence()">Тексеру</button>
-                            <button class="btn btn-secondary" onclick="resetSequence()">Қайта бастау</button>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            modalContent.innerHTML = gameHTML;
-            
-            // Drag and drop функцияларын баптау
-            if (game.type === 'drag-drop' || game.type === 'sequence') {
-                setupDragAndDrop();
-            }
-        }
-
-        // Drag and drop функцияларын баптау
-        function setupDragAndDrop() {
-            const dragItems = document.querySelectorAll('.drag-item[draggable="true"], .sequence-step');
-            
-            dragItems.forEach(item => {
-                item.addEventListener('dragstart', handleDragStart);
-            });
-            
-            const dropTargets = document.querySelectorAll('.drag-target, .sequence-target');
-            
-            dropTargets.forEach(target => {
-                target.addEventListener('dragover', handleDragOver);
-                target.addEventListener('drop', handleDrop);
-                target.addEventListener('dragenter', handleDragEnter);
-                target.addEventListener('dragleave', handleDragLeave);
-            });
-        }
-
-        function handleDragStart(e) {
-            e.dataTransfer.setData('text/plain', e.target.textContent);
-            e.target.classList.add('dragging');
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            const data = e.dataTransfer.getData('text/plain');
-            const draggedElement = document.querySelector('.dragging');
-            
-            if (draggedElement && e.target.classList.contains('drag-target')) {
-                // Элементті нысанаға қосу
-                e.target.appendChild(draggedElement);
-                draggedElement.classList.remove('dragging');
-            } else if (draggedElement && e.target.classList.contains('sequence-target')) {
-                // Тізбек ойыны үшін
-                e.target.appendChild(draggedElement);
-                draggedElement.classList.remove('dragging');
-            }
-        }
-
-        function handleDragEnter(e) {
-            e.preventDefault();
-            e.target.classList.add('drag-over');
-        }
-
-        function handleDragLeave(e) {
-            e.target.classList.remove('drag-over');
-        }
-
-        // Drag and drop ойынын тексеру
-        function checkDragDrop() {
-            if (!currentLesson || !currentLesson.game) return;
-            
-            const game = currentLesson.game;
-            const correctMatches = game.correctMatches;
-            let correctCount = 0;
-            
-            const targetItems = document.querySelectorAll('.drag-target .drag-item');
-            
-            targetItems.forEach(target => {
-                const targetId = parseInt(target.dataset.targetId);
-                const item = target.querySelector('.drag-item[draggable="true"]');
-                
-                if (item) {
-                    const itemId = parseInt(item.dataset.id);
-                    
-                    if (correctMatches[itemId] === targetId) {
-                        correctCount++;
-                        target.classList.add('correct-match');
-                    } else {
-                        target.classList.add('incorrect-match');
-                    }
-                } else {
-                    target.classList.add('incorrect-match');
-                }
-            });
-            
-            const totalMatches = Object.keys(correctMatches).length;
-            const passed = correctCount === totalMatches;
-            
-            showGameResult(passed, correctCount, totalMatches);
-        }
-
-        // Drag and drop ойынын қайта бастау
-        function resetDragDrop() {
-            const dragSource = document.getElementById('dragSource');
-            const dragTarget = document.getElementById('dragTarget');
-            
-            // Барлық элементтерді бастапқы орнына қайтару
-            const items = dragTarget.querySelectorAll('.drag-item[draggable="true"]');
-            items.forEach(item => {
-                dragSource.appendChild(item);
-                item.classList.remove('correct-match', 'incorrect-match');
-            });
-        }
-
-        // Пазл ойынын тексеру
-        function checkPuzzle() {
-            if (!currentLesson || !currentLesson.game) return;
-            
-            const game = currentLesson.game;
-            const puzzleContainer = document.getElementById('puzzleContainer');
-            const pieces = puzzleContainer.querySelectorAll('.puzzle-piece');
-            let correctCount = 0;
-            
-            pieces.forEach((piece, index) => {
-                if (piece.dataset.piece === game.pieces[index]) {
-                    correctCount++;
-                    piece.style.background = 'var(--success)';
-                } else {
-                    piece.style.background = 'var(--danger)';
-                }
-            });
-            
-            const totalPieces = game.pieces.filter(p => p !== '').length;
-            const passed = correctCount === totalPieces;
-            
-            showGameResult(passed, correctCount, totalPieces);
-        }
-
-        // Пазл ойынын қайта бастау
-        function resetPuzzle() {
-            const game = currentLesson.game;
-            const puzzleContainer = document.getElementById('puzzleContainer');
-            
-            // Пазл бөлшектерін араластыру
-            const shuffledPieces = [...game.pieces].sort(() => Math.random() - 0.5);
-            
-            puzzleContainer.innerHTML = '';
-            shuffledPieces.forEach((piece, index) => {
-                const pieceElement = document.createElement('div');
-                pieceElement.className = `puzzle-piece ${piece === '' ? 'empty' : ''}`;
-                pieceElement.dataset.piece = piece;
-                pieceElement.textContent = piece;
-                pieceElement.onclick = () => movePuzzlePiece(index);
-                pieceElement.style.background = piece === '' ? '#e1e5e9' : 'var(--primary)';
-                puzzleContainer.appendChild(pieceElement);
-            });
-        }
-
-        // Пазл бөлшегін жылжыту
-        function movePuzzlePiece(index) {
-            const puzzleContainer = document.getElementById('puzzleContainer');
-            const pieces = puzzleContainer.querySelectorAll('.puzzle-piece');
-            const emptyIndex = Array.from(pieces).findIndex(p => p.classList.contains('empty'));
-            
-            // Тек көршілес бөлшектерді жылжытуға болады
-            const isAdjacent = 
-                index === emptyIndex - 1 || 
-                index === emptyIndex + 1 || 
-                index === emptyIndex - 3 || 
-                index === emptyIndex + 3;
-            
-            if (isAdjacent) {
-                // Бөлшектерді ауыстыру
-                const temp = pieces[index].textContent;
-                pieces[index].textContent = pieces[emptyIndex].textContent;
-                pieces[emptyIndex].textContent = temp;
-                
-                // Класстарды ауыстыру
-                pieces[index].classList.toggle('empty');
-                pieces[emptyIndex].classList.toggle('empty');
-                
-                // Деректерді жаңарту
-                pieces[index].dataset.piece = pieces[index].textContent;
-                pieces[emptyIndex].dataset.piece = pieces[emptyIndex].textContent;
-            }
-        }
-
-        // Тізбек ойынын тексеру
-        function checkSequence() {
-            if (!currentLesson || !currentLesson.game) return;
-            
-            const game = currentLesson.game;
-            const sequenceTarget = document.getElementById('sequenceTarget');
-            const steps = sequenceTarget.querySelectorAll('.sequence-step');
-            let correctCount = 0;
-            
-            steps.forEach((step, index) => {
-                if (step.textContent === game.steps[index]) {
-                    correctCount++;
-                    step.style.border = '2px solid var(--success)';
-                } else {
-                    step.style.border = '2px solid var(--danger)';
-                }
-            });
-            
-            const totalSteps = game.steps.length;
-            const passed = correctCount === totalSteps;
-            
-            showGameResult(passed, correctCount, totalSteps);
-        }
-
-        // Тізбек ойынын қайта бастау
-        function resetSequence() {
-            const game = currentLesson.game;
-            const sequenceSource = document.getElementById('sequenceSource');
-            const sequenceTarget = document.getElementById('sequenceTarget');
-            
-            // Барлық элементтерді бастапқы орнына қайтару
-            const steps = sequenceTarget.querySelectorAll('.sequence-step');
-            steps.forEach(step => {
-                sequenceSource.appendChild(step);
-                step.style.border = '2px solid var(--primary)';
-            });
-            
-            // Қадамдарды араластыру
-            const shuffledSteps = [...game.steps].sort(() => Math.random() - 0.5);
-            sequenceSource.innerHTML = '';
-            shuffledSteps.forEach(step => {
-                const stepElement = document.createElement('div');
-                stepElement.className = 'sequence-step';
-                stepElement.draggable = true;
-                stepElement.textContent = step;
-                sequenceSource.appendChild(stepElement);
-            });
-            
-            // Drag and drop функцияларын қайта баптау
-            setupDragAndDrop();
-        }
-
-        // Ойын нәтижесін көрсету
-        function showGameResult(passed, correctCount, totalCount) {
-            const modalContent = document.getElementById('modalContent');
-            
-            modalContent.innerHTML += `
-                <div class="game-result ${passed ? 'success' : 'error'}">
-                    <h3>Ойын нәтижесі: ${correctCount}/${totalCount}</h3>
-                    <p>${passed ? 'Сіз ойынды тапсырдыңыз! 🎉' : 'Қайталап көріңіз.'}</p>
-                </div>
-            `;
-            
-            if (passed) {
-                // Ұпай қосу
-                const progress = db.getStudentProgress();
-                const newPoints = progress.points + 5; // Ойын үшін қосымша ұпай
-                db.updateStudentProgress({ points: newPoints });
-                loadStudentData();
-                
-                modalContent.innerHTML += `
-                    <div class="game-controls">
-                        <button class="btn btn-primary" onclick="closeModal()">Сабақты жабу</button>
-                    </div>
-                `;
-            } else {
-                modalContent.innerHTML += `
-                    <div class="game-controls">
-                        <button class="btn btn-secondary" onclick="startGameInModal()">Ойынды қайталау</button>
-                        <button class="btn btn-primary" onclick="closeModal()">Сабаққа оралу</button>
-                    </div>
-                `;
-            }
-        }
-
-        // AI көмекші функциялары
-        function toggleAIChat() {
-            const aiChat = document.getElementById('aiChat');
-            aiChat.classList.toggle('active');
-        }
-
-        function closeAIChat() {
-            document.getElementById('aiChat').classList.remove('active');
-        }
-
-        function sendAIMessage() {
-            const input = document.getElementById('aiInput');
-            const message = input.value.trim();
-            
-            if (message) {
-                addAIMessage(message, 'user');
-                input.value = '';
-                
-                // AI жауабын имитациялау
-                setTimeout(() => {
-                    const aiResponse = generateAIResponse(message);
-                    addAIMessage(aiResponse, 'bot');
-                }, 1000);
-            }
-        }
-
-        function addAIMessage(text, sender) {
-            const messagesContainer = document.getElementById('aiMessages');
-            const messageElement = document.createElement('div');
-            messageElement.className = `ai-message ${sender}`;
-            messageElement.textContent = text;
-            messagesContainer.appendChild(messageElement);
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        }
-
-        function generateAIResponse(question) {
-            const responses = {
-                'алгоритм': 'Алгоритм - бұл белгілі бір мәселені шешу үшін қадамдар тізбегі. Мысалы, тамақ дайындау, орынды табу жолы - бәрі алгоритм болып табылады.',
-                'компьютер': 'Компьютер - бұл ақпаратты қабылдайтын, сақтайтын және өңдейтін құрылғы. Оның негізгі бөліктері: процессор, жад, енгізу/шығару құрылғылары.',
-                'интернет': 'Интернет - бұл әлемдік ақпарат желісі. Ол арқылы біз ақпарат алмаса, бейне көре, хабарласа аламыз.',
-                'бағдарламалау': 'Бағдарламалау - бұл компьютерге белгілі бір тапсырманы орындау үшін нұсқаулар беру процесі.',
-                'қауіпсіздік': 'Интернет қауіпсіздігі - жеке ақпаратыңызды қорғау және интернетте қауіпсіз болу ережелері.',
-                'процессор': 'Процессор - компьютердің миы деп аталады. Ол барлық есептеулер мен операцияларды орындайды.',
-                'жад': 'Жад - компьютердегі ақпаратты сақтайтын бөлік. Ол екі түрлі: RAM (уақытша жад) және ROM (тұрақты жад).',
-                'құрылғы': 'Компьютер құрылғылары екіге бөлінеді: енгізу құрылғылары (пернетақта, тінтуір) және шығару құрылғылары (монитор, принтер).'
-            };
-            
-            const lowerQuestion = question.toLowerCase();
-            
-            for (const [key, value] of Object.entries(responses)) {
-                if (lowerQuestion.includes(key)) {
-                    return value;
-                }
-            }
-            
-            return 'Бұл тақырып бойынша келесі ақпаратты бере аламын: ' + question + '. Бұл информатиканың маңызды тақырыптарының бірі. Оны түсіну үшін біздің сабақтарды оқып көріңіз.';
-        }
-
-        function askAI(question) {
-            toggleAIChat();
-            setTimeout(() => {
-                document.getElementById('aiInput').value = question;
-                sendAIMessage();
-            }, 500);
-        }
-
-        // Дауыстық басқару функциялары
-        function toggleVoiceCommand() {
-            const status = document.getElementById('voice-status');
-            const microphone = document.querySelector('.microphone-btn i');
-            
-            if (microphone.classList.contains('fa-microphone')) {
-                microphone.classList.remove('fa-microphone');
-                microphone.classList.add('fa-microphone-slash');
-                status.textContent = 'Дауыстық басқару іске қосылды';
-                startVoiceRecognition();
-            } else {
-                microphone.classList.remove('fa-microphone-slash');
-                microphone.classList.add('fa-microphone');
-                status.textContent = 'Микрофонды іске қосу үшін басыңыз';
-                stopVoiceRecognition();
-            }
-        }
-
-        function startVoiceRecognition() {
-            // Дауыстық тану функциясын имитациялау
-            console.log('Дауыстық тану іске қосылды');
-            // Шынайы жүзеге асыру үшін Web Speech API қолдануға болады
-        }
-
-        function stopVoiceRecognition() {
-            console.log('Дауыстық тану тоқтатылды');
-        }
-
-        // VR және AR функциялары
-        function startVRClassroom() {
-            alert('VR сабағы басталады! Бұл функция толық нұсқада қолжетімді болады.');
-        }
-
-        // Викторина шайқасы
-        function startQuizBattle() {
-            alert('Викторина шайқасы басталады! Сыныптастарыңызбен бәйгелесіңіз.');
-        }
-
-        // Жад карточкалары функциялары
-        function generateFlashcards() {
-            flashcards = [
-                { front: "Алгоритм", back: "Белгілі бір мәселені шешу үшін қадамдар тізбегі" },
-                { front: "Компьютер", back: "Ақпаратты қабылдайтын, сақтайтын және өңдейтін құрылғы" },
-                { front: "Процессор", back: "Компьютердің миы, барлық есептеулер мен операцияларды орындайды" },
-                { front: "Жад", back: "Компьютердегі ақпаратты сақтайтын бөлік" },
-                { front: "Бағдарлама", back: "Компьютерге орындау үшін берілген нұсқаулар жиынтығы" }
-            ];
-            currentFlashcardIndex = 0;
-            showFlashcard();
-        }
-
-        function showFlashcard() {
-            if (flashcards.length === 0) return;
-            
-            const flashcard = document.getElementById('flashcard');
-            const currentCard = flashcards[currentFlashcardIndex];
-            
-            flashcard.querySelector('.flashcard-front h3').textContent = currentCard.front;
-            flashcard.querySelector('.flashcard-back p').textContent = currentCard.back;
-            
-            // Карточканы алдыңғы жағына қайтару
-            flashcard.classList.remove('flipped');
-        }
-
-        function flipCard() {
-            const flashcard = document.getElementById('flashcard');
-            flashcard.classList.toggle('flipped');
-        }
-
-        function nextCard() {
-            currentFlashcardIndex = (currentFlashcardIndex + 1) % flashcards.length;
-            showFlashcard();
-        }
-
-        // Оқу таймері функциялары
-        function startStudyTimer() {
-            if (isStudyTimerRunning) return;
-            
-            isStudyTimerRunning = true;
-            studyTimer = setInterval(updateStudyTimer, 1000);
-        }
-
-        function pauseStudyTimer() {
-            isStudyTimerRunning = false;
-            clearInterval(studyTimer);
-        }
-
-        function resetStudyTimer() {
-            pauseStudyTimer();
-            studyTimeLeft = 25 * 60; // 25 минут
-            updateStudyTimerDisplay();
-        }
-
-        function updateStudyTimer() {
-            if (studyTimeLeft <= 0) {
-                pauseStudyTimer();
-                alert('Оқу уақыты аяқталды! Демалу уақыты.');
-                return;
-            }
-            
-            studyTimeLeft--;
-            updateStudyTimerDisplay();
-        }
-
-        function updateStudyTimerDisplay() {
-            const minutes = Math.floor(studyTimeLeft / 60);
-            const seconds = studyTimeLeft % 60;
-            document.getElementById('studyTimer').textContent = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        // Модальды терезені жабу
-        function closeModal() {
-            document.getElementById('lessonModal').classList.remove('active');
-        }
-
-        // Табтарды ауыстыру
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // Тапсырманы бастау
-        function startTask(taskId) {
-            alert(`Тапсырма #${taskId} басталады!`);
-            // Мұнда тапсырманы орындау логикасы болады
-        }
-
-        // Ойынды бастау
-        function startGame(gameId) {
-            alert(`Ойын #${gameId} басталады!`);
-            // Мұнда ойынды орындау логикасы болады
-        }
-
-        // Олимпиадаға қатысу
-        function joinOlympiad() {
-            if (currentStudent.points >= 100) {
-                window.open('https://aray367.github.io/Olimpyada/', '_blank');
-            } else {
-                alert('Олимпиадаға қатысу үшін кемінде 100 ұпай жинау керек!');
-            }
-        }
-
-        // Жүйеден шығу
-        function logout() {
-            localStorage.removeItem('currentUser');
-            alert('Сіз жүйеден шықтыңыз!');
-            // Шығу логикасы
-        }
+        });
     </script>
 </body>
 </html>
